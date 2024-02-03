@@ -53,6 +53,10 @@ ExportedObj/
 # Visual Studio Code
 .vscode/
 
+# Jetbrain Rider Cache
+.idea/
+[Aa]ssets/Plugins/Editor/JetBrains*
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
