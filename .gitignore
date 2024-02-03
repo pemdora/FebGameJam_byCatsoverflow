@@ -50,6 +50,7 @@ ExportedObj/
 # Visual Studio cache directory
 /*.vs
 .vs/
+*.vsconfig
 # Visual Studio Code
 .vscode/
 
