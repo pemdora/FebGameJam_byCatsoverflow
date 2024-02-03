@@ -16,7 +16,10 @@ public class AudioManager : MonoBehaviour
     /// <param name="clip">The AudioClip to play.</param>
     public void PlaySound(AudioClip clip)
     {
-        _audiosource?.PlayOneShot(clip, 1f);
+        if (_audiosource)
+        {
+            _audiosource.PlayOneShot(clip, 1f);
+        }
     }
 
     /// <summary>
@@ -26,6 +29,9 @@ public class AudioManager : MonoBehaviour
     /// <param name="volume">The volume of the AudioClip to play.</param>
     public void PlaySoundWithVolume(AudioClip clip, float volume)
     {
-        _audiosource?.PlayOneShot(clip, volume);
+        if (_audiosource)
+        {
+            _audiosource.PlayOneShot(clip, volume);
+        }
     }
 }
