@@ -8,10 +8,10 @@ public class AudioManager : MonoBehaviour
     private void Awake() => _audiosource = GetComponent<AudioSource>();
 
     /// <summary>
-    /// Plays an audio file.
+    /// Plays an audio file at max volume.
     /// </summary>
     /// <param name="clip">The AudioClip to play.</param>
-    public void PlaySound(AudioClip clip) => _audiosource?.PlayOneShot(clip);
+    public void PlaySound(AudioClip clip) => _audiosource?.PlayOneShot(clip, 1f);
 
     /// <summary>
     /// Plays an audio file with a set volume.
