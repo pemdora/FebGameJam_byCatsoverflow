@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Ware : MonoBehaviour
 {
+    [Header("Settings")] 
+    [SerializeField] private LayerMask _obstaclesLayer;
+    
     [Header("References")] 
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
@@ -16,6 +19,39 @@ public class Ware : MonoBehaviour
         foreach (WareBounds bound in _bounds)
         {
             bound.SetInteractible(value);
+        }
+    }
+    
+    public void UpdateBoundsIndicators()
+    {
+        foreach (WareBounds bound in _bounds)
+        {
+            WareBoundsIndicator indicators = 0;
+
+            if (bound.DoesOverlap(_obstaclesLayer))
+            {
+                indicators |= WareBoundsIndicator.Overlap;
+            }
+            else
+            {
+                indicators |= WareBoundsIndicator.Correct;
+            }
+
+            // WareBoundsSupport boundsSupport = bound.GetSupport(_obstaclesLayer);
+            // if (boundsSupport != WareBoundsSupport.Self && boundsSupport == WareBoundsSupport.None)
+            // {
+            //     indicators |= WareBoundsIndicator.NoSupport;
+            // }
+            
+            bound.SetIndicator(indicators);
+        }
+    }
+
+    public void ClearBoundsIndicators()
+    {
+        foreach (WareBounds bound in _bounds)
+        {
+            bound.ClearIndicators();
         }
     }
 

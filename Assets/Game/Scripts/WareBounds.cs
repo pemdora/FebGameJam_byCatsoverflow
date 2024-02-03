@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum WareBoundsSupport
 {
@@ -8,12 +9,22 @@ public enum WareBoundsSupport
     OtherWare,
 }
 
+[Flags]
+public enum WareBoundsIndicator
+{
+    None,
+    Correct,
+    Overlap,
+    NoSupport,
+}
+
 public class WareBounds : MonoBehaviour
 {
     [Header("References")] 
     [SerializeField] private Collider _collider;
-    [SerializeField] private GameObject _overlapEffect;
-    [SerializeField] private GameObject _correctEffect;
+    [SerializeField] private GameObject _correctIndicator;
+    [SerializeField] private GameObject _overlapIndicator;
+    [SerializeField] private GameObject _noSupportIndicator;
     
     private Ware _associateWare;
     
@@ -27,9 +38,39 @@ public class WareBounds : MonoBehaviour
         _collider.enabled = value;
     }
 
-    public bool DoesOverlap(LayerMask layerMask)
+    public void SetIndicator(WareBoundsIndicator indicator)
     {
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / (1 / 0.49f), Quaternion.identity, layerMask);
+        if (indicator.HasFlag(WareBoundsIndicator.None))
+        {
+            ClearIndicators();
+        }
+        
+        if (indicator.HasFlag(WareBoundsIndicator.Correct))
+        {
+            _correctIndicator.SetActive(true);
+        }
+        
+        if (indicator.HasFlag(WareBoundsIndicator.Overlap))
+        {
+            _overlapIndicator.SetActive(true);
+        }
+        
+        if (indicator.HasFlag(WareBoundsIndicator.NoSupport))
+        {
+            _noSupportIndicator.SetActive(true);
+        }
+    }
+
+    public void ClearIndicators()
+    {
+        _correctIndicator.SetActive(false);
+        _overlapIndicator.SetActive(false);
+        _noSupportIndicator.SetActive(false);
+    }
+
+    public bool DoesOverlap(LayerMask obstaclesLayerMask)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position + Vector3.up / 2, transform.localScale / (1 / 0.49f), Quaternion.identity, obstaclesLayerMask);
 
         foreach (Collider collider in hitColliders)
         {
@@ -47,7 +88,7 @@ public class WareBounds : MonoBehaviour
 
     public WareBoundsSupport GetSupport(LayerMask supperLayerMask)
     {
-        Collider[] hitColliders = Physics.OverlapBox(transform.position - Vector3.down, transform.localScale / (1 / 0.49f), Quaternion.identity, supperLayerMask);
+        Collider[] hitColliders = Physics.OverlapBox(transform.position - Vector3.down / 2, transform.localScale / (1 / 0.49f), Quaternion.identity, supperLayerMask);
 
         foreach (Collider collider in hitColliders)
         {

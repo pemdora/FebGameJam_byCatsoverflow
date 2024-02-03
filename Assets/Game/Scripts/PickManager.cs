@@ -24,34 +24,38 @@ public class PickManager : MonoBehaviour
             // .. check if we can place it on a cargo slot or another ware
             if (Physics.Raycast(ray, out RaycastHit slotHit, Mathf.Infinity, _slotLayerMask))
             {
+                Vector3 clampedOffset = Vector3.zero;
+                
                 // If the mouse is over another ware
                 Ware colliderWare = slotHit.collider.GetComponentInParent<Ware>();
                 if (colliderWare != null)
                 {
-                    Vector3 clampedOffset = new Vector3(Mathf.RoundToInt(_selectedWareOffset.x), 1, Mathf.RoundToInt(_selectedWareOffset.z));
-                    _selectedWare.transform.position = slotHit.transform.position + clampedOffset;
+                    clampedOffset = new Vector3(Mathf.RoundToInt(_selectedWareOffset.x), 1, Mathf.RoundToInt(_selectedWareOffset.z));
                 }
             
                 // If the mouse is over a cargo slot
                 CargoSlot colliderCargoSlot = slotHit.collider.GetComponentInParent<CargoSlot>();
                 if (colliderCargoSlot != null)
                 {
-                    Vector3 clampedOffset = new Vector3(Mathf.RoundToInt(_selectedWareOffset.x), 0, Mathf.RoundToInt(_selectedWareOffset.z));
-                    _selectedWare.transform.position = slotHit.transform.position + clampedOffset;
+                    clampedOffset = new Vector3(Mathf.RoundToInt(_selectedWareOffset.x), 0, Mathf.RoundToInt(_selectedWareOffset.z));
                 }
+                
+                _selectedWare.transform.position = slotHit.transform.position + clampedOffset;
+                _selectedWare.UpdateBoundsIndicators();
 
                 // If the player press the mouse
                 if (Input.GetMouseButtonUp(0))
                 {
                     // We drop the ware at the localisation
                     _selectedWare.SetInteractable(true);
+                    _selectedWare.ClearBoundsIndicators();
                     _selectedWare = null;
-                    
                 }
             }
             // ... if we can't, we make it follow the mouse
             else if (Physics.Raycast(ray, out RaycastHit worldHit, Mathf.Infinity, _worldLayerMask))
             {
+                _selectedWare.ClearBoundsIndicators();
                 _selectedWare.transform.position = new Vector3(worldHit.point.x + _selectedWareOffset.x, _selectedWare.transform.position.y, worldHit.point.z + _selectedWareOffset.z);
             }
         }

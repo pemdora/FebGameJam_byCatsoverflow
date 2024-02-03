@@ -1132,7 +1132,7 @@ Transform:
   m_GameObject: {fileID: 465964977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.05, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1643,7 +1643,6 @@ GameObject:
   - component: {fileID: 1020001342}
   - component: {fileID: 1020001345}
   - component: {fileID: 1020001344}
-  - component: {fileID: 1020001343}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -1666,29 +1665,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 244093869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!136 &1020001343
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1020001341}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1020001344
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1787,6 +1763,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5175153e278bd419906c3c47a9504c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 320
   _highlight: {fileID: 1816962353}
   _bounds:
   - {fileID: 299712386}
@@ -1876,7 +1855,6 @@ GameObject:
   - component: {fileID: 1265600938}
   - component: {fileID: 1265600941}
   - component: {fileID: 1265600940}
-  - component: {fileID: 1265600939}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -1899,29 +1877,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1329832611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!136 &1265600939
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265600937}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1265600940
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2791,7 +2746,7 @@ GameObject:
   - component: {fileID: 2080369390}
   - component: {fileID: 2080369389}
   m_Layer: 6
-  m_Name: Ware (1)
+  m_Name: Ware
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2809,6 +2764,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5175153e278bd419906c3c47a9504c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 320
   _highlight: {fileID: 710494506}
   _bounds:
   - {fileID: 363372901}
@@ -2918,13 +2876,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084074728}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 4.25, z: -4.25}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 6.04, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &2084074732
 MonoBehaviour:
   m_ObjectHideFlags: 0
