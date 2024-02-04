@@ -6,6 +6,7 @@ public class PickManager : MonoBehaviour
     [SerializeField] private LayerMask _wareLayerMask;
     [SerializeField] private LayerMask _worldLayerMask;
     [SerializeField] private LayerMask _slotLayerMask;
+    [SerializeField] private LayerMask _obstacleLayerMask;
     
     [Header("References")]
     [SerializeField] private Camera _camera;
@@ -44,7 +45,7 @@ public class PickManager : MonoBehaviour
                 _selectedWare.UpdateBoundsIndicators();
 
                 // If the player press the mouse
-                if (Input.GetMouseButtonUp(0))
+                if (_selectedWare.CanBePlaced(_obstacleLayerMask) && Input.GetMouseButtonUp(0))
                 {
                     // We drop the ware at the localisation
                     _selectedWare.SetInteractable(true);
@@ -67,11 +68,17 @@ public class PickManager : MonoBehaviour
                 if (hit.transform.TryGetComponent(out WareBounds wareBounds))
                 {
                     Ware ware = wareBounds.GetWare();
+                    ClearPreviousHighlight();
+                    
+                    if (!ware.CanBePicked(_wareLayerMask))
+                    {
+                        // If the ware cannot be picked (is supporting other ware), we do not highlight nor pick it
+                        return;
+                    }
                     
                     // If the ware we're hovering over is different than the previous one, we change the highlighted one
                     if (_hoveredWare != ware)
                     {
-                        ClearPreviousHighlight();
                         ActiveHighlight(ware);
                     }
 
