@@ -2706,6 +2706,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3e43564583405480c1ef400d15cd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1322614806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2742272159542496701, guid: 9dd06ac86fb4dd149b748a3a45cdbd20,
+    type: 3}
+  m_PrefabInstance: {fileID: 283470189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b3e43564583405480c1ef400d15cd1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1329832610
 GameObject:
   m_ObjectHideFlags: 0
@@ -3191,6 +3203,9 @@ MonoBehaviour:
   _slotLayerMask:
     serializedVersion: 2
     m_Bits: 192
+  _obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 320
   _camera: {fileID: 2084074730}
 --- !u!4 &1601362135
 Transform:
@@ -3615,6 +3630,7 @@ MonoBehaviour:
   - {fileID: 1925970056}
   - {fileID: 1399130589}
   - {fileID: 1782748177}
+  - {fileID: 1322614806}
 --- !u!4 &1861852535
 Transform:
   m_ObjectHideFlags: 0

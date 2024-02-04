@@ -86,9 +86,9 @@ public class WareBounds : MonoBehaviour
         return false;
     }
 
-    public WareBoundsSupport GetSupport(LayerMask supperLayerMask)
+    public WareBoundsSupport GetSupport(LayerMask supportLayerMask)
     {
-        Collider[] hitColliders = Physics.OverlapBox(transform.position - Vector3.down / 2, transform.localScale / (1 / 0.49f), Quaternion.identity, supperLayerMask);
+        Collider[] hitColliders = Physics.OverlapBox(transform.position - Vector3.down * 0.5f, transform.localScale / (1 / 0.49f), Quaternion.identity, supportLayerMask);
 
         foreach (Collider collider in hitColliders)
         {
@@ -119,5 +119,23 @@ public class WareBounds : MonoBehaviour
         }
         
         return WareBoundsSupport.None;
+    }
+
+    public bool IsSupportingOtherWare(LayerMask wareLayerMask)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position + Vector3.up * 1.5f, transform.localScale / (1 / 0.49f), Quaternion.identity, wareLayerMask);
+
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.gameObject == gameObject)
+            {
+                // Don't take into account for self overlap
+                continue;
+            }
+
+            return true;
+        }
+        
+        return false;
     }
 }

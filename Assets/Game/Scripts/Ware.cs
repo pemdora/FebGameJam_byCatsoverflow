@@ -47,6 +47,14 @@ public class Ware : MonoBehaviour
         }
     }
 
+    public void SetBoundsIndicators(WareBoundsIndicator indicator)
+    {
+        foreach (WareBounds bound in _bounds)
+        {
+            bound.SetIndicator(indicator);
+        }
+    }
+
     public void ClearBoundsIndicators()
     {
         foreach (WareBounds bound in _bounds)
@@ -55,11 +63,29 @@ public class Ware : MonoBehaviour
         }
     }
 
-    public bool DoesOverlapWithOtherWares(LayerMask wareLayerMask)
+    public bool CanBePicked(LayerMask wareLayerMask)
     {
         foreach (WareBounds wareBounds in _bounds)
         {
-            if (wareBounds.DoesOverlap(wareLayerMask))
+            if (wareBounds.IsSupportingOtherWare(wareLayerMask))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    public bool CanBePlaced(LayerMask obstacleLayerMask)
+    {
+        return DoesOverlapWithObstacle(obstacleLayerMask);
+    }
+    
+    public bool DoesOverlapWithObstacle(LayerMask obstacleLayerMask)
+    {
+        foreach (WareBounds wareBounds in _bounds)
+        {
+            if (wareBounds.DoesOverlap(obstacleLayerMask))
             {
                 return false;
             }
