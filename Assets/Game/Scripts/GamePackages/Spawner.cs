@@ -31,14 +31,16 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
 
     // Spawns a Package using GamePackageClass reference 
-    void SpawnPackage(T GamePackageToSpawn)
+    protected virtual T SpawnPackage(T GamePackageToSpawn)
     {
         if (GamePackageToSpawn)
         {
             Vector3 Position = gameObject.transform.position + new Vector3(0, 2.5f, 0);
             GameObject Package = Instantiate(GamePackageToSpawn.gameObject, Position, Quaternion.identity);
-            Destroy(Package.gameObject,0.5f) ;
+            //Destroy(Package.gameObject,0.5f) ;
+            return Package.GetComponent<T>();
         }
+        return null;
     }
 
     //Spawn a Package From the list
