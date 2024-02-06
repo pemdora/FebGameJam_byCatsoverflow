@@ -44,6 +44,17 @@ public class PickManager : MonoBehaviour
                 _selectedWare.transform.position = slotHit.transform.position + clampedOffset;
                 _selectedWare.UpdateBoundsIndicators();
 
+                // Rotate ware if needed
+                if (Input.GetMouseButtonUp(1))
+                {
+                    // TODO : add rotation logic into Ware.cs
+                    Vector3 oldOffset = _selectedWareOffset;
+                    Vector3 newOffset = Quaternion.Euler(0, 90, 0) * oldOffset;
+                    _selectedWare.transform.position += newOffset - oldOffset;
+                    _selectedWareOffset = newOffset;
+                    _selectedWare.transform.Rotate(new Vector3(0, 90, 0));
+                }
+                
                 // If the player press the mouse
                 if (_selectedWare.CanBePlaced(_obstacleLayerMask) && Input.GetMouseButtonUp(0))
                 {
@@ -86,7 +97,7 @@ public class PickManager : MonoBehaviour
                     if (Input.GetMouseButtonUp(0))
                     {
                         _selectedWare = ware;
-                        _selectedWareOffset = ware.transform.position - hit.point;
+                        _selectedWareOffset = ware.transform.position - wareBounds.transform.position;
                         _selectedWare.SetInteractable(false);
 
                         ClearPreviousHighlight();
