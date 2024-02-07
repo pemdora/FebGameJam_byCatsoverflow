@@ -4,42 +4,79 @@ using UnityEngine;
 
 public class ConveyorItem : MonoBehaviour
 {
-    public Vector3 Direction = Vector3.right;
+    public Vector3 _direction = Vector3.right;
 
     public float Speed = 1f;
+
+    private Ware _ware;
+
+    private bool _isActive = false;
+
+    private Vector3 _positionMemory = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ActivateConveyor();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += Direction.normalized * Speed * Time.deltaTime;
+        if (_isActive)
+        {
+            transform.position += _direction.normalized * Speed * Time.deltaTime;
+        }
     }
 
 
-    public void SetPackage(Package newPackage)
+    public void SetPackage(Ware newPackage)
     {
-        if (package != null)
+        if (_ware != null)
         {
-            Destroy(package);
+            Destroy(_ware);
         }
-        package = newPackage;
-        package.transform.parent = transform;
+        _ware = newPackage;
+        _ware.transform.parent = transform;
     }
 
     public void DestroyItem()
     {
-        if (package)
+        if (_ware)
         {
-            Destroy(package.gameObject);
+            Destroy(_ware.gameObject);
         }
         Destroy(gameObject);
     }
 
-    private Package package;
+    public void ActivateConveyor()
+    {
+        if (!_isActive)
+        {
+            _isActive = true;
+            transform.position = _positionMemory;
+            Collider collider = GetComponentInParent<Collider>();
+            if (collider)
+            {
+                collider.enabled = true;
+            }
+        }
+    }
+
+    public void DeactivateConveyor()
+    {
+        if (_isActive)
+        {
+            _isActive = false;
+            _positionMemory = transform.position;
+            Collider collider = GetComponentInParent<Collider>();
+            if (collider)
+            {
+                collider.enabled = false;
+            }
+        }
+    }
+
+
 
 }
