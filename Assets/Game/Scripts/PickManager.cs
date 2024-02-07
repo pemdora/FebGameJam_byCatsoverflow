@@ -63,12 +63,12 @@ public class PickManager : MonoBehaviour
             // Rotate ware if needed
             if (Input.GetMouseButtonUp(1))
             {
-                // TODO : add rotation logic into Ware.cs
                 Vector3 oldOffset = _selectedWareOffset;
                 Vector3 newOffset = Quaternion.Euler(0, 90, 0) * oldOffset;
-                _selectedWare.transform.position += newOffset - oldOffset;
-                _selectedWareOffset = newOffset;
-                _selectedWare.transform.Rotate(new Vector3(0, 90, 0));
+                if(_selectedWare.Rotate(90, newOffset - oldOffset))
+                {
+                    _selectedWareOffset = newOffset;
+                }
             }
         }
         // If we don't have a selected ware, check if we can take one 

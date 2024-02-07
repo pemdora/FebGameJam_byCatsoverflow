@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Ware : MonoBehaviour
@@ -9,38 +10,38 @@ public class Ware : MonoBehaviour
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
 
-    // private Coroutine _rotationCoroutine;
-    //
-    // public bool Rotate(int angle, Vector3 oldOffset)
-    // {
-    //     if (_rotationCoroutine != null)
-    //     {
-    //         return false;
-    //     }
-    //
-    //     _rotationCoroutine = StartCoroutine(RotateCoroutine())
-    //     
-    //     return true;
-    // }
-    //
-    // private IEnumerator RotateCoroutine(Quaternion finalRotation, Vector3 finalPosition)
-    // {
-    //     float percent = 0;
-    //     Quaternion initialRotation = transform.rotation;
-    //     Vector3 initialPosition = _rotationPivot.position;
-    //
-    //     while (percent < 1)
-    //     {
-    //         percent += Time.deltaTime * 1 / 0.2f;
-    //
-    //         transform.rotation = Quaternion.Lerp(initialRotation, finalRotation, percent);
-    //         transform.position = Vector3.Lerp(initialPosition, finalPosition, percent);
-    //         
-    //         yield return null;
-    //     }
-    //
-    //     _rotationCoroutine = null;
-    // }
+    private Coroutine _rotationCoroutine;
+    
+    public bool Rotate(int angle, Vector3 offset)
+    {
+        if (_rotationCoroutine != null)
+        {
+            return false;
+        }
+
+        _rotationCoroutine = StartCoroutine(RotateCoroutine(angle, offset));
+        
+        return true;
+    }
+    
+    private IEnumerator RotateCoroutine(int angle, Vector3 offset)
+    {
+        float percent = 0;
+        Vector3 initialPosition = transform.position;
+        Quaternion initialRotation = transform.rotation;
+    
+        while (percent < 1)
+        {
+            percent += Time.deltaTime * 1 / 0.1f;
+    
+            transform.position = Vector3.Lerp(initialPosition, initialPosition + offset, percent);
+            transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * Quaternion.Euler(0, angle, 0), percent);
+            
+            yield return null;
+        }
+    
+        _rotationCoroutine = null;
+    }
     
     public void SetHighlight(bool active)
     {
