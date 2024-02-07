@@ -44,17 +44,6 @@ public class PickManager : MonoBehaviour
                 _selectedWare.transform.position = slotHit.transform.position + clampedOffset;
                 _selectedWare.UpdateBoundsIndicators();
 
-                // Rotate ware if needed
-                if (Input.GetMouseButtonUp(1))
-                {
-                    // TODO : add rotation logic into Ware.cs
-                    Vector3 oldOffset = _selectedWareOffset;
-                    Vector3 newOffset = Quaternion.Euler(0, 90, 0) * oldOffset;
-                    _selectedWare.transform.position += newOffset - oldOffset;
-                    _selectedWareOffset = newOffset;
-                    _selectedWare.transform.Rotate(new Vector3(0, 90, 0));
-                }
-                
                 // If the player press the mouse
                 if (_selectedWare.CanBePlaced(_obstacleLayerMask) && Input.GetMouseButtonUp(0))
                 {
@@ -69,6 +58,17 @@ public class PickManager : MonoBehaviour
             {
                 _selectedWare.ClearBoundsIndicators();
                 _selectedWare.transform.position = new Vector3(worldHit.point.x + _selectedWareOffset.x, _selectedWare.transform.position.y, worldHit.point.z + _selectedWareOffset.z);
+            }
+            
+            // Rotate ware if needed
+            if (Input.GetMouseButtonUp(1))
+            {
+                // TODO : add rotation logic into Ware.cs
+                Vector3 oldOffset = _selectedWareOffset;
+                Vector3 newOffset = Quaternion.Euler(0, 90, 0) * oldOffset;
+                _selectedWare.transform.position += newOffset - oldOffset;
+                _selectedWareOffset = newOffset;
+                _selectedWare.transform.Rotate(new Vector3(0, 90, 0));
             }
         }
         // If we don't have a selected ware, check if we can take one 
