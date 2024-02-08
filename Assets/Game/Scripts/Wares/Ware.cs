@@ -161,7 +161,7 @@ public class Ware : MonoBehaviour, IWareSupport
     public Vector3 GetSnapSupportPosition(Ware ware, Vector3 warePosition, Vector3 mouseOffset)
     {
         Vector3 offset = new Vector3(mouseOffset.x, 0, mouseOffset.z);
-        return Vector3Int.RoundToInt(warePosition + offset + Vector3.up);
+        return warePosition + Vector3.up + Vector3Int.RoundToInt(offset);
     }
     
 #if UNITY_EDITOR

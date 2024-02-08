@@ -9,6 +9,7 @@ public class CargoSlot : MonoBehaviour, IWareSupport
 
     public Vector3 GetSnapSupportPosition(Ware ware, Vector3 warePosition, Vector3 mouseOffset)
     {
-        return Vector3Int.RoundToInt(warePosition + mouseOffset);
+        //return Vector3Int.RoundToInt(warePosition + mouseOffset);
+        return warePosition + Vector3Int.RoundToInt(mouseOffset);
     }
 }
