@@ -7,6 +7,8 @@ public class LandingPlatform : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float _duration;
     [SerializeField] private AnimationCurve _ease;
+
+    public bool IsRotating => _rotationCoroutine != null;
     
     private Coroutine _rotationCoroutine;
 

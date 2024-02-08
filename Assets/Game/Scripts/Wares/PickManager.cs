@@ -10,6 +10,7 @@ public class PickManager : MonoBehaviour
     
     [Header("References")]
     [SerializeField] private Camera _camera;
+    [SerializeField] private LandingPlatform _landingPlatform;
     
     private Ware _hoveredWare;
     private Ware _selectedWare;
@@ -18,13 +19,14 @@ public class PickManager : MonoBehaviour
     void Update()
     {
         bool isWareSnapped = false;
+        bool isPlatformRotating = _landingPlatform.IsRotating;
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
         // If we have a selected ware...
         if (_selectedWare)
         {
             // .. check if we can place it on a support (cargo slot or another ware)
-            if (Physics.Raycast(ray, out RaycastHit supportHit, Mathf.Infinity, _supportLayerMask))
+            if (!isPlatformRotating && Physics.Raycast(ray, out RaycastHit supportHit, Mathf.Infinity, _supportLayerMask))
             {
                 IWareSupport support = supportHit.collider.GetComponentInParent<IWareSupport>();
                 if (support.CanSupportWare(_selectedWare, _supportLayerMask))
@@ -51,7 +53,7 @@ public class PickManager : MonoBehaviour
             }
             
             // Rotate ware if needed
-            if (Input.GetMouseButtonUp(1))
+            if (!isPlatformRotating && Input.GetMouseButtonUp(1))
             {
                 Vector3 oldOffset = _selectedWareOffset;
                 Vector3 newOffset = Quaternion.Euler(0, 90, 0) * oldOffset;
