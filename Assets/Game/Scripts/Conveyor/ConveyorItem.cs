@@ -23,6 +23,7 @@ public class ConveyorItem : MonoBehaviour
 
         _ware.transform.parent = _transform;
         _ware.transform.localPosition = Vector3.zero;
+        _ware.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 4) * 90, 0);
     }
 
     public void ReachConveyorEnd()
