@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Ware : MonoBehaviour
+public class Ware : MonoBehaviour, IWareSupport
 {
     [Header("Settings")] 
     [SerializeField] private LayerMask _obstaclesLayer;
@@ -10,7 +10,32 @@ public class Ware : MonoBehaviour
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
 
+    public bool IsPlaced { get; private set; }
+    
     private Coroutine _rotationCoroutine;
+
+    public void Initialize()
+    {
+        IsPlaced = false;
+        
+        foreach (WareBounds bound in _bounds)
+        {
+            bound.Initialize(this);
+        }
+    }
+
+    public void Place(PickManager manager)
+    {
+        IsPlaced = true;
+        SetInteractable(true);
+        ClearBoundsIndicators();
+    }
+
+    public void Pick(PickManager manager)
+    {
+        SetInteractable(false);
+        transform.parent = manager.transform;
+    }
     
     public bool Rotate(int angle, Vector3 offset)
     {
@@ -101,7 +126,7 @@ public class Ware : MonoBehaviour
     {
         foreach (WareBounds wareBounds in _bounds)
         {
-            if (wareBounds.IsSupportingOtherWare(wareLayerMask))
+            if (wareBounds.HasWareAbove(wareLayerMask))
             {
                 return false;
             }
@@ -128,29 +153,15 @@ public class Ware : MonoBehaviour
         return true;
     }
 
-    public bool HasEnoughSupport(float percentageMin, LayerMask supportLayerMask)
+    public bool CanSupportWare(Ware ware, LayerMask supportLayerMask)
     {
-        int totalSupport = 0;
-        int actualSupport = 0;
-        
-        foreach (WareBounds bound in _bounds)
-        {
-            switch (bound.GetSupport(supportLayerMask))
-            {
-                case WareBoundsSupport.None:
-                    totalSupport++;
-                    break;
-                case WareBoundsSupport.Self:
-                    break;
-                case WareBoundsSupport.CargoSlot:
-                case WareBoundsSupport.OtherWare:
-                    totalSupport++;
-                    actualSupport++;
-                    break;
-            }
-        }
+        return IsPlaced;
+    }
 
-        return (float)actualSupport / totalSupport >= percentageMin;
+    public Vector3 GetSnapSupportPosition(Ware ware, Vector3 warePosition, Vector3 mouseOffset)
+    {
+        Vector3 offset = new Vector3(mouseOffset.x, 0, mouseOffset.z);
+        return Vector3Int.RoundToInt(warePosition + offset + Vector3.up);
     }
     
 #if UNITY_EDITOR

@@ -2565,7 +2565,7 @@ GameObject:
   - component: {fileID: 1601362135}
   - component: {fileID: 1601362134}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: Pick Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2589,7 +2589,7 @@ MonoBehaviour:
   _worldLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  _slotLayerMask:
+  _supportLayerMask:
     serializedVersion: 2
     m_Bits: 192
   _obstacleLayerMask:

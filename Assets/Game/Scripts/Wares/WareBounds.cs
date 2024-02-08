@@ -1,14 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-public enum WareBoundsSupport
-{
-    None,
-    Self,
-    CargoSlot,
-    OtherWare,
-}
-
 [Flags]
 public enum WareBoundsIndicator
 {
@@ -27,10 +19,15 @@ public class WareBounds : MonoBehaviour
     [SerializeField] private GameObject _noSupportIndicator;
     
     private Ware _associateWare;
+
+    public void Initialize(Ware ware)
+    {
+        _associateWare = ware;
+    }
     
     public Ware GetWare()
     {
-        return GetComponentInParent<Ware>();
+        return _associateWare;
     }
 
     public void SetInteractible(bool value)
@@ -86,42 +83,7 @@ public class WareBounds : MonoBehaviour
         return false;
     }
 
-    public WareBoundsSupport GetSupport(LayerMask supportLayerMask)
-    {
-        Collider[] hitColliders = Physics.OverlapBox(transform.position - Vector3.down * 0.5f, transform.localScale / (1 / 0.49f), Quaternion.identity, supportLayerMask);
-
-        foreach (Collider collider in hitColliders)
-        {
-            if (collider.gameObject == gameObject)
-            {
-                // Don't take into account for self overlap, tho it shouldn't happen in this case
-                continue;
-            }
-
-            // First, check if the collider beneath is a ware 
-            Ware colliderWare = collider.GetComponentInParent<Ware>();
-            if (colliderWare != null)
-            {
-                if (colliderWare == _associateWare)
-                {
-                    return WareBoundsSupport.Self;
-                }
-
-                return WareBoundsSupport.OtherWare;
-            }
-            
-            // Then check if the collider beneath is a slot
-            CargoSlot colliderCargoSlot = collider.GetComponentInParent<CargoSlot>();
-            if (colliderCargoSlot != null)
-            {
-                return WareBoundsSupport.CargoSlot;
-            }
-        }
-        
-        return WareBoundsSupport.None;
-    }
-
-    public bool IsSupportingOtherWare(LayerMask wareLayerMask)
+    public bool HasWareAbove(LayerMask wareLayerMask)
     {
         Collider[] hitColliders = Physics.OverlapBox(transform.position + Vector3.up * 1.5f, transform.localScale / (1 / 0.49f), Quaternion.identity, wareLayerMask);
 

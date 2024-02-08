@@ -96,7 +96,9 @@ public class ConveyorStart : MonoBehaviour
     private Ware GetWare()
     {
         // TODO: adapt based on difficulty
-        return Instantiate(_wareCollection.GetRandom());
+        Ware ware = Instantiate(_wareCollection.GetRandom());
+        ware.Initialize();
+        return ware;
     }
 
     public void ReturnConveyorItem(ConveyorItem conveyorItem)

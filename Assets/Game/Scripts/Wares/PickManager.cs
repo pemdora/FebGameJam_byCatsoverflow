@@ -5,7 +5,7 @@ public class PickManager : MonoBehaviour
     [Header("Settings")] 
     [SerializeField] private LayerMask _wareLayerMask;
     [SerializeField] private LayerMask _worldLayerMask;
-    [SerializeField] private LayerMask _slotLayerMask;
+    [SerializeField] private LayerMask _supportLayerMask;
     [SerializeField] private LayerMask _obstacleLayerMask;
     
     [Header("References")]
@@ -17,44 +17,34 @@ public class PickManager : MonoBehaviour
 
     void Update()
     {
+        bool isWareSnapped = false;
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
         // If we have a selected ware...
         if (_selectedWare)
         {
-            // .. check if we can place it on a cargo slot or another ware
-            if (Physics.Raycast(ray, out RaycastHit slotHit, Mathf.Infinity, _slotLayerMask))
+            // .. check if we can place it on a support (cargo slot or another ware)
+            if (Physics.Raycast(ray, out RaycastHit supportHit, Mathf.Infinity, _supportLayerMask))
             {
-                Vector3 clampedOffset = Vector3.zero;
-                
-                // If the mouse is over another ware
-                Ware colliderWare = slotHit.collider.GetComponentInParent<Ware>();
-                if (colliderWare != null)
+                IWareSupport support = supportHit.collider.GetComponentInParent<IWareSupport>();
+                if (support.CanSupportWare(_selectedWare, _supportLayerMask))
                 {
-                    clampedOffset = new Vector3(Mathf.RoundToInt(_selectedWareOffset.x), 1, Mathf.RoundToInt(_selectedWareOffset.z));
-                }
-            
-                // If the mouse is over a cargo slot
-                CargoSlot colliderCargoSlot = slotHit.collider.GetComponentInParent<CargoSlot>();
-                if (colliderCargoSlot != null)
-                {
-                    clampedOffset = new Vector3(Mathf.RoundToInt(_selectedWareOffset.x), 0, Mathf.RoundToInt(_selectedWareOffset.z));
-                }
-                
-                _selectedWare.transform.position = slotHit.transform.position + clampedOffset;
-                _selectedWare.UpdateBoundsIndicators();
-
-                // If the player press the mouse
-                if (_selectedWare.CanBePlaced(_obstacleLayerMask) && Input.GetMouseButtonUp(0))
-                {
-                    // We drop the ware at the localisation
-                    _selectedWare.SetInteractable(true);
-                    _selectedWare.ClearBoundsIndicators();
-                    _selectedWare = null;
+                    _selectedWare.transform.position = support.GetSnapSupportPosition(_selectedWare, supportHit.transform.position, _selectedWareOffset);
+                    _selectedWare.UpdateBoundsIndicators();
+                    isWareSnapped = true;
+                    
+                    // If the player press the mouse
+                    if (_selectedWare.CanBePlaced(_obstacleLayerMask) && Input.GetMouseButtonUp(0))
+                    {
+                        // We drop the ware at the localisation
+                        _selectedWare.Place(this);
+                        _selectedWare = null;
+                    }
                 }
             }
+            
             // ... if we can't, we make it follow the mouse
-            else if (Physics.Raycast(ray, out RaycastHit worldHit, Mathf.Infinity, _worldLayerMask))
+            if (!isWareSnapped && Physics.Raycast(ray, out RaycastHit worldHit, Mathf.Infinity, _worldLayerMask))
             {
                 _selectedWare.ClearBoundsIndicators();
                 _selectedWare.transform.position = new Vector3(worldHit.point.x + _selectedWareOffset.x, _selectedWare.transform.position.y, worldHit.point.z + _selectedWareOffset.z);
@@ -98,8 +88,7 @@ public class PickManager : MonoBehaviour
                     {
                         _selectedWare = ware;
                         _selectedWareOffset = ware.transform.position - wareBounds.transform.position;
-                        _selectedWare.SetInteractable(false);
-                        _selectedWare.transform.parent = null;
+                        _selectedWare.Pick(this);
 
                         ClearPreviousHighlight();
                     }
