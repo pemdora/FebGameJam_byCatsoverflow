@@ -36,8 +36,8 @@ public class PickManager : MonoBehaviour
                     // If the player press the mouse
                     if (_selectedWare.CanBePlaced(_obstacleLayerMask) && Input.GetMouseButtonUp(0))
                     {
-                        // We drop the ware at the localisation
-                        _selectedWare.Place(this);
+                        // We drop the ware at the location
+                        _selectedWare.Place(support.GetAssociatedCargo());
                         _selectedWare = null;
                     }
                 }

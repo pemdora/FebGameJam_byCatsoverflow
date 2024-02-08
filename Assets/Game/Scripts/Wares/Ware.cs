@@ -9,30 +9,36 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("References")] 
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
-
-    public bool IsPlaced { get; private set; }
     
     private Coroutine _rotationCoroutine;
+    private Cargo _associatedCargo;
 
     public void Initialize()
     {
-        IsPlaced = false;
-        
         foreach (WareBounds bound in _bounds)
         {
             bound.Initialize(this);
         }
     }
 
-    public void Place(PickManager manager)
+    public void Place(Cargo destination)
     {
-        IsPlaced = true;
+        _associatedCargo = destination;
+        _associatedCargo.AddWare(this);
+        
         SetInteractable(true);
         ClearBoundsIndicators();
+        transform.parent = destination.transform;
     }
 
     public void Pick(PickManager manager)
     {
+        if (_associatedCargo != null)
+        {
+            _associatedCargo.RemoveWare(this);
+            _associatedCargo = null;
+        }
+        
         SetInteractable(false);
         transform.parent = manager.transform;
     }
@@ -155,13 +161,18 @@ public class Ware : MonoBehaviour, IWareSupport
 
     public bool CanSupportWare(Ware ware, LayerMask supportLayerMask)
     {
-        return IsPlaced;
+        return _associatedCargo != null;
     }
 
     public Vector3 GetSnapSupportPosition(Ware ware, Vector3 warePosition, Vector3 mouseOffset)
     {
         Vector3 offset = new Vector3(mouseOffset.x, 0, mouseOffset.z);
         return warePosition + Vector3.up + Vector3Int.RoundToInt(offset);
+    }
+
+    public Cargo GetAssociatedCargo()
+    {
+        return _associatedCargo;
     }
     
 #if UNITY_EDITOR

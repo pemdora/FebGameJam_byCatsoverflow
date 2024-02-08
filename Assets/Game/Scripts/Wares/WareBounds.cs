@@ -18,16 +18,16 @@ public class WareBounds : MonoBehaviour
     [SerializeField] private GameObject _overlapIndicator;
     [SerializeField] private GameObject _noSupportIndicator;
     
-    private Ware _associateWare;
+    private Ware _associatedWare;
 
     public void Initialize(Ware ware)
     {
-        _associateWare = ware;
+        _associatedWare = ware;
     }
     
     public Ware GetWare()
     {
-        return _associateWare;
+        return _associatedWare;
     }
 
     public void SetInteractible(bool value)
