@@ -24,10 +24,9 @@ public class Ware : MonoBehaviour, IWareSupport
     public void Place(Cargo destination)
     {
         _associatedCargo = destination;
-        _associatedCargo.AddWare(this);
-        
         SetInteractable(true);
         ClearBoundsIndicators();
+        _associatedCargo.AddWare(this);
         transform.parent = destination.transform;
     }
 

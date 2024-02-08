@@ -63,6 +63,10 @@ MonoBehaviour:
   - {fileID: 5820307471730665724}
   - {fileID: 4278066097765157899}
   - {fileID: 7679124161576120120}
+  _wareLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _cargoSize: 4
 --- !u!1 &1144497792032551710
 GameObject:
   m_ObjectHideFlags: 0
