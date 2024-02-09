@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: wares_test
   m_EditorClassIdentifier: 
   wares:
-  - {fileID: 7956836847585673350, guid: 0d57a0d8ed35a3b4187120c337238395, type: 3}
-  - {fileID: -6855289716212067250, guid: c88cf56aafc8d6640814ce4631fd7d4e, type: 3}
-  - {fileID: 5550849524566449912, guid: 8e815e5835363314fa83161c160f84ae, type: 3}
-  - {fileID: 3438112126381001194, guid: 480e4c21c4d709247bac807eb1f4d4e3, type: 3}
+  - {fileID: 4139804320498153663, guid: 20c9fbe8360ec5741893cd6b724390cf, type: 3}

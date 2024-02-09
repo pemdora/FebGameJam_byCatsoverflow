@@ -9,7 +9,7 @@ using UnityEngine;
 public class ConveyorStart : MonoBehaviour
 {
     
-    private float BASE_SPEED = 0.94f; // vitesse de base synchro avec l'animation
+    private float BASE_SPEED = 1.85f; // vitesse de base synchro avec l'animation
 
     [Header("Settings")] 
     [SerializeField] private float _speed;    
