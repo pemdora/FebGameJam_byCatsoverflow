@@ -8,8 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_cardbord
-    second: {fileID: -307208949125588499, guid: d4300f8cc428adf42a71e904ebd044f3,
-      type: 3}
+    second: {fileID: 2100000, guid: 2f63ff7d1044d7448b39a56108502419, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
