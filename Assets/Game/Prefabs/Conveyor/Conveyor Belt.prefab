@@ -212,6 +212,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.16
       objectReference: {fileID: 0}
+    - target: {fileID: 8681661492008336146, guid: 8b0281f3640bb8048b1ad3687670c865,
+        type: 3}
+      propertyPath: m_Name
+      value: Conveyor Graphics
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

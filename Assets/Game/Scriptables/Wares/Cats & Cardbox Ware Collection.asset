@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c55feccd094140bfb2a52204281cf147, type: 3}
-  m_Name: wares_test
+  m_Name: Cats & Cardbox Ware Collection
   m_EditorClassIdentifier: 
   wares:
   - {fileID: 4139804320498153663, guid: 20c9fbe8360ec5741893cd6b724390cf, type: 3}
