@@ -11,6 +11,8 @@ public class CargoManager : MonoBehaviour
     [SerializeField] private Queue<Cargo> _cargoPrefabQueue;
     Coroutine _arrivalCoroutine;
     Coroutine _leaveCoroutine;
+
+    bool IsRunning;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class CargoManager : MonoBehaviour
         {
             _cargo = _landingPlatform.GetComponentInChildren<Cargo>();
         }
+        StartCoroutine(SpaceshipCoroutine(5));
     }
 
     // Update is called once per frame
@@ -117,7 +120,14 @@ public class CargoManager : MonoBehaviour
             _cargo = nextCargo;
             StopCoroutine(_arrivalCoroutine);
             _arrivalCoroutine = null;
+            StartCoroutine(SpaceshipCoroutine(5));
         }
 
+    }
+
+    private IEnumerator SpaceshipCoroutine(int spaceshipTime)
+    {
+        yield return new WaitForSeconds(spaceshipTime);
+        NextCargo();
     }
 }

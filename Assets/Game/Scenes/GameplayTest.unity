@@ -243,7 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1053910f67aae5e488c6998c81dea73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cargo: {fileID: 0}
+  _landingPlatform: {fileID: 0}
+  _cargoPrefabList: []
 --- !u!114 &465964983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1053910f67aae5e488c6998c81dea73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cargo: {fileID: 0}
+  _landingPlatform: {fileID: 0}
+  _cargoPrefabList: []
 --- !u!1 &1182041739
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +457,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1053910f67aae5e488c6998c81dea73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cargo: {fileID: 6885559206866325674}
+  _landingPlatform: {fileID: 2144418431}
+  _cargoPrefabList:
+  - {fileID: -1321342615746925604, guid: 8bc5ad64945a01c43b4e8607a9dd5805, type: 3}
+  - {fileID: 5461027620981156487, guid: 07ea8f62d08191042b7faafbcbd4fa09, type: 3}
+  - {fileID: -1321342615746925604, guid: 8bc5ad64945a01c43b4e8607a9dd5805, type: 3}
 --- !u!4 &1932589795
 Transform:
   m_ObjectHideFlags: 0
@@ -987,18 +993,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 53266774302453296}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6885559206866325674 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5461027620981156487, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-    type: 3}
-  m_PrefabInstance: {fileID: 53266774302453296}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a390c161b7134976b54d78a6e6b2619c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
