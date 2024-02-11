@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -178,6 +179,15 @@ public class Ware : MonoBehaviour, IWareSupport
     private void OnValidate()
     {
         _bounds = GetComponentsInChildren<WareBounds>();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        foreach (WareBounds wareBounds in _bounds)
+        {
+            Gizmos.DrawWireCube(wareBounds.transform.position + Vector3.up * 0.5f, Vector3.one);
+        }
     }
 #endif
 }
