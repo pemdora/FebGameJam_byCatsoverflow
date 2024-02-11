@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
+
 public class ConveyorStart : MonoBehaviour
 {
+    
+    private float BASE_SPEED = 1.85f; // vitesse de base synchro avec l'animation
+
     [Header("Settings")] 
-    [SerializeField] private float _speed;
+    [SerializeField] private float _speed;    
     [SerializeField] private float _spawnDelay;
     [SerializeField] private float _spawnInterval;
 
     [Header("References")] 
     [SerializeField] private ConveyorItem _conveyorSlotPrefab;
     [SerializeField] private WareCollection _wareCollection;
+    [SerializeField] private Animator _beltAnimator;
 
     public bool IsRunning { get; private set; }
 
@@ -25,12 +33,14 @@ public class ConveyorStart : MonoBehaviour
         _transform = transform;
         _tracked = new List<ConveyorItem>();
         _pool = new List<ConveyorItem>();
+        // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base
+        _beltAnimator.speed = _speed / BASE_SPEED;
     }
 
     private void Start()
     {
         // TODO: let level manager handle this
-        StartConveyor();
+        StartConveyor();        
     }
 
     public void StartConveyor()
@@ -122,6 +132,7 @@ public class ConveyorStart : MonoBehaviour
     public void ChangeSpeed(float speed)
     {
         _speed = speed;
+        _beltAnimator.speed = _speed / BASE_SPEED;       
 
         foreach (ConveyorItem conveyorItem in _tracked)
         {

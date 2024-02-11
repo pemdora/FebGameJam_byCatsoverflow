@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: 22ba9ee2c2625c64881ce71705d6ea43
+guid: f65037a0e3196344687bc94068d4452e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MAT_cardbord
-    second: {fileID: 2100000, guid: 2f63ff7d1044d7448b39a56108502419, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MAT_scotch
-    second: {fileID: 2100000, guid: 80ea6f226b1ebc44a8c9eeb8a8925e21, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: textures_nasa
-    second: {fileID: 2800000, guid: f0ab0c65c5173ec4681d035266eec9f4, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -27,7 +12,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
+    resampleCurves: 0
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
@@ -93,7 +78,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
