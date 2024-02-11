@@ -50,6 +50,37 @@ public class Cargo : MonoBehaviour
         }
     }
 
+    public void ActivateCargo()
+    {
+        for (int i = 0; i < _slots.Length; i++)
+        {
+            Collider[] colliders = _slots[i].GetComponents<Collider>();
+            for (int j = 0; j < colliders.Length; j++)
+            {
+                Collider collider = colliders[j];
+                collider.enabled = true;
+            }
+        }
+    }
+
+    public void DeactivateCargo()
+    {
+        Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoSize * 0.5f, 0), new Vector3(_cargoSize, _cargoSize, _cargoSize) * 0.5f, Quaternion.identity, _wareLayerMask);
+        for (int i = 0; i < hitWares.Length;i++)
+        {
+            hitWares[i].enabled = false;
+        }
+        for (int i = 0; i < _slots.Length; i++)
+        {
+            Collider[] colliders = _slots[i].GetComponents<Collider>();
+            for (int j = 0; j < colliders.Length; j++)
+            {
+                Collider collider = colliders[j];
+                collider.enabled = false;
+            }
+        }
+    }
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
