@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
-    [Header("Settings")] 
+    [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
-    
-    [Header("References")] 
+
+    [Header("References")]
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
-    
+
+    private Transform _warePoolContainer;
+    public Transform WarePoolContainer { get => _warePoolContainer; }
+
     private Coroutine _rotationCoroutine;
     private Cargo _associatedCargo;
 
-    public void Initialize()
+    public void Initialize(Transform poolTransform)
     {
+        _warePoolContainer = poolTransform;
+
         foreach (WareBounds bound in _bounds)
         {
             bound.Initialize(this);
@@ -38,11 +43,11 @@ public class Ware : MonoBehaviour, IWareSupport
             _associatedCargo.RemoveWare(this);
             _associatedCargo = null;
         }
-        
+
         SetInteractable(false);
         transform.parent = manager.transform;
     }
-    
+
     public bool Rotate(int angle, Vector3 offset)
     {
         if (_rotationCoroutine != null)
@@ -51,29 +56,29 @@ public class Ware : MonoBehaviour, IWareSupport
         }
 
         _rotationCoroutine = StartCoroutine(RotateCoroutine(angle, offset));
-        
+
         return true;
     }
-    
+
     private IEnumerator RotateCoroutine(int angle, Vector3 offset)
     {
         float percent = 0;
         Vector3 initialPosition = transform.position;
         Quaternion initialRotation = transform.rotation;
-    
+
         while (percent < 1)
         {
             percent += Time.deltaTime * 1 / 0.1f;
-    
+
             transform.position = Vector3.Lerp(initialPosition, initialPosition + offset, percent);
             transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * Quaternion.Euler(0, angle, 0), percent);
-            
+
             yield return null;
         }
-    
+
         _rotationCoroutine = null;
     }
-    
+
     public void SetHighlight(bool active)
     {
         _highlight.SetActive(active);
@@ -86,7 +91,7 @@ public class Ware : MonoBehaviour, IWareSupport
             bound.SetInteractible(value);
         }
     }
-    
+
     public void UpdateBoundsIndicators()
     {
         foreach (WareBounds bound in _bounds)
@@ -107,7 +112,7 @@ public class Ware : MonoBehaviour, IWareSupport
             // {
             //     indicators |= WareBoundsIndicator.NoSupport;
             // }
-            
+
             bound.SetIndicator(indicators);
         }
     }
@@ -140,12 +145,12 @@ public class Ware : MonoBehaviour, IWareSupport
 
         return true;
     }
-    
+
     public bool CanBePlaced(LayerMask obstacleLayerMask)
     {
         return DoesOverlapWithObstacle(obstacleLayerMask);
     }
-    
+
     public bool DoesOverlapWithObstacle(LayerMask obstacleLayerMask)
     {
         foreach (WareBounds wareBounds in _bounds)
@@ -174,7 +179,7 @@ public class Ware : MonoBehaviour, IWareSupport
     {
         return _associatedCargo;
     }
-    
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
