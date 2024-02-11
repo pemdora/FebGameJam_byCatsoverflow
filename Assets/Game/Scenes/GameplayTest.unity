@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _landingPlatform: {fileID: 0}
-  _cargoPrefabList: []
+  _spaceshipPrefabList: []
 --- !u!114 &465964983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +258,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _landingPlatform: {fileID: 0}
-  _cargoPrefabList: []
+  _spaceshipPrefabList: []
+--- !u!1001 &572075847
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2144418432}
+    m_Modifications:
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495127546305267256, guid: 952237e00794f5b4ea136916fef532ee,
+        type: 3}
+      propertyPath: m_Name
+      value: 4x4x4 Spaceship
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 952237e00794f5b4ea136916fef532ee, type: 3}
+--- !u!4 &572075848 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1469035524801663955, guid: 952237e00794f5b4ea136916fef532ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 572075847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1182041739
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +513,7 @@ GameObject:
   - component: {fileID: 1932589795}
   - component: {fileID: 1932589794}
   m_Layer: 0
-  m_Name: CargoManager
+  m_Name: SpaceshipManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -458,10 +532,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _landingPlatform: {fileID: 2144418431}
-  _cargoPrefabList:
-  - {fileID: -1321342615746925604, guid: 8bc5ad64945a01c43b4e8607a9dd5805, type: 3}
-  - {fileID: 5461027620981156487, guid: 07ea8f62d08191042b7faafbcbd4fa09, type: 3}
-  - {fileID: -1321342615746925604, guid: 8bc5ad64945a01c43b4e8607a9dd5805, type: 3}
+  _spaceshipPrefabList:
+  - {fileID: 8681111708297996933, guid: e3a26f797068a5e43a6aa577eb20fc0c, type: 3}
+  - {fileID: 8925642590390673760, guid: 952237e00794f5b4ea136916fef532ee, type: 3}
+  - {fileID: 8681111708297996933, guid: e3a26f797068a5e43a6aa577eb20fc0c, type: 3}
+  - {fileID: 8925642590390673760, guid: 952237e00794f5b4ea136916fef532ee, type: 3}
 --- !u!4 &1932589795
 Transform:
   m_ObjectHideFlags: 0
@@ -750,74 +825,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 969511141591184428}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &53266774302453296
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2144418432}
-    m_Modifications:
-    - target: {fileID: 395633257866840740, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_Name
-      value: 4x4x4 Cargo
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 07ea8f62d08191042b7faafbcbd4fa09, type: 3}
 --- !u!1001 &969511141591184428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -881,13 +888,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: LandingPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 7179015528395148293, guid: 80c57c8885957d84aa4f5f5f8562556d,
+        type: 3}
+      propertyPath: _spaceshipManager
+      value: 
+      objectReference: {fileID: 1932589794}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4772343041005660874, guid: 80c57c8885957d84aa4f5f5f8562556d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6885559206866325673}
+      addedObject: {fileID: 572075848}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c57c8885957d84aa4f5f5f8562556d, type: 3}
 --- !u!1001 &6143151768428447067
@@ -987,12 +999,6 @@ PrefabInstance:
       addedObject: {fileID: 1182041740}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5be81e71b13fc14eaf43ec9188bc5ab, type: 3}
---- !u!4 &6885559206866325673 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,
-    type: 3}
-  m_PrefabInstance: {fileID: 53266774302453296}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

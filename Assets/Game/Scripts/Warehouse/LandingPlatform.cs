@@ -8,12 +8,18 @@ public class LandingPlatform : MonoBehaviour
     [SerializeField] private float _duration;
     [SerializeField] private AnimationCurve _ease;
 
+    public bool CanRotate { get; set; } = true;
     public bool IsRotating => _rotationCoroutine != null;
+    public float Duration => _duration;
     
     private Coroutine _rotationCoroutine;
 
     private void Update()
     {
+        if (!CanRotate)
+        {
+            return;
+        }
         if (Input.GetKeyUp(KeyCode.A))
         {
             Rotate(true);
@@ -53,4 +59,5 @@ public class LandingPlatform : MonoBehaviour
 
         _rotationCoroutine = null;
     }
+
 }
