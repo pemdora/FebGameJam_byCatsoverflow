@@ -69,11 +69,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7422096945613951155, guid: cd2c5f7f62174f248b7408218a56a00b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7991357736222514110}
+      addedObject: {fileID: 5789574289191235512}
     - targetCorrespondingSourceObject: {fileID: 6872492406988339304, guid: cd2c5f7f62174f248b7408218a56a00b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5789574289191235512}
+      addedObject: {fileID: 7991357736222514110}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd2c5f7f62174f248b7408218a56a00b, type: 3}
 --- !u!4 &5577753575613099598 stripped
@@ -94,7 +94,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 5577753575613099598}
+    m_TransformParent: {fileID: 8446294275319809685}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 22ba9ee2c2625c64881ce71705d6ea43,
         type: 3}
@@ -168,7 +168,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8446294275319809685}
+    m_TransformParent: {fileID: 5577753575613099598}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 22ba9ee2c2625c64881ce71705d6ea43,
         type: 3}
