@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Cargo : MonoBehaviour
 {
-    [Header("References")] 
+    [Header("References")]
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
     [SerializeField] private int _cargoSize = 3;
@@ -11,15 +11,15 @@ public class Cargo : MonoBehaviour
     private float _fillPercentage = 0f;
     private int _cargoCases;
     private List<Ware> _placedWare;
-    
+
     private void Start()
     {
         _placedWare = new List<Ware>();
         foreach (CargoSlot cargoSlot in _slots)
         {
             cargoSlot.Initialize(this);
-
         }
+
         _cargoCases = Mathf.FloorToInt(Mathf.Pow(_cargoSize, 3));
     }
 
@@ -35,7 +35,6 @@ public class Cargo : MonoBehaviour
     {
         _placedWare.Remove(ware);
         UpdateCargoContent();
-
     }
 
 
@@ -61,12 +60,14 @@ public class Cargo : MonoBehaviour
                 collider.enabled = true;
             }
         }
+
+        ResetWares();
     }
 
     public void DeactivateCargo()
     {
         Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoSize * 0.5f, 0), new Vector3(_cargoSize, _cargoSize, _cargoSize) * 0.5f, Quaternion.identity, _wareLayerMask);
-        for (int i = 0; i < hitWares.Length;i++)
+        for (int i = 0; i < hitWares.Length; i++)
         {
             hitWares[i].enabled = false;
         }
@@ -77,6 +78,20 @@ public class Cargo : MonoBehaviour
             {
                 Collider collider = colliders[j];
                 collider.enabled = false;
+            }
+        }
+
+        ResetWares();
+    }
+
+    private void ResetWares()
+    {
+        if (_placedWare != null)
+        {
+            foreach (Ware ware in _placedWare)
+            {
+                ware.transform.SetParent(ware.WarePoolContainer);
+                ware.gameObject.SetActive(false);
             }
         }
     }

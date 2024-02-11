@@ -2,24 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
-
 public class ConveyorStart : MonoBehaviour
 {
-    
     private float BASE_SPEED = 1.85f; // vitesse de base synchro avec l'animation
 
-    [Header("Settings")] 
-    [SerializeField] private float _speed;    
+    [Header("Settings")]
+    [SerializeField] private float _speed;
     [SerializeField] private float _spawnDelay;
     [SerializeField] private float _spawnInterval;
 
-    [Header("References")] 
+    [Header("References")]
     [SerializeField] private ConveyorItem _conveyorSlotPrefab;
     [SerializeField] private WareCollection _wareCollection;
     [SerializeField] private Animator _beltAnimator;
+    [SerializeField] private Transform _warePoolsContainer;
 
     public bool IsRunning { get; private set; }
 
@@ -27,6 +23,7 @@ public class ConveyorStart : MonoBehaviour
     private Coroutine _spawningCoroutine;
     private List<ConveyorItem> _tracked;
     private List<ConveyorItem> _pool;
+    private Dictionary<int, List<Ware>> _warePools;
 
     private void Awake()
     {
@@ -35,12 +32,35 @@ public class ConveyorStart : MonoBehaviour
         _pool = new List<ConveyorItem>();
         // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base
         _beltAnimator.speed = _speed / BASE_SPEED;
+
+        InitializeWarePools();
     }
 
     private void Start()
     {
         // TODO: let level manager handle this
-        StartConveyor();        
+        StartConveyor();
+    }
+
+    /// <summary>
+    /// Initializes the pooling of wares into a dictionary.
+    /// </summary>
+    private void InitializeWarePools()
+    {
+        if (_warePools != null)
+        {
+            return;
+        }
+
+        _warePools = new();
+
+        int count = 0;
+
+        foreach (Ware ware in _wareCollection.wares)
+        {
+            _warePools.Add(count, new List<Ware>());
+            count++;
+        }
     }
 
     public void StartConveyor()
@@ -49,7 +69,7 @@ public class ConveyorStart : MonoBehaviour
         {
             return;
         }
-        
+
         IsRunning = true;
         _spawningCoroutine = StartCoroutine(SpawningCoroutine());
     }
@@ -60,7 +80,7 @@ public class ConveyorStart : MonoBehaviour
         {
             return;
         }
-        
+
         IsRunning = false;
         StopCoroutine(_spawningCoroutine);
         _spawningCoroutine = null;
@@ -80,7 +100,7 @@ public class ConveyorStart : MonoBehaviour
             conveyorItem.gameObject.SetActive(true);
 
             _tracked.Add(conveyorItem);
-            
+
             yield return new WaitForSeconds(_spawnInterval);
         }
 
@@ -90,6 +110,7 @@ public class ConveyorStart : MonoBehaviour
     private ConveyorItem GetConveyorItem()
     {
         ConveyorItem conveyorItem;
+
         if (_pool.Count > 0)
         {
             conveyorItem = _pool[0];
@@ -105,9 +126,35 @@ public class ConveyorStart : MonoBehaviour
 
     private Ware GetWare()
     {
-        // TODO: adapt based on difficulty
-        Ware ware = Instantiate(_wareCollection.GetRandom());
-        ware.Initialize();
+        Ware ware = null;
+
+        if (_warePools.Count == 0)
+        {
+            Debug.LogError($"Ware list is empty.");
+            return null;
+        }
+
+        int wareIndex = Random.Range(0, _warePools.Count);
+
+        List<Ware> warePool = _warePools[wareIndex];
+
+        foreach (Ware thisWare in warePool)
+        {
+            if (!thisWare.gameObject.activeSelf)
+            {
+                ware = thisWare;
+                ware.gameObject.SetActive(true);
+                break;
+            }
+        }
+
+        if (ware == null)
+        {
+            ware = Instantiate(_wareCollection.wares[wareIndex]);
+            warePool.Add(ware);
+        }
+
+        ware.Initialize(_warePoolsContainer);
         return ware;
     }
 
@@ -119,9 +166,9 @@ public class ConveyorStart : MonoBehaviour
         if (conveyorItem.TryGetWare(out Ware ware))
         {
             conveyorItem.ClearWare();
-            
-            // TODO: change? pool?
-            Destroy(ware.gameObject);
+
+            ware.gameObject.SetActive(false);
+            ware.transform.SetParent(_warePoolsContainer);
         }
 
         // Stop tracking that conveyor item and put it back into the pool
@@ -132,7 +179,7 @@ public class ConveyorStart : MonoBehaviour
     public void ChangeSpeed(float speed)
     {
         _speed = speed;
-        _beltAnimator.speed = _speed / BASE_SPEED;       
+        _beltAnimator.speed = _speed / BASE_SPEED;
 
         foreach (ConveyorItem conveyorItem in _tracked)
         {
