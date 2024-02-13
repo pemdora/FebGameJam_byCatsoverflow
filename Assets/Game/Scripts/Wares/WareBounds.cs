@@ -12,6 +12,10 @@ public enum WareBoundsIndicator
 
 public class WareBounds : MonoBehaviour
 {
+
+
+
+
     [Header("References")] 
     [SerializeField] private Collider _collider;
     [SerializeField] private GameObject _correctIndicator;
@@ -22,7 +26,7 @@ public class WareBounds : MonoBehaviour
 
     public void Initialize(Ware ware)
     {
-        _associatedWare = ware;
+        _associatedWare = ware;        
     }
     
     public Ware GetWare()

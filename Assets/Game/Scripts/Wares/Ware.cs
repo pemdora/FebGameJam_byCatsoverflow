@@ -10,6 +10,9 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("References")]
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
+    [SerializeField] private GameObject _graphicObject;
+    [SerializeField] private GameObject _graphicObjectContainer;
+
 
     private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
@@ -22,10 +25,27 @@ public class Ware : MonoBehaviour, IWareSupport
         _warePoolContainer = poolTransform;
 
         foreach (WareBounds bound in _bounds)
-        {
-            bound.Initialize(this);
+        {            
+            bound.Initialize(this);   
+        }  
+
+        if(_graphicObject != null && _graphicObjectContainer != null){
+            createGraphicObject();
         }
     }
+
+
+    //place gameObject for each wareBounds
+    public void createGraphicObject()
+    {
+        foreach (WareBounds wareBound in _bounds)
+        {
+            GameObject newGraphicObject = Instantiate(_graphicObject, wareBound.transform.position, Quaternion.identity);
+            newGraphicObject.transform.parent = _graphicObjectContainer.transform;
+            newGraphicObject.transform.Rotate(-90, 0, 0);
+        }
+    }
+    
 
     public void Place(Cargo destination)
     {
