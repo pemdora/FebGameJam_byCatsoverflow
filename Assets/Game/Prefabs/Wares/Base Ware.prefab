@@ -113,3 +113,56 @@ MonoBehaviour:
     m_Bits: 320
   _highlight: {fileID: 7517559643739856525}
   _bounds: []
+  _graphicObject: {fileID: 0}
+  _graphicObjectContainer: {fileID: 0}
+  _scaleAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1.5860403
+      outSlope: 1.5860403
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.060755316
+    - serializedVersion: 3
+      time: 0.10482105
+      value: 1.2
+      inSlope: -0.01027028
+      outSlope: -0.01027028
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.8863502
+    - serializedVersion: 3
+      time: 0.29256612
+      value: 1.0068033
+      inSlope: -0.01733628
+      outSlope: -0.01733628
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.74117255
+    - serializedVersion: 3
+      time: 0.43289575
+      value: 1.027427
+      inSlope: 0.012434515
+      outSlope: 0.012434515
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.42853406
+    - serializedVersion: 3
+      time: 0.6
+      value: 1
+      inSlope: -0.16313839
+      outSlope: -0.16313839
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.39806005
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
