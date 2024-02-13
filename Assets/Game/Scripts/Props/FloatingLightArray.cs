@@ -15,10 +15,13 @@ public class FlyLightArray : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private int _numberOfItems;
     [SerializeField] private float _spacing;
-    [SerializeField] private int _emissionPosition = 0;
+    [SerializeField] private int? _emissionPosition = 0;
     [SerializeField] private Vector3 axis;  
     [SerializeField] private Vector3 _rotation;
+
+    [ColorUsageAttribute(true, true)]
     [SerializeField] private Color _onEmissionColor;
+    [ColorUsageAttribute(true, true)]
     [SerializeField] private Color _offEmissionColor = Color.black;
       
     
@@ -58,7 +61,6 @@ public class FlyLightArray : MonoBehaviour
                 lights[i].GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
                 // lights[i].GetComponent<MeshRenderer>().sharedMaterials[_emissionPosition].color =  _offEmissionColor; à utiliser si utilisation de shader
                 lights[i].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", _offEmissionColor);
-                Debug.Log(_offEmissionColor);
                 yield return new WaitForSeconds(0.1f);
             }
         }
