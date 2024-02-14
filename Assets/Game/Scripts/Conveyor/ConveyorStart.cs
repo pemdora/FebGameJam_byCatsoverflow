@@ -34,14 +34,7 @@ public class ConveyorStart : MonoBehaviour
         _tracked = new List<ConveyorItem>();
         _pool = new List<ConveyorItem>();
         // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base et au scale du tapis ( la BASE_SPEED est la vitesse de base de l'animation pour un scale de 1)
-        _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;
-        //debug log pour vérifier que la vitesse de l'animation est bien synchro avec la vitesse du tapis
-        Debug.Log("vitesse de l'animation : " + _beltAnimator.speed);
-        //debug log de la taille du tapis
-        Debug.Log("taille du tapis : " + _belt.transform.localScale.x);
-
-
-
+        _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;    
         InitializeWarePools();
     }
 
