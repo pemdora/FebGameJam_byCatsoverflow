@@ -12,10 +12,6 @@ public enum WareBoundsIndicator
 
 public class WareBounds : MonoBehaviour
 {
-
-
-
-
     [Header("References")] 
     [SerializeField] private Collider _collider;
     [SerializeField] private GameObject _correctIndicator;
@@ -97,6 +93,15 @@ public class WareBounds : MonoBehaviour
             {
                 // Don't take into account for self overlap
                 continue;
+            }
+
+            if (collider.TryGetComponent(out WareBounds bounds))
+            {
+                if (bounds.GetWare() == GetWare())
+                {
+                    // Don't take into account for other ware bounds that are in the same ware as this one
+                    continue;
+                }
             }
 
             return true;
