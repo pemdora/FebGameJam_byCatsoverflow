@@ -29,13 +29,11 @@ public class Ware : MonoBehaviour, IWareSupport
             bound.Initialize(this);   
         }  
 
-        if(_graphicObject != null && _graphicObjectContainer != null){
-            createGraphicObject();
-        }
+        if(_graphicObject && _graphicObjectContainer) createGraphicObject();
+        
     }
 
-
-    //place gameObject for each wareBounds
+    
     public void createGraphicObject()
     {
         foreach (WareBounds wareBound in _bounds)
