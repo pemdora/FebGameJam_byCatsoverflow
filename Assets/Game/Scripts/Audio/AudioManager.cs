@@ -1,79 +1,82 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource _audiosource;
-    public AudioMixer gameAudioMixer;
-    public AudioSource musicSource;
+    public static AudioManager Instance { get; private set; }
 
+    [SerializeField] private AudioMixer _gameAudioMixer;
+    [SerializeField] private AudioSource _musicAudioSource;
+    [SerializeField] private AudioSource _sfxAudioSource;
 
-    private void Awake()
+    private float _musicBaseVolume = -12f;
+    private float _sfxBaseVolume = -12f;
+    private float _masterBaseVolume = -12f;
+
+    void Awake()
     {
-        _audiosource = GetComponent<AudioSource>();
-        musicSource = GetComponent<AudioSource>();
-        PlayBGMusic();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
-    void PlayBGMusic()
+
+    void Start()
     {
-        musicSource.Play();
+        _gameAudioMixer.SetFloat("MasterVolume", _masterBaseVolume);
+        _gameAudioMixer.SetFloat("MusicVolume", _musicBaseVolume);
+        _gameAudioMixer.SetFloat("SFXVolume", _sfxBaseVolume);
     }
-    void StopBGMusic()
+
+    public void PlayMusic(AudioClip music)
     {
-        musicSource.Stop();
+        _musicAudioSource.clip = music;
+        _musicAudioSource.Play();
     }
+
+    public void StopMusic()
+    {
+        _musicAudioSource.Stop();
+    }
+
+    public void PlaySound(AudioClip sound)
+    {
+        _sfxAudioSource.PlayOneShot(sound);
+    }
+
+    public void MasterVolume(float volume)
+    {
+        _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(volume));
+    }
+
     public void SetMusicVolume(float volume)
     {
-        gameAudioMixer.SetFloat("MusicVolume", volume); // "MusicVolume" est le nom du paramètre dans l'Audio Mixer
-    }
-    public void SetFXVolume(float volume)
-    {
-        gameAudioMixer.SetFloat("FXVolume", volume); // "FXVolume" est le nom du paramètre dans l'Audio Mixer
+        _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(volume));
     }
 
-    /// <summary>
-    /// Plays an audio file at max volume.
-    /// </summary>
-    /// <param name="clip">The AudioClip to play.</param>
-    public void PlaySound(AudioClip clip)
+    public void SetSoundVolume(float volume)
     {
-        if (_audiosource)
+        _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(volume));
+    }
+
+    private float VolumeToDecibel(float volume)
+    {
+        if (volume == 0f)
         {
-            _audiosource.PlayOneShot(clip, 1f);
+            return -80f;
         }
-    }
-    public void StopSound()
-    {
-        if (_audiosource)
+        else
         {
-            _audiosource.Stop();
-        }
-    }
-
-    void PlayMusic()
-    {
-        // Démarre la lecture de la musique
-        musicSource.Play();
-    }
-
-    void StopMusic()
-    {
-        // Arrête la lecture de la musique
-        musicSource.Stop();
-    }
-
-
-    /// <summary>
-    /// Plays an audio file with a set volume.
-    /// </summary>
-    /// <param name="clip">The AudioClip to play.</param>
-    /// <param name="volume">The volume of the AudioClip to play.</param>
-    public void PlaySoundWithVolume(AudioClip clip, float volume)
-    {
-        if (_audiosource)
-        {
-            _audiosource.PlayOneShot(clip, volume);
+            return Mathf.Clamp(
+                Mathf.Log10(volume * 20 * 4),
+                -80f,
+                0f
+                );
         }
     }
 }
