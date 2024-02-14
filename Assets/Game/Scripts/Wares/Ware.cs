@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
@@ -10,38 +11,43 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("References")]
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
-    [SerializeField] private GameObject _graphicObject;
+    [SerializeField] private GameObject[] _graphicObject;
     [SerializeField] private GameObject _graphicObjectContainer;
 
-
+    private int? randomObject;
+  
     private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
 
     private Coroutine _rotationCoroutine;
     private Cargo _associatedCargo;
 
-    public void Initialize(Transform poolTransform)
+
+    void Awake()
     {
-        _warePoolContainer = poolTransform;
-
-        foreach (WareBounds bound in _bounds)
-        {            
-            bound.Initialize(this);   
-        }  
-
-        if(_graphicObject && _graphicObjectContainer) createGraphicObject();
+        if(randomObject == null){
+            randomObject = UnityEngine.Random.Range(0, _graphicObject.Length);
+        }
         
     }
 
-    
-    public void createGraphicObject()
+
+    public void Initialize(Transform poolTransform)
     {
-        foreach (WareBounds wareBound in _bounds)
-        {
-            GameObject newGraphicObject = Instantiate(_graphicObject, wareBound.transform.position, Quaternion.identity);
-            newGraphicObject.transform.parent = _graphicObjectContainer.transform;
-            newGraphicObject.transform.Rotate(-90, 0, 0);
-        }
+        _warePoolContainer = poolTransform;
+       
+        foreach (WareBounds bound in _bounds)
+        {            
+            bound.Initialize(this);   
+
+            if(_graphicObject.Length > 0 && _graphicObjectContainer) 
+            {
+                GameObject newGraphicObject = Instantiate(_graphicObject[(int)randomObject], bound.transform.position, Quaternion.identity);
+                // GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
+                newGraphicObject.transform.parent = _graphicObjectContainer.transform;
+            }
+        }        
+    
     }
     
 
