@@ -28,14 +28,10 @@ public class MissileLedBlink : MonoBehaviour
     {
         while (true)
         {
-
-            Debug.Log("clignotement");
            
             meshRenderer.material.EnableKeyword("_EMISSION");
             meshRenderer.material.SetColor("_EmissionColor", _onEmissionColor);
             yield return new WaitForSeconds(blinkDelay);
-            
-
             
             meshRenderer.material.DisableKeyword("_EMISSION");
             meshRenderer.material.SetColor("_EmissionColor", _offEmissionColor);
