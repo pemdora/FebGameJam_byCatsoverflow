@@ -14,14 +14,19 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject[] _graphicObject;
     [SerializeField] private GameObject _graphicObjectContainer;
 
+
     private GameObject _graphicObjectSelected;
+    [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
     private int? randomObjectID;
   
     private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
 
+    
     private Coroutine _rotationCoroutine;
+    private Coroutine _scaleCoroutine;
+    private float _scaleDuration;
     private Cargo _associatedCargo;
 
 
@@ -42,11 +47,12 @@ public class Ware : MonoBehaviour, IWareSupport
         foreach (WareBounds bound in _bounds)
         {            
             bound.Initialize(this);   
+        }
+        _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
 
             if(_graphicObject.Length > 0 && _graphicObjectContainer) 
             {
-                GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
-                // GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
+                GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);             
                 newGraphicObject.transform.parent = _graphicObjectContainer.transform;
             }
         }        
@@ -61,6 +67,7 @@ public class Ware : MonoBehaviour, IWareSupport
         ClearBoundsIndicators();
         _associatedCargo.AddWare(this);
         transform.parent = destination.transform;
+        StartPlaceAnimation();
     }
 
     public void Pick(PickManager manager)
@@ -87,6 +94,43 @@ public class Ware : MonoBehaviour, IWareSupport
         return true;
     }
 
+    private void StartPlaceAnimation()
+    {
+        if (_scaleCoroutine != null)
+        {
+            StopCoroutine(_scaleCoroutine);
+        }
+        if(_scaleAnimationCurve == null || _scaleAnimationCurve.keys.Length == 0)
+        {
+            Debug.LogWarning("No scale animation curve set for " + name);
+            return;
+        }
+        
+        _scaleCoroutine = StartCoroutine(ScaleCoroutine());
+    }
+
+    // Scale according to the animation curve
+    private IEnumerator ScaleCoroutine()
+    {
+        float timer = _scaleDuration;
+        float ratio = 0;
+    
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            ratio = (_scaleDuration - timer) / _scaleDuration;
+            float scale = _scaleAnimationCurve.Evaluate(ratio);
+            transform.localScale = new Vector3(scale, scale, scale);
+            
+            yield return null;
+        }
+
+        // force scale to last value
+        transform.localScale = new Vector3(_scaleAnimationCurve.Evaluate(_scaleDuration), _scaleAnimationCurve.Evaluate(_scaleDuration), _scaleAnimationCurve.Evaluate(_scaleDuration));
+    
+        _scaleCoroutine = null;
+    }
+    
     private IEnumerator RotateCoroutine(int angle, Vector3 offset)
     {
         float percent = 0;
