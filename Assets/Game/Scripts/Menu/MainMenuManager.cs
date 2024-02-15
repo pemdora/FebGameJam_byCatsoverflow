@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScenesLoading : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
     public string titreSceneGame;
     public string titreSceneCredit;
