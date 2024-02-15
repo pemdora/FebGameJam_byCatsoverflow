@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
@@ -10,41 +12,43 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("References")]
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
-    [SerializeField] private GameObject _graphicObject;
+    [SerializeField] private GameObject[] _graphicObject;
     [SerializeField] private GameObject _graphicObjectContainer;
 
-
     public Transform WarePoolContainer { get => _warePoolContainer; }
-    
+
+
+    private GameObject _graphicObjectSelected;
+    private int? randomObjectID;  
     private Transform _warePoolContainer;
     private Coroutine _rotationCoroutine;
     private Coroutine _scaleCoroutine;
     private float _scaleDuration;
     private Cargo _associatedCargo;
-
+    
+    void OnEnable()
+    {
+        RandomizeGraphicObjectSelection();
+    }
+    
     public void Initialize(Transform poolTransform)
     {
         _warePoolContainer = poolTransform;
-
+       
         foreach (WareBounds bound in _bounds)
-        {            
-            bound.Initialize(this);   
+        {
+            bound.Initialize(this);
+            InstantiateGraphicObjectSelectedOnBound(bound);
         }
         _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
-
-        if(_graphicObject != null && _graphicObjectContainer != null){
-            createGraphicObject();
-        }
     }
 
-    //place gameObject for each wareBounds
-    public void createGraphicObject()
+    private void InstantiateGraphicObjectSelectedOnBound(WareBounds bound)
     {
-        foreach (WareBounds wareBound in _bounds)
+        if (_graphicObject.Length > 0 && _graphicObjectContainer)
         {
-            GameObject newGraphicObject = Instantiate(_graphicObject, wareBound.transform.position, Quaternion.identity);
+            GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
             newGraphicObject.transform.parent = _graphicObjectContainer.transform;
-            newGraphicObject.transform.Rotate(-90, 0, 0);
         }
     }
     
@@ -238,7 +242,16 @@ public class Ware : MonoBehaviour, IWareSupport
     {
         return _associatedCargo;
     }
-
+    
+    private void RandomizeGraphicObjectSelection()
+    {
+        if (randomObjectID == null && _graphicObject.Length > 0)
+        {
+            randomObjectID = UnityEngine.Random.Range(0, _graphicObject.Length);
+            _graphicObjectSelected = _graphicObject[(int)randomObjectID];
+        }
+    }
+    
 #if UNITY_EDITOR
     private void OnValidate()
     {

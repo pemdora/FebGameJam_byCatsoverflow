@@ -24,6 +24,23 @@ PrefabInstance:
       propertyPath: _graphicObjectContainer
       value: 
       objectReference: {fileID: 161951193771945380}
+    - target: {fileID: 3186800975678423667, guid: c7bf75b3789791342a05e219458b8717,
+        type: 3}
+      propertyPath: _graphicObject.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186800975678423667, guid: c7bf75b3789791342a05e219458b8717,
+        type: 3}
+      propertyPath: _graphicObject.Array.data[0]
+      value: 
+      objectReference: {fileID: 3713274857670151258, guid: cba9e8559277fb94bb024a03f53ac543,
+        type: 3}
+    - target: {fileID: 3186800975678423667, guid: c7bf75b3789791342a05e219458b8717,
+        type: 3}
+      propertyPath: _graphicObject.Array.data[1]
+      value: 
+      objectReference: {fileID: 1850255074692712, guid: 5bc48b2bef13210448ef8362c1b1bca4,
+        type: 3}
     - target: {fileID: 3947119731127441763, guid: c7bf75b3789791342a05e219458b8717,
         type: 3}
       propertyPath: m_LocalPosition.x
