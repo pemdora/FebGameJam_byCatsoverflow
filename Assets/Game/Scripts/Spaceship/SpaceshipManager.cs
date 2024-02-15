@@ -58,7 +58,7 @@ public class SpaceshipManager : MonoBehaviour
 
     }
 
-    void NextSpaceship()
+    public void NextSpaceship()
     {
         if (_leaveCoroutine == null && _arrivalCoroutine == null)
         {
