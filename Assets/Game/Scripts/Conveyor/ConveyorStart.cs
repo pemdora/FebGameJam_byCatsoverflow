@@ -14,8 +14,11 @@ public class ConveyorStart : MonoBehaviour
     [Header("References")]
     [SerializeField] private ConveyorItem _conveyorSlotPrefab;
     [SerializeField] private WareCollection _wareCollection;
-    [SerializeField] private Animator _beltAnimator;
     [SerializeField] private Transform _warePoolsContainer;
+
+    [Header("Animation")]
+    [SerializeField] private Animator _beltAnimator;
+    [SerializeField] private GameObject _belt;
 
     public bool IsRunning { get; private set; }
 
@@ -30,9 +33,8 @@ public class ConveyorStart : MonoBehaviour
         _transform = transform;
         _tracked = new List<ConveyorItem>();
         _pool = new List<ConveyorItem>();
-        // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base
-        _beltAnimator.speed = _speed / BASE_SPEED;
-
+        // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base et au scale du tapis ( la BASE_SPEED est la vitesse de base de l'animation pour un scale de 1)
+        _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;    
         InitializeWarePools();
     }
 

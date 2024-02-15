@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
@@ -10,11 +11,15 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("References")]
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
-    [SerializeField] private GameObject _graphicObject;
+    [SerializeField] private GameObject[] _graphicObject;
     [SerializeField] private GameObject _graphicObjectContainer;
 
+
+    private GameObject _graphicObjectSelected;
     [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
+    private int? randomObjectID;
+  
     private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
 
@@ -24,31 +29,34 @@ public class Ware : MonoBehaviour, IWareSupport
     private float _scaleDuration;
     private Cargo _associatedCargo;
 
+
+    void OnEnable()
+    {
+        if(randomObjectID == null && _graphicObject.Length > 0){
+            randomObjectID = UnityEngine.Random.Range(0, _graphicObject.Length);
+            _graphicObjectSelected = _graphicObject[(int)randomObjectID];
+        }
+        
+    }
+
+
     public void Initialize(Transform poolTransform)
     {
         _warePoolContainer = poolTransform;
-
+       
         foreach (WareBounds bound in _bounds)
         {            
             bound.Initialize(this);   
         }
         _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
 
-        if(_graphicObject != null && _graphicObjectContainer != null){
-            createGraphicObject();
-        }
-    }
-
-
-    //place gameObject for each wareBounds
-    public void createGraphicObject()
-    {
-        foreach (WareBounds wareBound in _bounds)
-        {
-            GameObject newGraphicObject = Instantiate(_graphicObject, wareBound.transform.position, Quaternion.identity);
-            newGraphicObject.transform.parent = _graphicObjectContainer.transform;
-            newGraphicObject.transform.Rotate(-90, 0, 0);
-        }
+            if(_graphicObject.Length > 0 && _graphicObjectContainer) 
+            {
+                GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);             
+                newGraphicObject.transform.parent = _graphicObjectContainer.transform;
+            }
+        }        
+    
     }
     
 
