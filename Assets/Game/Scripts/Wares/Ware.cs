@@ -14,7 +14,9 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject[] _graphicObject;
     [SerializeField] private GameObject _graphicObjectContainer;
 
-    private int? randomObject;
+    private GameObject _graphicObjectSelected;
+
+    private int? randomObjectID;
   
     private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
@@ -23,10 +25,11 @@ public class Ware : MonoBehaviour, IWareSupport
     private Cargo _associatedCargo;
 
 
-    void Awake()
+    void OnEnable()
     {
-        if(randomObject == null){
-            randomObject = UnityEngine.Random.Range(0, _graphicObject.Length);
+        if(randomObjectID == null && _graphicObject.Length > 0){
+            randomObjectID = UnityEngine.Random.Range(0, _graphicObject.Length);
+            _graphicObjectSelected = _graphicObject[(int)randomObjectID];
         }
         
     }
@@ -42,7 +45,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
             if(_graphicObject.Length > 0 && _graphicObjectContainer) 
             {
-                GameObject newGraphicObject = Instantiate(_graphicObject[(int)randomObject], bound.transform.position, Quaternion.identity);
+                GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
                 // GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
                 newGraphicObject.transform.parent = _graphicObjectContainer.transform;
             }
