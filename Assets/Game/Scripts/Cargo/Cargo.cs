@@ -3,10 +3,15 @@ using UnityEngine;
 
 public class Cargo : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private int _cargoSize = 3;
+    [SerializeField] private WareCollection _allowedCollection;
+    
     [Header("References")]
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
-    [SerializeField] private int _cargoSize = 3;
+
+    public WareCollection AllowedCollection => _allowedCollection;
 
     private float _fillPercentage = 0f;
     private int _cargoCases;

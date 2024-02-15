@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1469035524801663955}
   - component: {fileID: 8925642590390673760}
   m_Layer: 0
-  m_Name: 4x4x4 Spaceship
+  m_Name: Kamtar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bdb78cfd4fd02499ee95b1c1590ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 5
+  id: 0
+  _loadingDuration: 10
+  _cargo: {fileID: 5016268329506125278}
 --- !u!1001 &1032497252644200281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,6 +152,18 @@ PrefabInstance:
       addedObject: {fileID: 5169250063784255824}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07ea8f62d08191042b7faafbcbd4fa09, type: 3}
+--- !u!114 &5016268329506125278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5461027620981156487, guid: 07ea8f62d08191042b7faafbcbd4fa09,
+    type: 3}
+  m_PrefabInstance: {fileID: 1032497252644200281}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a390c161b7134976b54d78a6e6b2619c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8328638678475952568 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9061644904313114337, guid: 07ea8f62d08191042b7faafbcbd4fa09,

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +5,7 @@ public class Ware : MonoBehaviour, IWareSupport
 {
     [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
+    [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
     [Header("References")]
     [SerializeField] private GameObject _highlight;
@@ -13,12 +13,10 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject _graphicObject;
     [SerializeField] private GameObject _graphicObjectContainer;
 
-    [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
-    private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
-
     
+    private Transform _warePoolContainer;
     private Coroutine _rotationCoroutine;
     private Coroutine _scaleCoroutine;
     private float _scaleDuration;
@@ -39,7 +37,6 @@ public class Ware : MonoBehaviour, IWareSupport
         }
     }
 
-
     //place gameObject for each wareBounds
     public void createGraphicObject()
     {
@@ -51,7 +48,6 @@ public class Ware : MonoBehaviour, IWareSupport
         }
     }
     
-
     public void Place(Cargo destination)
     {
         _associatedCargo = destination;

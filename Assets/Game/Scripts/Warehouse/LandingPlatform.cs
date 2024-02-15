@@ -31,6 +31,12 @@ public class LandingPlatform : MonoBehaviour
         }
     }
 
+    public void PlaceSpaceship(Spaceship spaceship)
+    {
+        spaceship.transform.SetParent(transform);
+        spaceship.transform.position = transform.position;
+    }
+    
     public void Rotate(bool clockwise)
     {
         if (_rotationCoroutine != null)

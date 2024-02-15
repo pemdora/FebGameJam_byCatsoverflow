@@ -1,146 +1,123 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class SpaceshipManager : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private List<Spaceship> _spaceshipsPrefab;
+    
+    [Header("References")]
     [SerializeField] private LandingPlatform _landingPlatform;
-    [SerializeField] private List<Spaceship> _spaceshipPrefabList;
+    [SerializeField] private ConveyorStart _conveyorStart;
+    [SerializeField] private SpaceshipConductor _arrivalConductor;
+    [SerializeField] private SpaceshipConductor _departureConductor;
 
-
-    private Spaceship _spaceship;
-    private Queue<Spaceship> _spaceshipPrefabQueue;
-    private float currentTime = 0;
-    private int _spaceshipTime = 0;
-    private Coroutine _arrivalCoroutine;
-    private Coroutine _leaveCoroutine;
-
+    private Spaceship _currentSpaceship;
+    private Dictionary<int, List<Spaceship>> _spaceshipsPool;
 
     // Start is called before the first frame update
     void Start()
     {
-        _spaceshipPrefabQueue = new Queue<Spaceship>();
-        for (int i = 0; i < _spaceshipPrefabList.Count; i++)
-        {
-            _spaceshipPrefabQueue.Enqueue(_spaceshipPrefabList[i]);
-        }
-        if (_landingPlatform)
-        {
-            _spaceship = _landingPlatform.GetComponentInChildren<Spaceship>();
-        }
-        if (_spaceship)
-        {
-            _spaceshipTime = _spaceship.Duration;
-        }
+        _spaceshipsPool = new();
+        BringNewSpaceship();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.I))
+        if (!_currentSpaceship)
         {
-            NextSpaceship();
+            return;
         }
-
-        if (_spaceship)
+        
+        // Make the spaceship leave if there is no time left on the counter
+        if (_currentSpaceship.LoadingLeft <= 0)
         {
-            currentTime += Time.deltaTime;
-            if (currentTime > _spaceshipTime)
-            {
-                NextSpaceship();
-            }
-            if (_landingPlatform && SpaceshipRemainingTime() < _landingPlatform.Duration)
-            {
-                _landingPlatform.CanRotate = false;
-            }
+            OnCurrentSpaceshipTimerReachedZero();
         }
-
+        
+        // Block landing platform rotation if the spaceship is about to leave
+        if (_landingPlatform.CanRotate && _currentSpaceship.LoadingLeft <= _landingPlatform.Duration)
+        {
+            _landingPlatform.CanRotate = false;
+        }
+        
+        // TODO update remaining time in world digetic
     }
 
-    void NextSpaceship()
+    private void BringNewSpaceship()
     {
-        if (_leaveCoroutine == null && _arrivalCoroutine == null)
-        {
-            _spaceshipTime = 0;
-            _leaveCoroutine = StartCoroutine(DestroySpaceshipCoroutine());
-            _arrivalCoroutine = StartCoroutine(SpaceshipArrival());
-        }
+        Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
+        _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded);
+        
+        _conveyorStart.StartConveyor(spaceship.Cargo.AllowedCollection);
     }
 
-
-    Spaceship SpawnNextSpaceship()
+    private void NewSpaceshipLanded(Spaceship spaceship)
     {
-        if (_spaceshipPrefabQueue.Count > 0)
-        {
-            Spaceship spaceshipPrefab = _spaceshipPrefabQueue.Dequeue();
-            if (spaceshipPrefab)
-            {
-                Spaceship spaceshipObject = Instantiate(spaceshipPrefab);
-                spaceshipObject.transform.position = _landingPlatform.transform.position;
-                spaceshipObject.DeactivateCargo();
-                return spaceshipObject;
-            }
-            return null;
+        _landingPlatform.PlaceSpaceship(spaceship);
+        _currentSpaceship = spaceship;
+        _currentSpaceship.StartLoading();
+        _landingPlatform.CanRotate = true;
+    }
 
+    private void SpaceshipDeparture()
+    {
+        _currentSpaceship.StopLoading();
+        _conveyorStart.StopConveyor();
+        
+        _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft);
+        _currentSpaceship = null;
+    }
+
+    private void SpaceshipLeft(Spaceship spaceship)
+    {
+        ReturnSpaceship(spaceship);
+    }
+
+    private void OnCurrentSpaceshipTimerReachedZero()
+    {
+        // TODO : decrease score then check if loose condition is reached. If not reached, we make the spaceship left
+        SpaceshipDeparture();
+    }
+
+    private void OnCurrentSpaceshipFull()
+    {
+        // TODO : increase score
+        SpaceshipDeparture();
+    }
+    
+    private Spaceship GetSpaceship(Spaceship spaceship)
+    {
+        Spaceship instance;
+        int id = spaceship.id;
+        if (_spaceshipsPool.ContainsKey(id) && _spaceshipsPool[id]?.Count > 0)
+        {
+            instance = _spaceshipsPool[id][0];
+            _spaceshipsPool[id].RemoveAt(0);
         }
         else
         {
-            return null;
+            instance = Instantiate(spaceship.gameObject).GetComponent<Spaceship>();
         }
+
+        instance.Initialize();
+        return instance;
     }
 
-    private IEnumerator DestroySpaceshipCoroutine()
+    private void ReturnSpaceship(Spaceship spaceship)
     {
-        Spaceship spaceshipToDestroy = _spaceship;
-        if (spaceshipToDestroy)
+        int id = spaceship.id;
+        if (!_spaceshipsPool.ContainsKey(id))
         {
-            spaceshipToDestroy.DeactivateCargo();
-            spaceshipToDestroy.transform.parent = null;
-        }
-        float percent = 0;
-        float _duration = 1.0f;
-        while (percent < 1)
-        {
-            percent += Time.deltaTime * 1 / _duration;
-            spaceshipToDestroy.transform.position += new Vector3(15 * Time.deltaTime, 0, 0);
-            yield return null;
+            _spaceshipsPool.Add(id, new List<Spaceship>());
         }
 
-        Destroy(spaceshipToDestroy.gameObject);
-        _leaveCoroutine = null;
-    }
-
-    private IEnumerator SpaceshipArrival()
-    {
-        Spaceship nextSpaceship = SpawnNextSpaceship();
-        if (nextSpaceship)
+        if (_spaceshipsPool[id] == null)
         {
-            nextSpaceship.transform.position -= new Vector3(15, 0, 0);
-
-            float percent = 0;
-            float _duration = 1.0f;
-            while (percent < 1)
-            {
-                percent += Time.deltaTime * 1 / _duration;
-                nextSpaceship.transform.position += new Vector3(15 * Time.deltaTime, 0, 0);
-                yield return null;
-
-            }
-            nextSpaceship.ActivateCargo();
-            _spaceship = nextSpaceship;
-            _spaceship.transform.SetParent(_landingPlatform.transform);
-            _spaceshipTime = _spaceship.Duration;
-            _arrivalCoroutine = null;
-            currentTime = 0;
-            _landingPlatform.CanRotate = true;
+            _spaceshipsPool[id] = new List<Spaceship>();
         }
-
+        
+        _spaceshipsPool[id].Add(spaceship);
     }
-
-    public float SpaceshipRemainingTime()
-    {
-        return _spaceshipTime - currentTime;
-    }
-
 }

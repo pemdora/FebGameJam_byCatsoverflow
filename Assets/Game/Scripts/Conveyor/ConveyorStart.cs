@@ -13,7 +13,6 @@ public class ConveyorStart : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private ConveyorItem _conveyorSlotPrefab;
-    [SerializeField] private WareCollection _wareCollection;
     [SerializeField] private Animator _beltAnimator;
     [SerializeField] private Transform _warePoolsContainer;
 
@@ -23,6 +22,7 @@ public class ConveyorStart : MonoBehaviour
     private Coroutine _spawningCoroutine;
     private List<ConveyorItem> _tracked;
     private List<ConveyorItem> _pool;
+    private WareCollection _wareCollection;
     private Dictionary<int, List<Ware>> _warePools;
 
     private void Awake()
@@ -32,14 +32,6 @@ public class ConveyorStart : MonoBehaviour
         _pool = new List<ConveyorItem>();
         // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base
         _beltAnimator.speed = _speed / BASE_SPEED;
-
-        InitializeWarePools();
-    }
-
-    private void Start()
-    {
-        // TODO: let level manager handle this
-        StartConveyor();
     }
 
     /// <summary>
@@ -63,12 +55,15 @@ public class ConveyorStart : MonoBehaviour
         }
     }
 
-    public void StartConveyor()
+    public void StartConveyor(WareCollection wareCollection)
     {
         if (IsRunning)
         {
             return;
         }
+
+        _wareCollection = wareCollection;
+        InitializeWarePools();
 
         IsRunning = true;
         _spawningCoroutine = StartCoroutine(SpawningCoroutine());

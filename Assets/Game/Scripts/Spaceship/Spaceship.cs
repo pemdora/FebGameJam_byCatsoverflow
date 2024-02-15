@@ -1,27 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Spaceship : MonoBehaviour
 {
-    [SerializeField] private int _duration;
+    [Header("Settings")]
+    public int id; 
+    [SerializeField] private float _loadingDuration = 10;
+    
+    [Header("References")] 
+    [SerializeField] private Cargo _cargo;
 
-    public int Duration { get => _duration; set => _duration = value; }
-    public void ActivateCargo()
+    public float LoadingDuration => _loadingDuration;
+    public float LoadingTimer { get; private set; }
+    public float LoadingLeft => LoadingDuration - LoadingTimer;
+    public bool IsLoading { get; private set; }
+    public Cargo Cargo => _cargo;
+
+    public void Initialize()
     {
-        Cargo cargo = GetComponentInChildren<Cargo>();
-        if (cargo)
+        LoadingTimer = 0;
+    }
+
+    private void Update()
+    {
+        if (IsLoading)
         {
-            cargo.ActivateCargo();
+            LoadingTimer += Time.deltaTime;
         }
     }
 
-    public void DeactivateCargo()
+    public void StartLoading()
     {
-        Cargo cargo = GetComponentInChildren<Cargo>();
-        if (cargo)
-        {
-            cargo.DeactivateCargo();
-        }
+        IsLoading = true;
+    }
+
+    public void StopLoading()
+    {
+        IsLoading = false;
     }
 }
