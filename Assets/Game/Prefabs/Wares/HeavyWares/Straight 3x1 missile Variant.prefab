@@ -157,6 +157,16 @@ PrefabInstance:
       propertyPath: _bounds.Array.data[2]
       value: 
       objectReference: {fileID: 782730592484323181}
+    - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
+        type: 3}
+      propertyPath: _wareTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
+        type: 3}
+      propertyPath: _wareTypes.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

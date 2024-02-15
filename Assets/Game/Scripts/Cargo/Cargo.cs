@@ -11,6 +11,7 @@ public class Cargo : MonoBehaviour
     private float _fillPercentage = 0f;
     private int _cargoCases;
     private List<Ware> _placedWare;
+    private Dictionary<Ware.WareTypes, int> _typesCounter = new Dictionary<Ware.WareTypes, int>();
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class Cargo : MonoBehaviour
     public void AddWare(Ware ware)
     {
         _placedWare.Add(ware);
+        AddWareTypes(ware.GetWareTypes());
         UpdateCargoContent();
 
         // TODO: add ware interaction trigger here
@@ -34,6 +36,7 @@ public class Cargo : MonoBehaviour
     public void RemoveWare(Ware ware)
     {
         _placedWare.Remove(ware);
+        RemoveWareTypes(ware.GetWareTypes());
         UpdateCargoContent();
     }
 
@@ -46,6 +49,40 @@ public class Cargo : MonoBehaviour
         {
             _fillPercentage = ((float)casesFilled / (float)_cargoCases) * 100f;
             _fillPercentage = Mathf.Round(_fillPercentage);
+        }
+    }
+
+    void AddWareTypes(Ware.WareTypes[] wareTypes)
+    {
+        for (int i = 0; i < wareTypes.Length; i++)
+        {
+            Ware.WareTypes type = wareTypes[i];
+            if (!_typesCounter.ContainsKey(type) )
+            {
+                _typesCounter[type] = 0;
+            }
+            _typesCounter[wareTypes[i]]++;
+        }
+        DebugPrintTypesCounter();
+
+    }
+
+    void RemoveWareTypes(Ware.WareTypes[] wareTypes)
+    {
+        for (int i = 0; i < wareTypes.Length; i++)
+        {
+            _typesCounter[wareTypes[i]]--;
+        }
+        DebugPrintTypesCounter();
+    }
+
+    void DebugPrintTypesCounter()
+    {
+         string debugString = "Types counter: ";
+        Debug.Log(debugString);
+        foreach (KeyValuePair<Ware.WareTypes, int> pair in _typesCounter){
+            debugString = "["+pair.Key + "] : " + pair.Value + " ";
+            Debug.Log(debugString);
         }
     }
 

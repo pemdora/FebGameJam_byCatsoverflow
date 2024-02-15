@@ -5,8 +5,19 @@ using UnityEngine.Rendering;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
+
+    public enum WareTypes
+    {
+        BasicBox,
+        CardBox,
+        Heavy,
+        Explosive
+    }
+
+
     [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
+    [SerializeField] private WareTypes[] _wareTypes;
 
     [Header("References")]
     [SerializeField] private GameObject _highlight;
@@ -28,6 +39,13 @@ public class Ware : MonoBehaviour, IWareSupport
     private float _scaleDuration;
     private Cargo _associatedCargo;
 
+    void Start()
+    {
+        if (_wareTypes.Length == 0)
+        {
+            Debug.Log(gameObject.name + " has no waretype");
+        }
+    }
 
     void OnEnable()
     {
@@ -258,6 +276,14 @@ public class Ware : MonoBehaviour, IWareSupport
         }
     }
 
+    public WareTypes[] GetWareTypes()
+    {
+        return _wareTypes;
+    }
+
+
+
+  
 
 #if UNITY_EDITOR
     private void OnValidate()
