@@ -46,18 +46,19 @@ public class Ware : MonoBehaviour, IWareSupport
        
         foreach (WareBounds bound in _bounds)
         {            
-            bound.Initialize(this);   
-        }
-        _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
-
-            if(_graphicObject.Length > 0 && _graphicObjectContainer) 
+            bound.Initialize(this);  
+             if(_graphicObject.Length > 0 && _graphicObjectContainer) 
             {
                 GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);             
                 newGraphicObject.transform.parent = _graphicObjectContainer.transform;
-            }
-        }        
+            } 
+        }
+        _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
+
+           
+    }        
     
-    }
+    
     
 
     public void Place(Cargo destination)
