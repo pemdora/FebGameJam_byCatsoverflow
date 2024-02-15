@@ -24,7 +24,6 @@ public class ConveyorStart : MonoBehaviour
     private List<ConveyorItem> _tracked;
     private List<ConveyorItem> _pool;
     private WareCollection _wareCollection;
-    private Dictionary<int, List<Ware>> _warePools;
 
     private void Awake()
     {
@@ -35,38 +34,16 @@ public class ConveyorStart : MonoBehaviour
         _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;
     }
 
-    /// <summary>
-    /// Initializes the pooling of wares into a dictionary.
-    /// </summary>
-    private void InitializeWarePools()
-    {
-        if (_warePools != null)
-        {
-            return;
-        }
-
-        _warePools = new();
-
-        int count = 0;
-
-        foreach (Ware ware in _wareCollection.wares)
-        {
-            _warePools.Add(count, new List<Ware>());
-            count++;
-        }
-    }
-
     public void StartConveyor(WareCollection wareCollection)
     {
         if (IsRunning)
         {
             return;
         }
-
-        _wareCollection = wareCollection;
-        InitializeWarePools();
         
         IsRunning = true;
+        
+        _wareCollection = wareCollection;
         _spawningCoroutine = StartCoroutine(SpawningCoroutine());
     }
 
@@ -122,34 +99,7 @@ public class ConveyorStart : MonoBehaviour
 
     private Ware GetWare()
     {
-        Ware ware = null;
-
-        if (_warePools.Count == 0)
-        {
-            Debug.LogError($"Ware list is empty.");
-            return null;
-        }
-
-        int wareIndex = Random.Range(0, _warePools.Count);
-
-        List<Ware> warePool = _warePools[wareIndex];
-
-        foreach (Ware thisWare in warePool)
-        {
-            if (!thisWare.gameObject.activeSelf)
-            {
-                ware = thisWare;
-                ware.gameObject.SetActive(true);
-                break;
-            }
-        }
-
-        if (ware == null)
-        {
-            ware = Instantiate(_wareCollection.wares[wareIndex]);
-            warePool.Add(ware);
-        }
-
+        Ware ware = Instantiate(_wareCollection.GetRandom());
         ware.Initialize(_warePoolsContainer);
         return ware;
     }

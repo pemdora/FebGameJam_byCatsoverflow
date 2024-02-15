@@ -1,12 +1,15 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpaceshipConductor : MonoBehaviour
 {
-    private static readonly int anim = Animator.StringToHash("");
-
+    [Header("Settings")] 
+    [SerializeField] private string[] _triggers;
+    
     [Header("References")] 
     [SerializeField] private Animator _animator;
+    [SerializeField] private Transform _conductor;
     
     private Spaceship _spaceship;
     private Action<Spaceship> _onArrivalCallback;
@@ -14,10 +17,11 @@ public class SpaceshipConductor : MonoBehaviour
     public void AttachSpaceship(Spaceship spaceship, Action<Spaceship> onArrivalCallback)
     {
         _spaceship = spaceship;
-        _spaceship.transform.SetParent(transform);
+        _spaceship.transform.SetParent(_conductor);
+        _spaceship.transform.localPosition = Vector3.zero;
         _onArrivalCallback = onArrivalCallback;
         
-        _animator.SetTrigger(anim);
+        _animator.SetTrigger(_triggers[Random.Range(0, _triggers.Length)]);
     }
 
     public void OnAnimationEnded()
