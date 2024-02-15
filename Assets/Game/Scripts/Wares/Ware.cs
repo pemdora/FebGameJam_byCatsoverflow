@@ -8,6 +8,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
     public enum WareTypes
     {
+        Undefined,
         BasicBox,
         CardBox,
         Heavy,
@@ -17,7 +18,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
     [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
-    [SerializeField] private WareTypes[] _wareTypes;
+    [SerializeField] private WareTypes _wareType;
 
     [Header("References")]
     [SerializeField] private GameObject _highlight;
@@ -41,7 +42,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
     void Start()
     {
-        if (_wareTypes.Length == 0)
+        if (_wareType == WareTypes.Undefined)
         {
             Debug.Log(gameObject.name + " has no waretype");
         }
@@ -276,9 +277,9 @@ public class Ware : MonoBehaviour, IWareSupport
         }
     }
 
-    public WareTypes[] GetWareTypes()
+    public WareTypes GetWareType()
     {
-        return _wareTypes;
+        return _wareType;
     }
 
 

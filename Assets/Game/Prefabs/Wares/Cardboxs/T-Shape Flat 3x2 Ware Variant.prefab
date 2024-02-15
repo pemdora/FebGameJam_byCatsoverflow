@@ -65,6 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9043620045296822635, guid: c124b687808583b4d9871e0f6e176fa0,
         type: 3}
+      propertyPath: _wareType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043620045296822635, guid: c124b687808583b4d9871e0f6e176fa0,
+        type: 3}
       propertyPath: _wareTypes.Array.size
       value: 1
       objectReference: {fileID: 0}

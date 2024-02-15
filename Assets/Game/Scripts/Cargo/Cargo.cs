@@ -27,7 +27,7 @@ public class Cargo : MonoBehaviour
     public void AddWare(Ware ware)
     {
         _placedWare.Add(ware);
-        AddWareTypes(ware.GetWareTypes());
+        AddWareTypes(ware.GetWareType());
         UpdateCargoContent();
 
         // TODO: add ware interaction trigger here
@@ -36,7 +36,7 @@ public class Cargo : MonoBehaviour
     public void RemoveWare(Ware ware)
     {
         _placedWare.Remove(ware);
-        RemoveWareTypes(ware.GetWareTypes());
+        RemoveWareTypes(ware.GetWareType());
         UpdateCargoContent();
     }
 
@@ -52,36 +52,31 @@ public class Cargo : MonoBehaviour
         }
     }
 
-    void AddWareTypes(Ware.WareTypes[] wareTypes)
+    void AddWareTypes(Ware.WareTypes wareType)
     {
-        for (int i = 0; i < wareTypes.Length; i++)
+        if (!_typesCounter.ContainsKey(wareType))
         {
-            Ware.WareTypes type = wareTypes[i];
-            if (!_typesCounter.ContainsKey(type) )
-            {
-                _typesCounter[type] = 0;
-            }
-            _typesCounter[wareTypes[i]]++;
+            _typesCounter[wareType] = 0;
         }
-        DebugPrintTypesCounter();
-
+        _typesCounter[wareType]++;
     }
 
-    void RemoveWareTypes(Ware.WareTypes[] wareTypes)
+    void RemoveWareTypes(Ware.WareTypes wareType)
     {
-        for (int i = 0; i < wareTypes.Length; i++)
+        if (!_typesCounter.ContainsKey(wareType))
         {
-            _typesCounter[wareTypes[i]]--;
+            _typesCounter[wareType] = 0;
         }
-        DebugPrintTypesCounter();
+        _typesCounter[wareType]--;
     }
 
     void DebugPrintTypesCounter()
     {
-         string debugString = "Types counter: ";
+        string debugString = "Types counter: ";
         Debug.Log(debugString);
-        foreach (KeyValuePair<Ware.WareTypes, int> pair in _typesCounter){
-            debugString = "["+pair.Key + "] : " + pair.Value + " ";
+        foreach (KeyValuePair<Ware.WareTypes, int> pair in _typesCounter)
+        {
+            debugString = "[" + pair.Key + "] : " + pair.Value + " ";
             Debug.Log(debugString);
         }
     }
