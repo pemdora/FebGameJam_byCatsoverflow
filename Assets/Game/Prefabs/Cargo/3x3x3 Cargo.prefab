@@ -221,8 +221,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4602234161457636237}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.689}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -543,7 +543,8 @@ PrefabInstance:
       value: Cargo Slot - Bottom Left
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -629,7 +630,8 @@ PrefabInstance:
       value: Cargo Slot - Bottom Middle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -715,7 +717,8 @@ PrefabInstance:
       value: Cargo Slot - Middle Left
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -801,7 +804,8 @@ PrefabInstance:
       value: Cargo Slot - Middle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -887,7 +891,8 @@ PrefabInstance:
       value: Cargo Slot - Top Left
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -973,7 +978,8 @@ PrefabInstance:
       value: Cargo Slot - Top Middle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -1059,7 +1065,8 @@ PrefabInstance:
       value: Cargo Slot - Middle Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -1145,7 +1152,8 @@ PrefabInstance:
       value: Cargo Slot - Bottom Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
@@ -1193,7 +1201,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.006
+      value: 2.038
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
@@ -1203,27 +1211,27 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.006
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
@@ -1233,7 +1241,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e5aa86a6151226c42a3a565e96611955,
         type: 3}
@@ -1330,7 +1338,8 @@ PrefabInstance:
       value: Cargo Slot - Top Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2474084729980732461, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63f6aeb63dc6f7b41baa0979babed634, type: 3}
