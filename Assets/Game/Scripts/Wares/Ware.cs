@@ -18,8 +18,7 @@ public class Ware : MonoBehaviour, IWareSupport
     private GameObject _graphicObjectSelected;
     [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
-    private int? randomObjectID;
-  
+    private int? randomObjectID;  
     private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
 
@@ -32,35 +31,31 @@ public class Ware : MonoBehaviour, IWareSupport
 
     void OnEnable()
     {
-        if(randomObjectID == null && _graphicObject.Length > 0){
-            randomObjectID = UnityEngine.Random.Range(0, _graphicObject.Length);
-            _graphicObjectSelected = _graphicObject[(int)randomObjectID];
-        }
-        
+        RandomizeGraphicObjectSelection();
     }
 
+    
 
     public void Initialize(Transform poolTransform)
     {
         _warePoolContainer = poolTransform;
        
         foreach (WareBounds bound in _bounds)
-        {            
-            bound.Initialize(this);  
-             if(_graphicObject.Length > 0 && _graphicObjectContainer) 
-            {
-                GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);             
-                newGraphicObject.transform.parent = _graphicObjectContainer.transform;
-            } 
+        {
+            bound.Initialize(this);
+            InstanciateGraphicObjectSelectedOnBound(bound);
         }
         _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
+    }
 
-           
-    }        
-    
-    
-    
-
+    private void InstanciateGraphicObjectSelectedOnBound(WareBounds bound)
+    {
+        if (_graphicObject.Length > 0 && _graphicObjectContainer)
+        {
+            GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
+            newGraphicObject.transform.parent = _graphicObjectContainer.transform;
+        }
+    }
     public void Place(Cargo destination)
     {
         _associatedCargo = destination;
@@ -251,6 +246,18 @@ public class Ware : MonoBehaviour, IWareSupport
     {
         return _associatedCargo;
     }
+
+
+
+    private void RandomizeGraphicObjectSelection()
+    {
+        if (randomObjectID == null && _graphicObject.Length > 0)
+        {
+            randomObjectID = UnityEngine.Random.Range(0, _graphicObject.Length);
+            _graphicObjectSelected = _graphicObject[(int)randomObjectID];
+        }
+    }
+
 
 #if UNITY_EDITOR
     private void OnValidate()
