@@ -56,9 +56,6 @@ public class Ware : MonoBehaviour, IWareSupport
             newGraphicObject.transform.parent = _graphicObjectContainer.transform;
         }
     }
-
-
-
     public void Place(Cargo destination)
     {
         _associatedCargo = destination;
