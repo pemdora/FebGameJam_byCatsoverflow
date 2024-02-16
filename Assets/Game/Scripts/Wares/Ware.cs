@@ -33,9 +33,11 @@ public class Ware : MonoBehaviour, IWareSupport
     private GameObject _graphicObjectSelected;
     private int? randomObjectID;  
     private Transform _warePoolContainer;
+    private Coroutine _dropCoroutine;
     private Coroutine _rotationCoroutine;
     private Coroutine _scaleCoroutine;
     private float _scaleDuration;
+    private WaitForSeconds _waitDropTime = new WaitForSeconds(2.5f);
     private Cargo _associatedCargo;
 
     void Start()
@@ -92,6 +94,39 @@ public class Ware : MonoBehaviour, IWareSupport
 
         SetInteractable(false);
         transform.parent = manager.transform;
+    }
+
+    public void Drop()
+    {
+        SetInteractable(false);
+        ClearBoundsIndicators();
+        _associatedCargo = null;
+        Fall();
+    }
+
+    // make an transform animation to simulate a fall
+    private void Fall()
+    {
+        //Add a rigidbody if there is none
+        if (GetComponent<Rigidbody>() == null)
+        {
+            gameObject.AddComponent<Rigidbody>();
+        }
+        _dropCoroutine = StartCoroutine(FallCoroutine());
+    }
+
+    private IEnumerator FallCoroutine()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+
+        yield return _waitDropTime;
+        
+        AudioManager.Instance.PlayOuch();
+        rb.isKinematic = true;
+        transform.parent = _warePoolContainer;
+        gameObject.SetActive(false);
+        _dropCoroutine = null;
     }
 
     public bool Rotate(int angle, Vector3 offset)
