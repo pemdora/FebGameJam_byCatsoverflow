@@ -5,8 +5,20 @@ using UnityEngine.Rendering;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
+
+    public enum WareTypes
+    {
+        Undefined,
+        BasicBox,
+        CardBox,
+        Heavy,
+        Explosive
+    }
+
+
     [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
+    [SerializeField] private WareTypes _wareType;
     [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
     [Header("References")]
@@ -25,6 +37,14 @@ public class Ware : MonoBehaviour, IWareSupport
     private Coroutine _scaleCoroutine;
     private float _scaleDuration;
     private Cargo _associatedCargo;
+
+    void Start()
+    {
+        if (_wareType == WareTypes.Undefined)
+        {
+            Debug.LogWarning(gameObject.name + " has no waretype");
+        }
+    }
     
     void OnEnable()
     {
@@ -251,7 +271,15 @@ public class Ware : MonoBehaviour, IWareSupport
             _graphicObjectSelected = _graphicObject[(int)randomObjectID];
         }
     }
-    
+
+    public WareTypes GetWareType()
+    {
+        return _wareType;
+    }
+
+
+
+      
 #if UNITY_EDITOR
     private void OnValidate()
     {

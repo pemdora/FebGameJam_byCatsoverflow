@@ -147,10 +147,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6377930744685670700, guid: 79bb089fc57dfcd43adfff9916ce113c,
+        type: 3}
+      propertyPath: _wareType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377930744685670700, guid: 79bb089fc57dfcd43adfff9916ce113c,
+        type: 3}
+      propertyPath: _wareTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377930744685670700, guid: 79bb089fc57dfcd43adfff9916ce113c,
+        type: 3}
+      propertyPath: _wareTypes.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6869307055827329267, guid: 79bb089fc57dfcd43adfff9916ce113c,
         type: 3}
       propertyPath: m_Name
-      value: 1x1 Ware Variant Variant
+      value: 1x1 Ware motor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

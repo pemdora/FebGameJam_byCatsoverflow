@@ -61,7 +61,22 @@ PrefabInstance:
     - target: {fileID: 8815581742046967988, guid: c124b687808583b4d9871e0f6e176fa0,
         type: 3}
       propertyPath: m_Name
-      value: T-Shape Flat 3x2 Ware Variant Variant
+      value: T-Shape Flat 3x2 Ware Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043620045296822635, guid: c124b687808583b4d9871e0f6e176fa0,
+        type: 3}
+      propertyPath: _wareType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043620045296822635, guid: c124b687808583b4d9871e0f6e176fa0,
+        type: 3}
+      propertyPath: _wareTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043620045296822635, guid: c124b687808583b4d9871e0f6e176fa0,
+        type: 3}
+      propertyPath: _wareTypes.Array.data[0]
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

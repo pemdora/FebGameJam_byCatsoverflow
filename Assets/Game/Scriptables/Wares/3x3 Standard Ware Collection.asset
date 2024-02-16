@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: 3x3 Standard Ware Collection
   m_EditorClassIdentifier: 
   wares:
+  - {fileID: 4139804320498153663, guid: 20c9fbe8360ec5741893cd6b724390cf, type: 3}
+  - {fileID: 8424914217701251236, guid: 782040b4c37c46144b1a727d67dfdd30, type: 3}
+  - {fileID: 6919202560491674236, guid: 6b74c84f6b2469547b30cadaae7fd9d1, type: 3}
+  - {fileID: 1831478314088159178, guid: 0c7ce0b77924e514385be2e29b0a9bd7, type: 3}
+  - {fileID: 3778692868822223551, guid: 17e82819dce730f46a4e8738117f5d15, type: 3}
+  - {fileID: 7422272454122523004, guid: 645ad887fcb1db047b23928e7c5c0abd, type: 3}
   - {fileID: 6267757186060543386, guid: 989e3a8994481e64280f448daf382394, type: 3}
-  - {fileID: 2231435704936861905, guid: fab3f15349965054baa09ff9b80594a0, type: 3}
+  - {fileID: 6231218402773500313, guid: 38a8463d7ad75fc478242193482d15b3, type: 3}
+  - {fileID: 1702885649676318244, guid: a636f3b6145879f42a5eaceeb96c3454, type: 3}
   - {fileID: 6454541122127025348, guid: f5a7e5a69e041e84f80bae2b3c9d16db, type: 3}
+  - {fileID: 2231435704936861905, guid: fab3f15349965054baa09ff9b80594a0, type: 3}
