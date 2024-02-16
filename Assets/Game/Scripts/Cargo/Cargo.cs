@@ -3,10 +3,15 @@ using UnityEngine;
 
 public class Cargo : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private int _cargoSize = 3;
+    [SerializeField] private WareCollection _allowedCollection;
+    
     [Header("References")]
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
-    [SerializeField] private int _cargoSize = 3;
+
+    public WareCollection AllowedCollection => _allowedCollection;
 
     private float _fillPercentage = 0f;
     private int _cargoCases;
@@ -37,7 +42,6 @@ public class Cargo : MonoBehaviour
         UpdateCargoContent();
     }
 
-
     public void UpdateCargoContent()
     {
         Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoSize * 0.5f, 0), new Vector3(_cargoSize, _cargoSize, _cargoSize) * 0.5f, Quaternion.identity, _wareLayerMask);
@@ -60,8 +64,6 @@ public class Cargo : MonoBehaviour
                 collider.enabled = true;
             }
         }
-
-        ResetWares();
     }
 
     public void DeactivateCargo()
@@ -80,11 +82,9 @@ public class Cargo : MonoBehaviour
                 collider.enabled = false;
             }
         }
-
-        ResetWares();
     }
 
-    private void ResetWares()
+    public void ResetWares()
     {
         if (_placedWare != null)
         {
