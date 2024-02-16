@@ -5,19 +5,12 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
+    private PlayerSave _playerSave;
+
     [Header("References")]
     [SerializeField] private AudioMixer _gameAudioMixer;
     [SerializeField] private AudioSource _musicAudioSource;
     [SerializeField] private AudioSource _sfxAudioSource;
-
-    [Header("Default Values")]
-    [SerializeField] private float _masterBaseVolume = .25f;
-    [SerializeField] private float _musicBaseVolume = .25f;
-    [SerializeField] private float _sfxBaseVolume = .25f;
-
-    public float GetBaseMasterVolume { get => _masterBaseVolume; }
-    public float GetBaseMusicVolume { get => _musicBaseVolume; }
-    public float GetBaseSoundVolume { get => _sfxBaseVolume; }
 
 
     void Awake()
@@ -31,13 +24,15 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        _playerSave = SaveManager.Load();
     }
 
     void Start()
     {
-        _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(_masterBaseVolume));
-        _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(_musicBaseVolume));
-        _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(_sfxBaseVolume));
+        _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(_playerSave.masterVolume));
+        _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(_playerSave.musicVolume));
+        _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(_playerSave.soundVolume));
     }
 
     public void PlayMusic(AudioClip music)
@@ -56,7 +51,7 @@ public class AudioManager : MonoBehaviour
         _sfxAudioSource.PlayOneShot(sound);
     }
 
-    public void MasterVolume(float volume)
+    public void SetMasterVolume(float volume)
     {
         _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(volume));
     }
