@@ -41,8 +41,6 @@ public class MainMenuManager : MonoBehaviour
     {
         _mainMenuScreen.SetActive(false);
         _exitScreen.SetActive(true);
-
-        //Application.Quit();
     }
 
     public void OnExitConfirmation(bool confirmed)
