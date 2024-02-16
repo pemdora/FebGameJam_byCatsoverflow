@@ -68,17 +68,13 @@ public class AudioManager : MonoBehaviour
 
     private float VolumeToDecibel(float volume)
     {
-        if (volume == 0f)
+        if (volume <= 0f)
         {
             return -80f;
         }
         else
         {
-            return Mathf.Clamp(
-                Mathf.Log10(volume * 20 * 4),
-                -80f,
-                0f
-                );
+            return Mathf.Clamp(20 * Mathf.Log10(volume), -80f, 0f);
         }
     }
 

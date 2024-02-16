@@ -29,7 +29,6 @@ public class MainMenuManager : MonoBehaviour
         _exitScreen.SetActive(false);
 
         _playerSave = SaveManager.Load();
-        SaveManager.DebugSave(_playerSave, true);
 
         UpdateSliderDisplay(_masterVolumeSlider, _masterVolumeText, _playerSave.masterVolume);
         UpdateSliderDisplay(_musicVolumeSlider, _musicVolumeText, _playerSave.musicVolume);
@@ -53,7 +52,6 @@ public class MainMenuManager : MonoBehaviour
         if (!visible)
         {
             SaveManager.Save(_playerSave);
-            SaveManager.DebugSave(_playerSave, true);
         }
         _mainMenuScreen.SetActive(!visible);
         _settingsScreen.SetActive(visible);
