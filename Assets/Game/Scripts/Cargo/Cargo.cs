@@ -3,10 +3,15 @@ using UnityEngine;
 
 public class Cargo : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private int _cargoSize = 3;
+    [SerializeField] private WareCollection _allowedCollection;
+    
     [Header("References")]
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
-    [SerializeField] private int _cargoSize = 3;
+
+    public WareCollection AllowedCollection => _allowedCollection;
 
     private float _fillPercentage = 0f;
     private int _cargoCases;
@@ -39,7 +44,6 @@ public class Cargo : MonoBehaviour
         RemoveWareTypes(ware.GetWareType());
         UpdateCargoContent();
     }
-
 
     public void UpdateCargoContent()
     {
@@ -92,8 +96,6 @@ public class Cargo : MonoBehaviour
                 collider.enabled = true;
             }
         }
-
-        ResetWares();
     }
 
     public void DeactivateCargo()
@@ -112,11 +114,9 @@ public class Cargo : MonoBehaviour
                 collider.enabled = false;
             }
         }
-
-        ResetWares();
     }
 
-    private void ResetWares()
+    public void ResetWares()
     {
         if (_placedWare != null)
         {

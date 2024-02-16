@@ -1,37 +1,81 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource _audiosource;
+    public static AudioManager Instance { get; private set; }
 
-    private void Awake()
+    private PlayerSave _playerSave;
+
+    [Header("References")]
+    [SerializeField] private AudioMixer _gameAudioMixer;
+    [SerializeField] private AudioSource _musicAudioSource;
+    [SerializeField] private AudioSource _sfxAudioSource;
+
+
+    void Awake()
     {
-        _audiosource = GetComponent<AudioSource>();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        _playerSave = SaveManager.Load();
     }
 
-    /// <summary>
-    /// Plays an audio file at max volume.
-    /// </summary>
-    /// <param name="clip">The AudioClip to play.</param>
-    public void PlaySound(AudioClip clip)
+    void Start()
     {
-        if (_audiosource)
+        _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(_playerSave.masterVolume));
+        _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(_playerSave.musicVolume));
+        _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(_playerSave.soundVolume));
+    }
+
+    public void PlayMusic(AudioClip music)
+    {
+        _musicAudioSource.clip = music;
+        _musicAudioSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        _musicAudioSource.Stop();
+    }
+
+    public void PlaySound(AudioClip sound)
+    {
+        _sfxAudioSource.PlayOneShot(sound);
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(volume));
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(volume));
+    }
+
+    public void SetSoundVolume(float volume)
+    {
+        _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(volume));
+    }
+
+    private float VolumeToDecibel(float volume)
+    {
+        if (volume <= 0f)
         {
-            _audiosource.PlayOneShot(clip, 1f);
+            return -80f;
+        }
+        else
+        {
+            return Mathf.Clamp(20 * Mathf.Log10(volume), -80f, 0f);
         }
     }
 
-    /// <summary>
-    /// Plays an audio file with a set volume.
-    /// </summary>
-    /// <param name="clip">The AudioClip to play.</param>
-    /// <param name="volume">The volume of the AudioClip to play.</param>
-    public void PlaySoundWithVolume(AudioClip clip, float volume)
-    {
-        if (_audiosource)
-        {
-            _audiosource.PlayOneShot(clip, volume);
-        }
-    }
 }

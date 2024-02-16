@@ -19,6 +19,7 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
     [SerializeField] private WareTypes _wareType;
+    [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
     [Header("References")]
     [SerializeField] private GameObject _highlight;
@@ -26,20 +27,16 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject[] _graphicObject;
     [SerializeField] private GameObject _graphicObjectContainer;
 
-
-    private GameObject _graphicObjectSelected;
-    [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
-
-    private int? randomObjectID;  
-    private Transform _warePoolContainer;
     public Transform WarePoolContainer { get => _warePoolContainer; }
 
-    
+
+    private GameObject _graphicObjectSelected;
+    private int? randomObjectID;  
+    private Transform _warePoolContainer;
     private Coroutine _rotationCoroutine;
     private Coroutine _scaleCoroutine;
     private float _scaleDuration;
     private Cargo _associatedCargo;
-
     void Start()
     {
         if (_wareType == WareTypes.Undefined)
@@ -47,14 +44,12 @@ public class Ware : MonoBehaviour, IWareSupport
             Debug.Log(gameObject.name + " has no waretype");
         }
     }
-
+    
     void OnEnable()
     {
         RandomizeGraphicObjectSelection();
     }
-
     
-
     public void Initialize(Transform poolTransform)
     {
         _warePoolContainer = poolTransform;
@@ -62,12 +57,12 @@ public class Ware : MonoBehaviour, IWareSupport
         foreach (WareBounds bound in _bounds)
         {
             bound.Initialize(this);
-            InstanciateGraphicObjectSelectedOnBound(bound);
+            InstantiateGraphicObjectSelectedOnBound(bound);
         }
         _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
     }
 
-    private void InstanciateGraphicObjectSelectedOnBound(WareBounds bound)
+    private void InstantiateGraphicObjectSelectedOnBound(WareBounds bound)
     {
         if (_graphicObject.Length > 0 && _graphicObjectContainer)
         {
@@ -75,6 +70,7 @@ public class Ware : MonoBehaviour, IWareSupport
             newGraphicObject.transform.parent = _graphicObjectContainer.transform;
         }
     }
+    
     public void Place(Cargo destination)
     {
         _associatedCargo = destination;
@@ -265,9 +261,7 @@ public class Ware : MonoBehaviour, IWareSupport
     {
         return _associatedCargo;
     }
-
-
-
+    
     private void RandomizeGraphicObjectSelection()
     {
         if (randomObjectID == null && _graphicObject.Length > 0)
@@ -284,8 +278,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
 
 
-  
-
+      
 #if UNITY_EDITOR
     private void OnValidate()
     {

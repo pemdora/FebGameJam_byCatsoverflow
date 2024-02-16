@@ -7,6 +7,9 @@ using UnityEngine;
 public class PlayerSave
 {
     public int playerHighscore;
+    public float masterVolume;
+    public float musicVolume;
+    public float soundVolume;
 }
 
 public static class SaveManager
@@ -27,11 +30,14 @@ public static class SaveManager
     /// Creates a new PlayerSave.
     /// </summary>
     /// <returns></returns>
-    public static PlayerSave CreateNew(int highscore = 0)
+    public static PlayerSave CreateNew(int highscore = 0, float masterVolume = .25f, float musicVolume = .25f, float soundVolume = .25f)
     {
         return new PlayerSave()
         {
-            playerHighscore = highscore
+            playerHighscore = highscore,
+            masterVolume = masterVolume,
+            musicVolume = musicVolume,
+            soundVolume = soundVolume,
         };
     }
 
