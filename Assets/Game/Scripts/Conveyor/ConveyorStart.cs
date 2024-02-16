@@ -13,10 +13,7 @@ public class ConveyorStart : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private ConveyorItem _conveyorSlotPrefab;
-    [SerializeField] private WareCollection _wareCollection;
     [SerializeField] private Transform _warePoolsContainer;
-
-    [Header("Animation")]
     [SerializeField] private Animator _beltAnimator;
     [SerializeField] private GameObject _belt;
 
@@ -26,7 +23,7 @@ public class ConveyorStart : MonoBehaviour
     private Coroutine _spawningCoroutine;
     private List<ConveyorItem> _tracked;
     private List<ConveyorItem> _pool;
-    private Dictionary<int, List<Ware>> _warePools;
+    private WareCollection _wareCollection;
 
     private void Awake()
     {
@@ -34,45 +31,19 @@ public class ConveyorStart : MonoBehaviour
         _tracked = new List<ConveyorItem>();
         _pool = new List<ConveyorItem>();
         // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base et au scale du tapis ( la BASE_SPEED est la vitesse de base de l'animation pour un scale de 1)
-        _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;    
-        InitializeWarePools();
+        _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;
     }
 
-    private void Start()
-    {
-        // TODO: let level manager handle this
-        StartConveyor();
-    }
-
-    /// <summary>
-    /// Initializes the pooling of wares into a dictionary.
-    /// </summary>
-    private void InitializeWarePools()
-    {
-        if (_warePools != null)
-        {
-            return;
-        }
-
-        _warePools = new();
-
-        int count = 0;
-
-        foreach (Ware ware in _wareCollection.wares)
-        {
-            _warePools.Add(count, new List<Ware>());
-            count++;
-        }
-    }
-
-    public void StartConveyor()
+    public void StartConveyor(WareCollection wareCollection)
     {
         if (IsRunning)
         {
             return;
         }
-
+        
         IsRunning = true;
+        
+        _wareCollection = wareCollection;
         _spawningCoroutine = StartCoroutine(SpawningCoroutine());
     }
 
@@ -128,34 +99,7 @@ public class ConveyorStart : MonoBehaviour
 
     private Ware GetWare()
     {
-        Ware ware = null;
-
-        if (_warePools.Count == 0)
-        {
-            Debug.LogError($"Ware list is empty.");
-            return null;
-        }
-
-        int wareIndex = Random.Range(0, _warePools.Count);
-
-        List<Ware> warePool = _warePools[wareIndex];
-
-        foreach (Ware thisWare in warePool)
-        {
-            if (!thisWare.gameObject.activeSelf)
-            {
-                ware = thisWare;
-                ware.gameObject.SetActive(true);
-                break;
-            }
-        }
-
-        if (ware == null)
-        {
-            ware = Instantiate(_wareCollection.wares[wareIndex]);
-            warePool.Add(ware);
-        }
-
+        Ware ware = Instantiate(_wareCollection.GetRandom());
         ware.Initialize(_warePoolsContainer);
         return ware;
     }
