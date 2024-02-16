@@ -13,12 +13,10 @@ public class SpaceshipManager : MonoBehaviour
     [SerializeField] private SpaceshipConductor _departureConductor;
 
     private Spaceship _currentSpaceship;
-    private Dictionary<int, List<Spaceship>> _spaceshipsPool;
 
     // Start is called before the first frame update
     void Start()
     {
-        _spaceshipsPool = new();
         BringNewSpaceship();
     }
 
@@ -41,14 +39,15 @@ public class SpaceshipManager : MonoBehaviour
         {
             _landingPlatform.CanRotate = false;
         }
-        
-        // TODO update remaining time in world digetic
     }
 
     private void BringNewSpaceship()
     {
         Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
+        spaceship.Initialize();
         _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded);
+        spaceship.gameObject.SetActive(true);
+        spaceship.Cargo.DeactivateCargo();
         
         _conveyorStart.StartConveyor(spaceship.Cargo.AllowedCollection);
     }
@@ -58,12 +57,21 @@ public class SpaceshipManager : MonoBehaviour
         _landingPlatform.PlaceSpaceship(spaceship);
         _currentSpaceship = spaceship;
         _currentSpaceship.StartLoading();
+        _currentSpaceship.Cargo.ActivateCargo();
         _landingPlatform.CanRotate = true;
     }
 
     private void SpaceshipDeparture()
     {
+        Debug.Log("Departure");
+        _landingPlatform.ResetRotation(SpaceshipTakeoff);
+    }
+
+    private void SpaceshipTakeoff()
+    {
+        Debug.Log("Takeoff");
         _currentSpaceship.StopLoading();
+        _currentSpaceship.Cargo.DeactivateCargo();
         _conveyorStart.StopConveyor();
         
         _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft);
@@ -73,6 +81,7 @@ public class SpaceshipManager : MonoBehaviour
     private void SpaceshipLeft(Spaceship spaceship)
     {
         ReturnSpaceship(spaceship);
+        BringNewSpaceship();
     }
 
     private void OnCurrentSpaceshipTimerReachedZero()
@@ -89,35 +98,11 @@ public class SpaceshipManager : MonoBehaviour
     
     private Spaceship GetSpaceship(Spaceship spaceship)
     {
-        Spaceship instance;
-        int id = spaceship.id;
-        if (_spaceshipsPool.ContainsKey(id) && _spaceshipsPool[id]?.Count > 0)
-        {
-            instance = _spaceshipsPool[id][0];
-            _spaceshipsPool[id].RemoveAt(0);
-        }
-        else
-        {
-            instance = Instantiate(spaceship.gameObject).GetComponent<Spaceship>();
-        }
-
-        instance.Initialize();
-        return instance;
+        return Instantiate(spaceship.gameObject).GetComponent<Spaceship>();
     }
 
     private void ReturnSpaceship(Spaceship spaceship)
     {
-        int id = spaceship.id;
-        if (!_spaceshipsPool.ContainsKey(id))
-        {
-            _spaceshipsPool.Add(id, new List<Spaceship>());
-        }
-
-        if (_spaceshipsPool[id] == null)
-        {
-            _spaceshipsPool[id] = new List<Spaceship>();
-        }
-        
-        _spaceshipsPool[id].Add(spaceship);
+        Destroy(spaceship.gameObject);
     }
 }

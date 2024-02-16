@@ -19,6 +19,7 @@ public class Spaceship : MonoBehaviour
     public void Initialize()
     {
         LoadingTimer = 0;
+        _cargo.ResetWares();
     }
 
     private void Update()

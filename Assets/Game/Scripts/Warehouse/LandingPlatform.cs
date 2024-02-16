@@ -20,6 +20,7 @@ public class LandingPlatform : MonoBehaviour
         {
             return;
         }
+        
         if (Input.GetKeyUp(KeyCode.A))
         {
             Rotate(true);
@@ -44,10 +45,20 @@ public class LandingPlatform : MonoBehaviour
             return;
         }
 
-        _rotationCoroutine = StartCoroutine(RotationCoroutine(clockwise));
+        _rotationCoroutine = StartCoroutine(RotationCoroutine(clockwise ? -90 : 90));
     }
 
-    private IEnumerator RotationCoroutine(bool clockwise)
+    public void ResetRotation(Action onComplete)
+    {
+        if (_rotationCoroutine != null)
+        {
+            return;
+        }
+
+        _rotationCoroutine = StartCoroutine(RotationCoroutine(-Mathf.RoundToInt(transform.rotation.eulerAngles.y), onComplete));
+    }
+
+    private IEnumerator RotationCoroutine(float angle, Action onComplete = null)
     {
         Quaternion initialRotation = transform.rotation;
         
@@ -56,7 +67,6 @@ public class LandingPlatform : MonoBehaviour
         {
             percent += Time.deltaTime * 1 / _duration;
 
-            float angle = clockwise ? -90 : 90;
             //transform.rotation = Quaternion.Lerp(initialRotation, initialRotation * Quaternion.Euler(0, angle * _ease.Evaluate(percent), 0), percent);
             transform.rotation = initialRotation * Quaternion.Euler(0, angle * _ease.Evaluate(percent), 0);
             
@@ -64,6 +74,6 @@ public class LandingPlatform : MonoBehaviour
         }
 
         _rotationCoroutine = null;
+        onComplete?.Invoke();
     }
-
 }

@@ -42,7 +42,6 @@ public class Cargo : MonoBehaviour
         UpdateCargoContent();
     }
 
-
     public void UpdateCargoContent()
     {
         Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoSize * 0.5f, 0), new Vector3(_cargoSize, _cargoSize, _cargoSize) * 0.5f, Quaternion.identity, _wareLayerMask);
@@ -65,8 +64,6 @@ public class Cargo : MonoBehaviour
                 collider.enabled = true;
             }
         }
-
-        ResetWares();
     }
 
     public void DeactivateCargo()
@@ -85,11 +82,9 @@ public class Cargo : MonoBehaviour
                 collider.enabled = false;
             }
         }
-
-        ResetWares();
     }
 
-    private void ResetWares()
+    public void ResetWares()
     {
         if (_placedWare != null)
         {
