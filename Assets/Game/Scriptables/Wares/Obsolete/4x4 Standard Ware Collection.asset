@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c55feccd094140bfb2a52204281cf147, type: 3}
-  m_Name: Cats & Cardbox Ware Collection
+  m_Name: 4x4 Standard Ware Collection
   m_EditorClassIdentifier: 
   wares:
   - {fileID: 6267757186060543386, guid: 989e3a8994481e64280f448daf382394, type: 3}
+  - {fileID: 2231435704936861905, guid: fab3f15349965054baa09ff9b80594a0, type: 3}
+  - {fileID: 6454541122127025348, guid: f5a7e5a69e041e84f80bae2b3c9d16db, type: 3}
