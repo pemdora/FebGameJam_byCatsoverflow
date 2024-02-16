@@ -1,28 +1,63 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public string titreSceneGame;
-    public string titreSceneCredit;
-    public string titreSceneSettings;
+    [Header("Screens")]
+    [SerializeField] private GameObject _mainMenuScreen;
+    [SerializeField] private GameObject _creditScreen;
+    [SerializeField] private GameObject _settingsScreen;
+    [SerializeField] private GameObject _exitScreen;
 
-
-    public void LoadSettingsScene()
+    void OnEnable()
     {
-        SceneManager.LoadScene(titreSceneSettings);
-    }
-    public void LoadCreditsScene()
-    {
-        SceneManager.LoadScene(titreSceneCredit);
+        _mainMenuScreen.SetActive(true);
+        _creditScreen.SetActive(false);
+        _settingsScreen.SetActive(false);
+        _exitScreen.SetActive(false);
     }
 
-    public void LoadGameScene()
+    #region CreditScreen
+
+    public void ShowCreditScreen(bool visible)
     {
-        SceneManager.LoadScene(titreSceneGame);
+        _mainMenuScreen.SetActive(!visible);
+        _creditScreen.SetActive(visible);
     }
+
+    #endregion
+
+    #region SettingsScreen
+
+    public void ShowSettingsScreen(bool visible)
+    {
+        _mainMenuScreen.SetActive(!visible);
+        _settingsScreen.SetActive(visible);
+    }
+
+    #endregion
+
+    #region ExitScreen
     public void QuitGame()
     {
-        Application.Quit();
+        _mainMenuScreen.SetActive(false);
+        _exitScreen.SetActive(true);
+
+        //Application.Quit();
     }
+
+    public void OnExitConfirmation(bool confirmed)
+    {
+        switch (confirmed)
+        {
+            case true:
+                Application.Quit();
+                break;
+            case false:
+                _mainMenuScreen.SetActive(true);
+                _exitScreen.SetActive(false);
+                break;
+        }
+    }
+
+    #endregion
 }
