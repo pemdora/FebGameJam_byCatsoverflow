@@ -45,7 +45,7 @@ public class SpaceshipManager : MonoBehaviour
     {
         Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
         spaceship.Initialize();
-        _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded);
+        _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded, true);
         spaceship.gameObject.SetActive(true);
         spaceship.Cargo.DeactivateCargo();
         
@@ -63,18 +63,16 @@ public class SpaceshipManager : MonoBehaviour
 
     private void SpaceshipDeparture()
     {
-        Debug.Log("Departure");
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
     }
 
     private void SpaceshipTakeoff()
     {
-        Debug.Log("Takeoff");
         _currentSpaceship.StopLoading();
         _currentSpaceship.Cargo.DeactivateCargo();
         _conveyorStart.StopConveyor();
         
-        _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft);
+        _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft, false);
         _currentSpaceship = null;
     }
 

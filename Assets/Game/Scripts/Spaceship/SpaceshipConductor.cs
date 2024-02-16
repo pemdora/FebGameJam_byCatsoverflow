@@ -14,10 +14,10 @@ public class SpaceshipConductor : MonoBehaviour
     private Spaceship _spaceship;
     private Action<Spaceship> _onArrivalCallback;
 
-    public void AttachSpaceship(Spaceship spaceship, Action<Spaceship> onArrivalCallback)
+    public void AttachSpaceship(Spaceship spaceship, Action<Spaceship> onArrivalCallback, bool forcePosition)
     {
         _spaceship = spaceship;
-        _spaceship.transform.SetParent(_conductor);
+        _spaceship.transform.SetParent(_conductor, forcePosition);
         _spaceship.transform.localPosition = Vector3.zero;
         _onArrivalCallback = onArrivalCallback;
         

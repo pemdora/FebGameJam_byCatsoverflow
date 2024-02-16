@@ -55,7 +55,13 @@ public class LandingPlatform : MonoBehaviour
             return;
         }
 
-        _rotationCoroutine = StartCoroutine(RotationCoroutine(-Mathf.RoundToInt(transform.rotation.eulerAngles.y), onComplete));
+        float angle = transform.rotation.eulerAngles.y;
+        if (transform.rotation.eulerAngles.y > 180)
+        {
+            angle -= 360;
+        }
+
+        _rotationCoroutine = StartCoroutine(RotationCoroutine(-Mathf.RoundToInt(angle), onComplete));
     }
 
     private IEnumerator RotationCoroutine(float angle, Action onComplete = null)
