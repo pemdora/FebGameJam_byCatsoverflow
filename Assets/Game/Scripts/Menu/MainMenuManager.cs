@@ -20,7 +20,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TMP_Text _musicVolumeText;
     [SerializeField] private TMP_Text _soundVolumeText;
 
-
     void OnEnable()
     {
         _mainMenuScreen.SetActive(true);
@@ -34,6 +33,19 @@ public class MainMenuManager : MonoBehaviour
         UpdateSliderDisplay(_musicVolumeSlider, _musicVolumeText, _playerSave.musicVolume);
         UpdateSliderDisplay(_soundVolumeSlider, _soundVolumeText, _playerSave.soundVolume);
     }
+
+    #region Play
+
+    // TODO: Sync with GameManager? to tell the game to start.
+    public void Play()
+    {
+        _mainMenuScreen.SetActive(false);
+        _creditScreen.SetActive(false);
+        _settingsScreen.SetActive(false);
+        _exitScreen.SetActive(false);
+    }
+
+    #endregion
 
     #region CreditScreen
 
