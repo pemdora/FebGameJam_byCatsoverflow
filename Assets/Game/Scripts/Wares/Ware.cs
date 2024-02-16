@@ -37,11 +37,12 @@ public class Ware : MonoBehaviour, IWareSupport
     private Coroutine _scaleCoroutine;
     private float _scaleDuration;
     private Cargo _associatedCargo;
+
     void Start()
     {
         if (_wareType == WareTypes.Undefined)
         {
-            Debug.Log(gameObject.name + " has no waretype");
+            Debug.LogWarning(gameObject.name + " has no waretype");
         }
     }
     

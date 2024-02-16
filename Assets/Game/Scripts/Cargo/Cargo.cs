@@ -74,6 +74,8 @@ public class Cargo : MonoBehaviour
         _typesCounter[wareType]--;
     }
 
+    
+
     void DebugPrintTypesCounter()
     {
         string debugString = "Types counter: ";

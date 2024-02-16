@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Cats & Cardbox Ware Collection
   m_EditorClassIdentifier: 
   wares:
-  - {fileID: 6267757186060543386, guid: 989e3a8994481e64280f448daf382394, type: 3}
+  - {fileID: 2231435704936861905, guid: fab3f15349965054baa09ff9b80594a0, type: 3}
+  - {fileID: 4139804320498153663, guid: 20c9fbe8360ec5741893cd6b724390cf, type: 3}
