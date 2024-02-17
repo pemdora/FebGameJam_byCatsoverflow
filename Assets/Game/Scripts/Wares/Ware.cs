@@ -48,10 +48,6 @@ public class Ware : MonoBehaviour, IWareSupport
         }
     }
     
-    void OnEnable()
-    {
-        RandomizeGraphicObjectSelection();
-    }
     
     public void Initialize(Transform poolTransform)
     {
@@ -59,20 +55,12 @@ public class Ware : MonoBehaviour, IWareSupport
        
         foreach (WareBounds bound in _bounds)
         {
-            bound.Initialize(this);
-            InstantiateGraphicObjectSelectedOnBound(bound);
+            bound.Initialize(this);            
         }
         _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
     }
 
-    private void InstantiateGraphicObjectSelectedOnBound(WareBounds bound)
-    {
-        if (_graphicObject.Length > 0 && _graphicObjectContainer)
-        {
-            GameObject newGraphicObject = Instantiate(_graphicObjectSelected, bound.transform.position, Quaternion.identity);
-            newGraphicObject.transform.parent = _graphicObjectContainer.transform;
-        }
-    }
+   
     
     public void Place(Cargo destination)
     {
@@ -299,15 +287,7 @@ public class Ware : MonoBehaviour, IWareSupport
         return _associatedCargo;
     }
     
-    private void RandomizeGraphicObjectSelection()
-    {
-        if (randomObjectID == null && _graphicObject.Length > 0)
-        {
-            randomObjectID = UnityEngine.Random.Range(0, _graphicObject.Length);
-            _graphicObjectSelected = _graphicObject[(int)randomObjectID];
-        }
-    }
-
+   
     public WareTypes GetWareType()
     {
         return _wareType;
