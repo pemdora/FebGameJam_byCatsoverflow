@@ -3,14 +3,20 @@ using UnityEngine;
 
 public class Cargo : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private int _cargoSize = 3;
+    [SerializeField] private WareCollection _allowedCollection;
+    
     [Header("References")]
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
-    [SerializeField] private int _cargoSize = 3;
+
+    public WareCollection AllowedCollection => _allowedCollection;
 
     private float _fillPercentage = 0f;
     private int _cargoCases;
     private List<Ware> _placedWare;
+    private Dictionary<Ware.WareTypes, int> _typesCounter = new Dictionary<Ware.WareTypes, int>();
 
     private void Start()
     {
@@ -26,6 +32,7 @@ public class Cargo : MonoBehaviour
     public void AddWare(Ware ware)
     {
         _placedWare.Add(ware);
+        AddWareTypes(ware.GetWareType());
         UpdateCargoContent();
 
         // TODO: add ware interaction trigger here
@@ -34,9 +41,9 @@ public class Cargo : MonoBehaviour
     public void RemoveWare(Ware ware)
     {
         _placedWare.Remove(ware);
+        RemoveWareTypes(ware.GetWareType());
         UpdateCargoContent();
     }
-
 
     public void UpdateCargoContent()
     {
@@ -46,6 +53,37 @@ public class Cargo : MonoBehaviour
         {
             _fillPercentage = ((float)casesFilled / (float)_cargoCases) * 100f;
             _fillPercentage = Mathf.Round(_fillPercentage);
+        }
+    }
+
+    void AddWareTypes(Ware.WareTypes wareType)
+    {
+        if (!_typesCounter.ContainsKey(wareType))
+        {
+            _typesCounter[wareType] = 0;
+        }
+        _typesCounter[wareType]++;
+    }
+
+    void RemoveWareTypes(Ware.WareTypes wareType)
+    {
+        if (!_typesCounter.ContainsKey(wareType))
+        {
+            _typesCounter[wareType] = 0;
+        }
+        _typesCounter[wareType]--;
+    }
+
+    
+
+    void DebugPrintTypesCounter()
+    {
+        string debugString = "Types counter: ";
+        Debug.Log(debugString);
+        foreach (KeyValuePair<Ware.WareTypes, int> pair in _typesCounter)
+        {
+            debugString = "[" + pair.Key + "] : " + pair.Value + " ";
+            Debug.Log(debugString);
         }
     }
 
@@ -60,8 +98,6 @@ public class Cargo : MonoBehaviour
                 collider.enabled = true;
             }
         }
-
-        ResetWares();
     }
 
     public void DeactivateCargo()
@@ -80,11 +116,9 @@ public class Cargo : MonoBehaviour
                 collider.enabled = false;
             }
         }
-
-        ResetWares();
     }
 
-    private void ResetWares()
+    public void ResetWares()
     {
         if (_placedWare != null)
         {

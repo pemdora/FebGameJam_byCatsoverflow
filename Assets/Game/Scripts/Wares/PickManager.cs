@@ -44,6 +44,13 @@ public class PickManager : MonoBehaviour
                     }
                 }
             }
+            // drop the ware if we can't place it
+            if (!isWareSnapped && Input.GetMouseButtonUp(0))
+            {
+                _selectedWare.Drop();
+                _selectedWare = null;
+                return;
+            }
             
             // ... if we can't, we make it follow the mouse
             if (!isWareSnapped && Physics.Raycast(ray, out RaycastHit worldHit, Mathf.Infinity, _worldLayerMask))
