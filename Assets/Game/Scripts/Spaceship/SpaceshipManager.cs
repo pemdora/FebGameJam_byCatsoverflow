@@ -15,6 +15,7 @@ public class SpaceshipManager : MonoBehaviour
     private Spaceship _currentSpaceship;
     public bool IsAvailable => _currentSpaceship!=null;
     public float TimeRemaining => _currentSpaceship.LoadingLeft;
+    public float Percentage => _currentSpaceship.Cargo.FillPercentage;
 
     // Start is called before the first frame update
     void Start()

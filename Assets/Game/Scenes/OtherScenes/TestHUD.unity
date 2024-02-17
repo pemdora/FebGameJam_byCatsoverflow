@@ -555,6 +555,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4093617740857262502, guid: 886087f03b467e043bffcb4b9d4eee59,
+        type: 3}
+      propertyPath: _spaceshipManager
+      value: 
+      objectReference: {fileID: 1932589794}
     - target: {fileID: 5060771722787690697, guid: 886087f03b467e043bffcb4b9d4eee59,
         type: 3}
       propertyPath: m_Pivot.x
@@ -660,6 +665,16 @@ PrefabInstance:
       propertyPath: _spaceshipManager
       value: 
       objectReference: {fileID: 1932589794}
+    - target: {fileID: 6170666142950402917, guid: 886087f03b467e043bffcb4b9d4eee59,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349109089307085610, guid: 886087f03b467e043bffcb4b9d4eee59,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8301765562258924963, guid: 886087f03b467e043bffcb4b9d4eee59,
         type: 3}
       propertyPath: m_Name

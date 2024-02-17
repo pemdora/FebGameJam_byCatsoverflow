@@ -927,6 +927,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6429605070958176253}
+  - component: {fileID: 4093617740857262502}
   m_Layer: 0
   m_Name: Filling
   m_TagString: Untagged
@@ -952,6 +953,21 @@ Transform:
   - {fileID: 1826207304723198586}
   m_Father: {fileID: 2384808762965445927}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4093617740857262502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8373438711532746059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3cd3c8074a08abc6b76c3b3c3ac825b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spaceshipManager: {fileID: 0}
+  _percentageText: {fileID: 2958785622976431868}
+  _filler: {fileID: 2036391457093523464}
 --- !u!1 &8418639215283173621
 GameObject:
   m_ObjectHideFlags: 0
