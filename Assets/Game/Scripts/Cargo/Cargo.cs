@@ -14,6 +14,7 @@ public class Cargo : MonoBehaviour
     public WareCollection AllowedCollection => _allowedCollection;
 
     private float _fillPercentage = 0f;
+    public float FillPercentage => _fillPercentage;
     private int _cargoCases;
     private List<Ware> _placedWare;
     private Dictionary<Ware.WareTypes, int> _typesCounter = new Dictionary<Ware.WareTypes, int>();
