@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 1450840641372481021}
   - component: {fileID: 9126051625918635351}
   m_Layer: 5
-  m_Name: MainCanvas
+  m_Name: InGameHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

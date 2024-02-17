@@ -13,6 +13,7 @@ public class SpaceshipManager : MonoBehaviour
     [SerializeField] private SpaceshipConductor _departureConductor;
 
     private Spaceship _currentSpaceship;
+    public float TimeRemaining => _currentSpaceship.LoadingLeft;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +62,7 @@ public class SpaceshipManager : MonoBehaviour
         _landingPlatform.CanRotate = true;
     }
 
-    private void SpaceshipDeparture()
+    public void SpaceshipDeparture()
     {
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
     }
