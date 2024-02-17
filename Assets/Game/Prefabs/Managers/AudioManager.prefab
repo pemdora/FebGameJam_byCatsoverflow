@@ -49,6 +49,7 @@ MonoBehaviour:
   _gameAudioMixer: {fileID: 24100000, guid: 3463625ef9ad554419abb6c4fa0aaafa, type: 2}
   _musicAudioSource: {fileID: 5524252995834534959}
   _sfxAudioSource: {fileID: 4301437145058744521}
+  _droppedWareSfx: {fileID: 8300000, guid: 0cd7ea318b2a1614380596666d163089, type: 3}
 --- !u!82 &5524252995834534959
 AudioSource:
   m_ObjectHideFlags: 0
