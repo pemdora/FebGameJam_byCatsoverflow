@@ -111,6 +111,7 @@ public class Ware : MonoBehaviour, IWareSupport
         if (GetComponent<Rigidbody>() == null)
         {
             gameObject.AddComponent<Rigidbody>();
+            
         }
         _dropCoroutine = StartCoroutine(FallCoroutine());
     }
