@@ -646,6 +646,24 @@ Transform:
   - {fileID: 1884533890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &630130083 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+    type: 3}
+  m_PrefabInstance: {fileID: 1572920306513279431}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &630130084 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1064559367886754716, guid: 5b641828928e9b8458d89d2d9e56be01,
+    type: 3}
+  m_PrefabInstance: {fileID: 1572920306513279431}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4848373b5644edb85470eaebead5d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &747224759
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +693,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 630130083}
   - {fileID: 1601362135}
   - {fileID: 1932589795}
   - {fileID: 830696645}
@@ -696,18 +715,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3246668471098622338, guid: 886087f03b467e043bffcb4b9d4eee59,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246668471098622338, guid: 886087f03b467e043bffcb4b9d4eee59,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1932589794}
+      objectReference: {fileID: 630130084}
     - target: {fileID: 3246668471098622338, guid: 886087f03b467e043bffcb4b9d4eee59,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SpaceshipDeparture
+      value: SendSpaceship
       objectReference: {fileID: 0}
     - target: {fileID: 3246668471098622338, guid: 886087f03b467e043bffcb4b9d4eee59,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SpaceshipManager, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3246668471098622338, guid: 886087f03b467e043bffcb4b9d4eee59,
         type: 3}
@@ -1078,7 +1102,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1932589794}
+      objectReference: {fileID: 630130084}
     - target: {fileID: 7625755072763553823, guid: c3992380fdf641b41b948c9517a82fa5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -1092,7 +1116,7 @@ PrefabInstance:
     - target: {fileID: 7625755072763553823, guid: c3992380fdf641b41b948c9517a82fa5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: BringNewSpaceship
+      value: StartGame
       objectReference: {fileID: 0}
     - target: {fileID: 7625755072763553823, guid: c3992380fdf641b41b948c9517a82fa5,
         type: 3}
@@ -1102,7 +1126,7 @@ PrefabInstance:
     - target: {fileID: 7625755072763553823, guid: c3992380fdf641b41b948c9517a82fa5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: SpaceshipManager, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7625755072763553823, guid: c3992380fdf641b41b948c9517a82fa5,
         type: 3}
@@ -2015,6 +2039,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb8de4115add4964da3760f579b2e7ed, type: 3}
+--- !u!114 &776060194778764888 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2783431754562966906, guid: fb8de4115add4964da3760f579b2e7ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 776060194778764887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0258b364db4732a9158508f34ba071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &969511141591184428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2088,6 +2124,94 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c57c8885957d84aa4f5f5f8562556d, type: 3}
+--- !u!1001 &1572920306513279431
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 747224760}
+    m_Modifications:
+    - target: {fileID: 1064559367886754716, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: _pickManager
+      value: 
+      objectReference: {fileID: 3048955657110194940}
+    - target: {fileID: 1064559367886754716, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: _scoreManager
+      value: 
+      objectReference: {fileID: 776060194778764888}
+    - target: {fileID: 1064559367886754716, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: _landingPlatform
+      value: 
+      objectReference: {fileID: 2144418431}
+    - target: {fileID: 1064559367886754716, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: _spaceshipManager
+      value: 
+      objectReference: {fileID: 1932589794}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816734296727935030, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: m_Name
+      value: Game Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b641828928e9b8458d89d2d9e56be01, type: 3}
 --- !u!1001 &3048955657110194939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2166,6 +2290,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70decf407b9cd2d4987100424df2a931, type: 3}
+--- !u!114 &3048955657110194940 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1231938365840517685, guid: 70decf407b9cd2d4987100424df2a931,
+    type: 3}
+  m_PrefabInstance: {fileID: 3048955657110194939}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 440b7f8625d3c1241bb43a1574f84fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3518772944735317293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8479414889329827637, guid: 3820be09c94f1f340a33ea156465eece,
@@ -2438,7 +2574,7 @@ PrefabInstance:
     - target: {fileID: 8003573543724700127, guid: 32ca4d649d5ba314cb10787d46ecf1ae,
         type: 3}
       propertyPath: m_Name
-      value: SpaceshipManager
+      value: Spaceship Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

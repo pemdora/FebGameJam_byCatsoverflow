@@ -19,4 +19,14 @@ public class GameManager : MonoBehaviour
         _pickManager.CanPick = true;
         _spaceshipManager.BringNewSpaceship();
     }
+
+    public void SendSpaceship()
+    {
+        if (!_spaceshipManager.IsAvailable)
+        {
+            return;
+        }
+        
+        _spaceshipManager.SpaceshipDeparture();
+    }
 }

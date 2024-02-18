@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 3039687094369503941}
   - component: {fileID: 5541763757415042733}
   m_Layer: 0
-  m_Name: SpaceshipManager
+  m_Name: Spaceship Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
