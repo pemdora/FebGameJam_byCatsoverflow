@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpaceshipManager : MonoBehaviour
 {
@@ -12,12 +13,17 @@ public class SpaceshipManager : MonoBehaviour
     [SerializeField] private SpaceshipConductor _arrivalConductor;
     [SerializeField] private SpaceshipConductor _departureConductor;
 
-    private Spaceship _currentSpaceship;
-    public bool IsAvailable => _currentSpaceship!=null;
+    [Header("Events")] 
+    public UnityEvent<Spaceship> OnSpaceshipLanded;
+    public UnityEvent<Spaceship> OnSpaceshipTakeOff;
+    
+    public bool CanSpawnSpaceship { get; set; }
+    public bool HasSpaceship => _currentSpaceship != null;
     public float TimeRemaining => _currentSpaceship.LoadingLeft;
     public float Percentage => _currentSpaceship.Cargo.FillPercentage;
+
+    private Spaceship _currentSpaceship;
     
-    // Update is called once per frame
     private void Update()
     {
         if (!_currentSpaceship)
@@ -30,6 +36,12 @@ public class SpaceshipManager : MonoBehaviour
         {
             OnCurrentSpaceshipTimerReachedZero();
         }
+
+        // Make the spaceship leave if its cargo is full
+        if (_currentSpaceship.Cargo.FillPercentage >= 100)
+        {
+            OnCurrentSpaceshipFull();
+        }
         
         // Block landing platform rotation if the spaceship is about to leave
         if (_landingPlatform.CanRotate && _currentSpaceship.LoadingLeft <= _landingPlatform.Duration)
@@ -38,7 +50,7 @@ public class SpaceshipManager : MonoBehaviour
         }
     }
 
-    public void BringNewSpaceship()
+    internal void BringNewSpaceship()
     {
         Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
         spaceship.Initialize();
@@ -56,18 +68,22 @@ public class SpaceshipManager : MonoBehaviour
         _currentSpaceship.StartLoading();
         _currentSpaceship.Cargo.ActivateCargo();
         _landingPlatform.CanRotate = true;
+        
+        OnSpaceshipLanded?.Invoke(spaceship);
     }
 
-    public void SpaceshipDeparture()
+    internal void SpaceshipDeparture()
     {
+        _currentSpaceship.StopLoading();
+        _currentSpaceship.Cargo.DeactivateCargo();
+        _conveyorStart.StopConveyor();
+        
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
     }
 
     private void SpaceshipTakeoff()
     {
-        _currentSpaceship.StopLoading();
-        _currentSpaceship.Cargo.DeactivateCargo();
-        _conveyorStart.StopConveyor();
+        OnSpaceshipTakeOff?.Invoke(_currentSpaceship);
         
         _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft, false);
         _currentSpaceship = null;
@@ -76,18 +92,20 @@ public class SpaceshipManager : MonoBehaviour
     private void SpaceshipLeft(Spaceship spaceship)
     {
         ReturnSpaceship(spaceship);
-        BringNewSpaceship();
+
+        if (CanSpawnSpaceship)
+        {
+            BringNewSpaceship();
+        }
     }
 
     private void OnCurrentSpaceshipTimerReachedZero()
     {
-        // TODO : decrease score then check if loose condition is reached. If not reached, we make the spaceship left
         SpaceshipDeparture();
     }
 
     private void OnCurrentSpaceshipFull()
     {
-        // TODO : increase score
         SpaceshipDeparture();
     }
     

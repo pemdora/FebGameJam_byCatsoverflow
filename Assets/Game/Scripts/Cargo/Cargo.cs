@@ -12,22 +12,30 @@ public class Cargo : MonoBehaviour
     [SerializeField] private LayerMask _wareLayerMask;
 
     public WareCollection AllowedCollection => _allowedCollection;
-
-    private float _fillPercentage = 0f;
     public float FillPercentage => _fillPercentage;
-    private int _cargoCases;
+    public int SlotCount => _slotCount;
+    public int OccupiedSlotCount => _occupiedSlotCount;
+    public int EmptySlotCount => _emptySlotCount;
+    
     private List<Ware> _placedWare;
-    private Dictionary<Ware.WareTypes, int> _typesCounter = new Dictionary<Ware.WareTypes, int>();
+    private Dictionary<Ware.WareTypes, int> _typesCounter;
+    private int _slotCount;
+    private float _fillPercentage = 0f;
+    private int _occupiedSlotCount;
+    private int _emptySlotCount;
 
     private void Start()
     {
+        _typesCounter = new Dictionary<Ware.WareTypes, int>();
         _placedWare = new List<Ware>();
         foreach (CargoSlot cargoSlot in _slots)
         {
             cargoSlot.Initialize(this);
         }
 
-        _cargoCases = Mathf.FloorToInt(Mathf.Pow(_cargoSize, 3));
+        _slotCount = Mathf.FloorToInt(Mathf.Pow(_cargoSize, 3));
+        _emptySlotCount = _slotCount;
+        _occupiedSlotCount = 0;
     }
 
     public void AddWare(Ware ware)
@@ -48,12 +56,18 @@ public class Cargo : MonoBehaviour
 
     public void UpdateCargoContent()
     {
-        Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoSize * 0.5f, 0), new Vector3(_cargoSize, _cargoSize, _cargoSize) * 0.5f, Quaternion.identity, _wareLayerMask);
-        int casesFilled = hitWares.Length;
-        if (casesFilled > 0)
+        _occupiedSlotCount = 0;
+
+        foreach (Ware ware in _placedWare)
         {
-            _fillPercentage = ((float)casesFilled / (float)_cargoCases) * 100f;
-            _fillPercentage = Mathf.Round(_fillPercentage);
+            _occupiedSlotCount += ware.Size;
+        }
+
+        _emptySlotCount = _slotCount - _occupiedSlotCount;
+        
+        if (_occupiedSlotCount > 0)
+        {
+            _fillPercentage = ((float)_occupiedSlotCount / (float)_slotCount) * 100f;
         }
     }
 
@@ -74,8 +88,6 @@ public class Cargo : MonoBehaviour
         }
         _typesCounter[wareType]--;
     }
-
-    
 
     void DebugPrintTypesCounter()
     {

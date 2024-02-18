@@ -64,7 +64,7 @@ public class FlyLightArray : MonoBehaviour
 
     void Update()
     {
-        if (_spaceShipManager.IsAvailable && _spaceShipManager.TimeRemaining<_timeBeforeWarning) {
+        if (_spaceShipManager.HasSpaceship && _spaceShipManager.TimeRemaining<_timeBeforeWarning) {
             ChangeLightDuration(_WarningLightDuration);        
             ChangeEmissionColor(_warningColor);
         }else{
