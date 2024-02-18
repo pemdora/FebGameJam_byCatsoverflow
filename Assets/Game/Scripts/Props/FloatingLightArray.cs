@@ -10,7 +10,7 @@ public class FlyLightArray : MonoBehaviour
 
        
     private List<GameObject> lights = new List<GameObject>();   
-    private List<Material> _materials = new List<Material>();
+    
     
 
     [Header("Settings")]
@@ -28,15 +28,12 @@ public class FlyLightArray : MonoBehaviour
 
     [Header("Animation")]
     [Range(0, 2)]
-    [SerializeField] private float _BaseLightDuration;
-
-    //curve animation
+    [SerializeField] private float _BaseLightDuration;    
     [SerializeField] private AnimationCurve _lightAnimationCurve;
 
     [Header("Warning Animation")]
     [ColorUsageAttribute(true, true)]
-    [SerializeField] private Color _warningColor;
-    [SerializeField] private float _timeBeforeWarning;   
+    [SerializeField] private Color _warningColor; 
     [Range(0, 2)]    
     [SerializeField] private float _WarningLightDuration;
 
@@ -49,6 +46,7 @@ public class FlyLightArray : MonoBehaviour
     [SerializeField] private GameObject _objectContainer; 
     [SerializeField] private Light _realLight;
     [SerializeField] private SpaceshipManager _spaceShipManager;
+    [SerializeField] private GameManager _gameManager;
     
 
     void Start()
@@ -64,7 +62,7 @@ public class FlyLightArray : MonoBehaviour
 
     void Update()
     {
-        if (_spaceShipManager.HasSpaceship && _spaceShipManager.TimeRemaining<_timeBeforeWarning) {
+        if (_spaceShipManager.HasSpaceship && _spaceShipManager.TimeRemaining<_gameManager.TimeBeforeWarning) {
             ChangeLightDuration(_WarningLightDuration);        
             ChangeEmissionColor(_warningColor);
         }else{
@@ -87,8 +85,6 @@ public class FlyLightArray : MonoBehaviour
                 //variation du temps entre chaque lumière en fonction de la courbe
                 float timer = _lightDuration * _lightAnimationCurve.Evaluate((float)i / (float)lights.Count);
                 yield return new WaitForSeconds(timer);
-                
-
                 turnLightOff(i);
             
             }
