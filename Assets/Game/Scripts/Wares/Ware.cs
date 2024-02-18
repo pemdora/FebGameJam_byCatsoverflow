@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
-
     public enum WareTypes
     {
         Undefined,
@@ -14,8 +11,7 @@ public class Ware : MonoBehaviour, IWareSupport
         Heavy,
         Explosive
     }
-
-
+    
     [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
     [SerializeField] private WareTypes _wareType;
@@ -28,10 +24,8 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject _graphicObjectContainer;
 
     public Transform WarePoolContainer { get => _warePoolContainer; }
-
-
+    
     private GameObject _graphicObjectSelected;
-    private int? randomObjectID;  
     private Transform _warePoolContainer;
     private Coroutine _dropCoroutine;
     private Coroutine _rotationCoroutine;
@@ -48,7 +42,6 @@ public class Ware : MonoBehaviour, IWareSupport
         }
     }
     
-    
     public void Initialize(Transform poolTransform)
     {
         _warePoolContainer = poolTransform;
@@ -60,8 +53,6 @@ public class Ware : MonoBehaviour, IWareSupport
         _scaleDuration = _scaleAnimationCurve.keys[_scaleAnimationCurve.length - 1].time;
     }
 
-   
-    
     public void Place(Cargo destination)
     {
         _associatedCargo = destination;
@@ -108,6 +99,7 @@ public class Ware : MonoBehaviour, IWareSupport
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
+        rb.AddTorque(new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)));
 
         yield return _waitDropTime;
         
@@ -287,15 +279,11 @@ public class Ware : MonoBehaviour, IWareSupport
         return _associatedCargo;
     }
     
-   
     public WareTypes GetWareType()
     {
         return _wareType;
     }
 
-
-
-      
 #if UNITY_EDITOR
     private void OnValidate()
     {
