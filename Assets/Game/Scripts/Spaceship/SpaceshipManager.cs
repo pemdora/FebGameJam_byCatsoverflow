@@ -16,15 +16,9 @@ public class SpaceshipManager : MonoBehaviour
     public bool IsAvailable => _currentSpaceship!=null;
     public float TimeRemaining => _currentSpaceship.LoadingLeft;
     public float Percentage => _currentSpaceship.Cargo.FillPercentage;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        BringNewSpaceship();
-    }
-
+    
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!_currentSpaceship)
         {
@@ -44,7 +38,7 @@ public class SpaceshipManager : MonoBehaviour
         }
     }
 
-    private void BringNewSpaceship()
+    public void BringNewSpaceship()
     {
         Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
         spaceship.Initialize();
