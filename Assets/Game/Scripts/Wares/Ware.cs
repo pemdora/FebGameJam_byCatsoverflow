@@ -20,8 +20,6 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("References")]
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
-    [SerializeField] private GameObject[] _graphicObject;
-    [SerializeField] private GameObject _graphicObjectContainer;
 
     public Transform WarePoolContainer { get => _warePoolContainer; }
     public bool HasBeenPlaced => _associatedCargo != null;
