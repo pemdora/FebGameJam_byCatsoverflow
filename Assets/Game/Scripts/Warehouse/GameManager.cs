@@ -47,10 +47,6 @@ public class GameManager : MonoBehaviour
         _pickManager.CanPick = false;
         
         _spaceshipManager.CanSpawnSpaceship = false;
-        if (_spaceshipManager.HasSpaceship)
-        {
-            _spaceshipManager.SpaceshipDeparture();
-        }
 
         _mainMenuManager.ShowGameOver();
     } 
