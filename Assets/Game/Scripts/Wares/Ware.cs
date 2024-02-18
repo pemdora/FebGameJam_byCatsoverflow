@@ -24,6 +24,7 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject _graphicObjectContainer;
 
     public Transform WarePoolContainer { get => _warePoolContainer; }
+    public bool HasBeenPlaced => _associatedCargo != null;
     
     private GameObject _graphicObjectSelected;
     private Transform _warePoolContainer;
@@ -234,6 +235,11 @@ public class Ware : MonoBehaviour, IWareSupport
 
     public bool CanBePicked(LayerMask wareLayerMask)
     {
+        if (HasBeenPlaced)
+        {
+            return false;
+        }
+        
         foreach (WareBounds wareBounds in _bounds)
         {
             if (wareBounds.HasWareAbove(wareLayerMask))
