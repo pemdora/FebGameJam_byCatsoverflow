@@ -18,7 +18,7 @@ public class TimerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_spaceshipManager.IsAvailable && _spaceshipManager.TimeRemaining>0) {
+        if (_spaceshipManager.HasSpaceship && _spaceshipManager.TimeRemaining>0) {
             _previousTime = Mathf.FloorToInt(_spaceshipManager.TimeRemaining);
             _timeText.text = (_previousTime+1).ToString();
         }else {

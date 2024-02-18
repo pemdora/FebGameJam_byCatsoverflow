@@ -21,7 +21,7 @@ public class PercentageUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_spaceshipManager.IsAvailable && _spaceshipManager.Percentage<=100) {
+        if (_spaceshipManager.HasSpaceship && _spaceshipManager.Percentage<=100) {
             _previousPercentage = Mathf.FloorToInt(_spaceshipManager.Percentage);
             _percentageText.text = (_previousPercentage).ToString();
             _filler.fillAmount = _spaceshipManager.Percentage / 100f;

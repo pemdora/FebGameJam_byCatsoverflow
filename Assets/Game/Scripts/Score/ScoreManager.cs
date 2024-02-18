@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class ScoreManager : MonoBehaviour
 {
     [Header("Stats")] 
     [SerializeField] private int _deliveryCount;
-    [SerializeField] private float _frustration;
+    [SerializeField] private int _frustration;
     [SerializeField] private int _score;
 
     [Header("Settings")] 
@@ -12,9 +13,12 @@ public class ScoreManager : MonoBehaviour
 
     [Header("References")] 
     [SerializeField] private SpaceshipManager _spaceshipManager;
+
+    [Header("Events")] 
+    public UnityEvent OnGameOver;
     
     public int DeliveryCount => _deliveryCount;
-    public float Frustration => _frustration;
+    public int Frustration => _frustration;
     public int Score => _score;
 
     private void OnEnable()
@@ -47,7 +51,7 @@ public class ScoreManager : MonoBehaviour
             // If the frustration reach the maximum value, trigger game over
             if (_frustration >= _settings.maxFrustrationAllowed)
             {
-                OnOverFrustration();
+                OnGameOver?.Invoke();
             }
         }
         // else, the spaceship has enough ware in his cargo
@@ -63,8 +67,10 @@ public class ScoreManager : MonoBehaviour
         _deliveryCount++;
     }
 
-    private void OnOverFrustration()
+    public void ResetData()
     {
-        
+        _deliveryCount = 0;
+        _frustration = 0;
+        _score = 0;
     }
 }

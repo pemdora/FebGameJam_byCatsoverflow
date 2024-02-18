@@ -16,13 +16,14 @@ public class SpaceshipManager : MonoBehaviour
     [Header("Events")] 
     public UnityEvent<Spaceship> OnSpaceshipLanded;
     public UnityEvent<Spaceship> OnSpaceshipTakeOff;
-
-    private Spaceship _currentSpaceship;
-    public bool IsAvailable => _currentSpaceship != null;
+    
+    public bool CanSpawnSpaceship { get; set; }
+    public bool HasSpaceship => _currentSpaceship != null;
     public float TimeRemaining => _currentSpaceship.LoadingLeft;
     public float Percentage => _currentSpaceship.Cargo.FillPercentage;
+
+    private Spaceship _currentSpaceship;
     
-    // Update is called once per frame
     private void Update()
     {
         if (!_currentSpaceship)
@@ -36,6 +37,7 @@ public class SpaceshipManager : MonoBehaviour
             OnCurrentSpaceshipTimerReachedZero();
         }
 
+        // Make the spaceship leave if its cargo is full
         if (_currentSpaceship.Cargo.FillPercentage >= 100)
         {
             OnCurrentSpaceshipFull();
@@ -90,7 +92,11 @@ public class SpaceshipManager : MonoBehaviour
     private void SpaceshipLeft(Spaceship spaceship)
     {
         ReturnSpaceship(spaceship);
-        BringNewSpaceship();
+
+        if (CanSpawnSpaceship)
+        {
+            BringNewSpaceship();
+        }
     }
 
     private void OnCurrentSpaceshipTimerReachedZero()
