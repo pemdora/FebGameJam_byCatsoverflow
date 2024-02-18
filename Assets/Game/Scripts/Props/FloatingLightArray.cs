@@ -33,7 +33,7 @@ public class FlyLightArray : MonoBehaviour
     //curve animation
     [SerializeField] private AnimationCurve _lightAnimationCurve;
 
-    [Header("Warnong Animation")]
+    [Header("Warning Animation")]
     [ColorUsageAttribute(true, true)]
     [SerializeField] private Color _warningColor;
     [SerializeField] private float _timeBeforeWarning;   
