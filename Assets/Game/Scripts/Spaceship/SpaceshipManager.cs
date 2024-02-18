@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpaceshipManager : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class SpaceshipManager : MonoBehaviour
     [SerializeField] private ConveyorStart _conveyorStart;
     [SerializeField] private SpaceshipConductor _arrivalConductor;
     [SerializeField] private SpaceshipConductor _departureConductor;
+
+    [Header("Events")] 
+    public UnityEvent<Spaceship> OnSpaceshipLanded;
+    public UnityEvent<Spaceship> OnSpaceshipTakeOff;
 
     private Spaceship _currentSpaceship;
     public bool IsAvailable => _currentSpaceship!=null;
@@ -56,6 +61,8 @@ public class SpaceshipManager : MonoBehaviour
         _currentSpaceship.StartLoading();
         _currentSpaceship.Cargo.ActivateCargo();
         _landingPlatform.CanRotate = true;
+        
+        OnSpaceshipLanded?.Invoke(spaceship);
     }
 
     public void SpaceshipDeparture()
@@ -68,6 +75,8 @@ public class SpaceshipManager : MonoBehaviour
         _currentSpaceship.StopLoading();
         _currentSpaceship.Cargo.DeactivateCargo();
         _conveyorStart.StopConveyor();
+
+        OnSpaceshipTakeOff?.Invoke(_currentSpaceship);
         
         _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft, false);
         _currentSpaceship = null;

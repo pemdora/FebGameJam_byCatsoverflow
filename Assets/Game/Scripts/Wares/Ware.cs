@@ -25,6 +25,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
     public Transform WarePoolContainer { get => _warePoolContainer; }
     public bool HasBeenPlaced => _associatedCargo != null;
+    public int Size => _bounds.Length;
     
     private GameObject _graphicObjectSelected;
     private Transform _warePoolContainer;

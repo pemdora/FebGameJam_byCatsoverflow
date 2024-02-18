@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  _loadingDuration: 10
+  _loadingDuration: 20
   _cargo: {fileID: 3894116859318271166}
 --- !u!1001 &6603133859306919778
 PrefabInstance:
