@@ -18,7 +18,7 @@ public class SpaceshipManager : MonoBehaviour
     public UnityEvent<Spaceship> OnSpaceshipTakeOff;
 
     private Spaceship _currentSpaceship;
-    public bool IsAvailable => _currentSpaceship!=null;
+    public bool IsAvailable => _currentSpaceship != null;
     public float TimeRemaining => _currentSpaceship.LoadingLeft;
     public float Percentage => _currentSpaceship.Cargo.FillPercentage;
     
