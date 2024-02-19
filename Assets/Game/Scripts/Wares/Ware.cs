@@ -16,6 +16,7 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private LayerMask _obstaclesLayer;
     [SerializeField] private WareTypes _wareType;
     [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
+    [SerializeField] private GameObject _UIpointsprefab;
 
     [Header("References")]
     [SerializeField] private GameObject _highlight;
@@ -61,6 +62,7 @@ public class Ware : MonoBehaviour, IWareSupport
         _associatedCargo.AddWare(this);
         transform.parent = destination.transform;
         StartPlaceAnimation();
+        PointsAnimation();
     }
 
     public void Pick(PickManager manager)
@@ -213,6 +215,23 @@ public class Ware : MonoBehaviour, IWareSupport
             // }
 
             bound.SetIndicator(indicators);
+        }
+    }
+
+    private void PointsAnimation()
+    {
+        if (!_UIpointsprefab)
+        {
+
+        }
+        GameObject uiPrefab = Instantiate(_UIpointsprefab, new Vector3(0, 0, 0), Quaternion.identity);
+        UIWarePoints warePointsUI = uiPrefab.GetComponent<UIWarePoints>();
+        if (warePointsUI)
+        {
+            // TODO Set the actual score of the ware
+            warePointsUI.transform.position = transform.position;
+            warePointsUI.SetPointsValue(50);
+            warePointsUI.StartAnimation();
         }
     }
 

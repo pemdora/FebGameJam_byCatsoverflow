@@ -111,10 +111,7 @@ MonoBehaviour:
   _obstaclesLayer:
     serializedVersion: 2
     m_Bits: 320
-  _highlight: {fileID: 7517559643739856525}
-  _bounds: []
-  _graphicObject: {fileID: 0}
-  _graphicObjectContainer: {fileID: 0}
+  _wareType: 0
   _scaleAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -166,3 +163,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _UIpointsprefab: {fileID: 6422356196705920692, guid: 6962d54d0e1095b4a802cbb5bab20276,
+    type: 3}
+  _highlight: {fileID: 7517559643739856525}
+  _bounds: []
+  _graphicObject:
+  - {fileID: 0}
+  _graphicObjectContainer: {fileID: 0}
