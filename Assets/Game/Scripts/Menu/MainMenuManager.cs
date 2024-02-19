@@ -9,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] private GameObject _ingameUI;
 
     [Header("Screens")]
     [SerializeField] private GameObject _mainMenuScreen;
@@ -28,6 +29,8 @@ public class MainMenuManager : MonoBehaviour
 
     void OnEnable()
     {
+        _ingameUI.SetActive(false);
+
         ShowMainMenu();
         _creditScreen.SetActive(false);
         _settingsScreen.SetActive(false);
@@ -44,6 +47,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void Play()
     {
+        _ingameUI.SetActive(true);
+
         HideMainMenu();
         _creditScreen.SetActive(false);
         _settingsScreen.SetActive(false);

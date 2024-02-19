@@ -3,20 +3,21 @@ using UnityEngine.Events;
 
 public class ScoreManager : MonoBehaviour
 {
-    [Header("Stats")] 
+    [Header("Stats")]
     [SerializeField] private int _deliveryCount;
     [SerializeField] private int _frustration;
     [SerializeField] private int _score;
 
-    [Header("Settings")] 
+    [Header("Settings")]
     [SerializeField] private ScoreSettings _settings;
 
-    [Header("References")] 
+    [Header("References")]
     [SerializeField] private SpaceshipManager _spaceshipManager;
+    [SerializeField] private FrustrationUI _frustrationUI;
 
-    [Header("Events")] 
+    [Header("Events")]
     public UnityEvent OnGameOver;
-    
+
     public int DeliveryCount => _deliveryCount;
     public int Frustration => _frustration;
     public int Score => _score;
@@ -41,12 +42,15 @@ public class ScoreManager : MonoBehaviour
 
         _score += numberOfOccupiedSlotsUnderThreshold * _settings.pointsPerSlotFilled;
         _score += numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
-        
+
         // If the number of empty slots are above the allowed threshold
         if (!minimumOccupiedSlotsReached)
         {
             // We add frustration for each empty slots
             _frustration += cargo.EmptySlotCount * _settings.frustrationPerEmptySlots;
+
+            // We call the UI dedicated to display the frustration and we update the Filler Image
+            _frustrationUI.UpdateFiller(_frustration / 100f);
 
             // If the frustration reach the maximum value, trigger game over
             if (_frustration >= _settings.maxFrustrationAllowed)
@@ -63,7 +67,7 @@ public class ScoreManager : MonoBehaviour
                 _score += Mathf.CeilToInt(spaceship.LoadingLeft) * _settings.pointsForEachSecondBeforeEndTimer;
             }
         }
-        
+
         _deliveryCount++;
     }
 

@@ -1,17 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class FlyLightArray : MonoBehaviour
 {
-
-
     private List<GameObject> lights = new List<GameObject>();
-
-
 
     [Header("Settings")]
     [SerializeField] private int _numberOfItems;
@@ -49,7 +43,6 @@ public class FlyLightArray : MonoBehaviour
     [Header("Scene References")]
     [SerializeField] private SpaceshipManager _spaceShipManager;
     [SerializeField] private GameManager _gameManager;
-
 
     void Start()
     {
@@ -106,8 +99,6 @@ public class FlyLightArray : MonoBehaviour
         }
     }
 
-
-
     private void turnLightOn(int index)
     {
         // lights[i].GetComponent<MeshRenderer>().sharedMaterials[_emissionPosition].color =  _onEmissionColor; //à utiliser si utilisation de shader
@@ -121,8 +112,6 @@ public class FlyLightArray : MonoBehaviour
         lights[index].GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
         lights[index].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", _offEmissionColor);
     }
-
-
 
     void GenerateLights(int numberOfItems)
     {
@@ -142,18 +131,13 @@ public class FlyLightArray : MonoBehaviour
         _realLight.color = _currentEmissionColor;
     }
 
-
     public void ChangeLightDuration(float duration)
     {
         _lightDuration = duration;
     }
 
-
-
-
     private void checkSettingAndRef()
     {
-
         if (!_objectContainer) throw new MissingComponentException("missing object container");
         if (!_objet) throw new MissingComponentException("missing object to duplicate");
         if (_objet.GetComponent<MeshRenderer>() == null) throw new MissingComponentException("missing mesh renderer on object to duplicate");
