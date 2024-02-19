@@ -50,7 +50,7 @@ public class ScoreManager : MonoBehaviour
             _frustration += cargo.EmptySlotCount * _settings.frustrationPerEmptySlots;
 
             // We call the UI dedicated to display the frustration and we update the Filler Image
-            _frustrationUI.UpdateFiller(_frustration / 100f);
+            _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
 
             // If the frustration reach the maximum value, trigger game over
             if (_frustration >= _settings.maxFrustrationAllowed)
