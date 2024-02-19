@@ -16,6 +16,7 @@ public class CargoSlot : MonoBehaviour, IWareSupport
 
     public Vector3 GetSnapSupportPosition(Ware ware, Vector3 warePosition, Vector3 mouseOffset)
     {
+        mouseOffset.y = mouseOffset.y % 1;
         return warePosition + Vector3Int.RoundToInt(mouseOffset);
     }
 

@@ -5,8 +5,20 @@ using UnityEngine.Rendering;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
+
+    public enum WareTypes
+    {
+        Undefined,
+        BasicBox,
+        CardBox,
+        Heavy,
+        Explosive
+    }
+
+
     [Header("Settings")]
     [SerializeField] private LayerMask _obstaclesLayer;
+    [SerializeField] private WareTypes _wareType;
     [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
 
     [Header("References")]
@@ -21,10 +33,20 @@ public class Ware : MonoBehaviour, IWareSupport
     private GameObject _graphicObjectSelected;
     private int? randomObjectID;  
     private Transform _warePoolContainer;
+    private Coroutine _dropCoroutine;
     private Coroutine _rotationCoroutine;
     private Coroutine _scaleCoroutine;
     private float _scaleDuration;
+    private WaitForSeconds _waitDropTime = new WaitForSeconds(2.5f);
     private Cargo _associatedCargo;
+
+    void Start()
+    {
+        if (_wareType == WareTypes.Undefined)
+        {
+            Debug.LogWarning(gameObject.name + " has no waretype");
+        }
+    }
     
     void OnEnable()
     {
@@ -72,6 +94,39 @@ public class Ware : MonoBehaviour, IWareSupport
 
         SetInteractable(false);
         transform.parent = manager.transform;
+    }
+
+    public void Drop()
+    {
+        SetInteractable(false);
+        ClearBoundsIndicators();
+        _associatedCargo = null;
+        Fall();
+    }
+
+    // make an transform animation to simulate a fall
+    private void Fall()
+    {
+        //Add a rigidbody if there is none
+        if (GetComponent<Rigidbody>() == null)
+        {
+            gameObject.AddComponent<Rigidbody>();
+        }
+        _dropCoroutine = StartCoroutine(FallCoroutine());
+    }
+
+    private IEnumerator FallCoroutine()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+
+        yield return _waitDropTime;
+        
+        AudioManager.Instance.PlayOuch();
+        rb.isKinematic = true;
+        transform.parent = _warePoolContainer;
+        gameObject.SetActive(false);
+        _dropCoroutine = null;
     }
 
     public bool Rotate(int angle, Vector3 offset)
@@ -251,7 +306,15 @@ public class Ware : MonoBehaviour, IWareSupport
             _graphicObjectSelected = _graphicObject[(int)randomObjectID];
         }
     }
-    
+
+    public WareTypes GetWareType()
+    {
+        return _wareType;
+    }
+
+
+
+      
 #if UNITY_EDITOR
     private void OnValidate()
     {
