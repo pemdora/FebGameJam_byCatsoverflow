@@ -86,7 +86,7 @@ public class SpaceshipManager : MonoBehaviour
     private void SpaceshipTakeoff()
     {
         OnSpaceshipTakeOff?.Invoke(_currentSpaceship);
-        
+
         _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft, false);
         _currentSpaceship = null;
     }
