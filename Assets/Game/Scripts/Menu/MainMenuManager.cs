@@ -8,6 +8,7 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Screens")]
     [SerializeField] private GameObject _mainMenuScreen;
+    [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private GameObject _creditScreen;
     [SerializeField] private GameObject _settingsScreen;
     [SerializeField] private GameObject _exitScreen;
@@ -22,7 +23,7 @@ public class MainMenuManager : MonoBehaviour
 
     void OnEnable()
     {
-        _mainMenuScreen.SetActive(true);
+        ShowMainMenu();
         _creditScreen.SetActive(false);
         _settingsScreen.SetActive(false);
         _exitScreen.SetActive(false);
@@ -35,14 +36,41 @@ public class MainMenuManager : MonoBehaviour
     }
 
     #region Play
-
-    // TODO: Sync with GameManager? to tell the game to start.
+    
     public void Play()
     {
-        _mainMenuScreen.SetActive(false);
+        HideMainMenu();
         _creditScreen.SetActive(false);
         _settingsScreen.SetActive(false);
         _exitScreen.SetActive(false);
+    }
+
+    #endregion
+
+    #region MainMenu
+
+    public void ShowMainMenu()
+    {
+        _mainMenuScreen.SetActive(true);
+    }
+
+    public void HideMainMenu()
+    {
+        _mainMenuScreen.SetActive(false);
+    }
+
+    #endregion
+    
+    #region Game Over
+    
+    public void ShowGameOver()
+    {
+        _gameOverScreen.Show();
+    }
+
+    public void HideGameOver()
+    {
+        _gameOverScreen.Hide();
     }
 
     #endregion

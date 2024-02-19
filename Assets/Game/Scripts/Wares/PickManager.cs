@@ -11,6 +11,8 @@ public class PickManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Camera _camera;
     [SerializeField] private LandingPlatform _landingPlatform;
+
+    public bool CanPick { get; set; } = true;
     
     private Ware _hoveredWare;
     private Ware _selectedWare;
@@ -18,6 +20,11 @@ public class PickManager : MonoBehaviour
 
     void Update()
     {
+        if (!CanPick)
+        {
+            return;
+        }
+        
         bool isWareSnapped = false;
         bool isPlatformRotating = _landingPlatform.IsRotating;
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
