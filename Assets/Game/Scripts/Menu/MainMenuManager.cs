@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class MainMenuManager : MonoBehaviour
 {
     private PlayerSave _playerSave;
+
+    [Header("References")]
+    [SerializeField] private GameManager _gameManager;
 
     [Header("Screens")]
     [SerializeField] private GameObject _mainMenuScreen;
@@ -44,6 +48,8 @@ public class MainMenuManager : MonoBehaviour
         _creditScreen.SetActive(false);
         _settingsScreen.SetActive(false);
         _exitScreen.SetActive(false);
+
+        _gameManager.StartGame();
     }
 
     #endregion
