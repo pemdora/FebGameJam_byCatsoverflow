@@ -8,6 +8,7 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Screens")]
     [SerializeField] private GameObject _mainMenuScreen;
+    [SerializeField] private LeaderboardManager _leaderboardManager;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private GameObject _creditScreen;
     [SerializeField] private GameObject _settingsScreen;
@@ -36,7 +37,7 @@ public class MainMenuManager : MonoBehaviour
     }
 
     #region Play
-    
+
     public void Play()
     {
         HideMainMenu();
@@ -60,9 +61,19 @@ public class MainMenuManager : MonoBehaviour
     }
 
     #endregion
-    
+
+    #region Leaderboard
+
+    public void ShowLeaderboard(bool isVisible)
+    {
+        _leaderboardManager.gameObject.SetActive(isVisible);
+        _mainMenuScreen.SetActive(!isVisible);
+    }
+
+    #endregion
+
     #region Game Over
-    
+
     public void ShowGameOver()
     {
         _gameOverScreen.Show();

@@ -81,7 +81,7 @@ public class LeaderboardManager : MonoBehaviour
 
                 // Override the results for debug purpose
                 // jsonResult = "[{\"user\":\"Pemdora\", \"score\":\"154\"}, {\"user\":\"pLeet\", \"score\":\"102\"}, {\"user\":\"ShidyGames\", \"score\":\"69\"}, {\"user\":\"laBlondasse\", \"score\":\"63\"}, {\"user\":\"Zakku\", \"score\":\"54\"}, {\"user\":\"Foxy WhiteTrack\", \"score\":\"49\"}, {\"user\":\"Faith\", \"score\":\"46\"}, {\"user\":\"Mizaka\", \"score\":\"41\"}, {\"user\":\"Wenzelie\", \"score\":\"36\"}, {\"user\":\"Mordilla Software\", \"score\":\"24\"}]";
-                
+
                 scoreList = JsonUtility.FromJson<ScoreList>("{\"items\":" + jsonResult + "}");
 
                 if (_parseLeaderboardCoroutine != null)
@@ -103,24 +103,25 @@ public class LeaderboardManager : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            Debug.Log($"Iteration {i}, user count {userScoreCount}");
-
             if (i < userScoreCount)
             {
                 yield return _waitBetweenLeaderboardEntry;
 
                 UserScore userScore = scoreList.items[i];
 
-                _leaderboardUserEntries[i].SetUserEntry(userScore.user, userScore.score);
                 _leaderboardUserEntries[i].gameObject.SetActive(true);
+                _leaderboardUserEntries[i].SetUserEntry(userScore.user, userScore.score);
 
+                Debug.Log($"Iteration {i}, user count {userScoreCount}. Displaying: {userScore.user} => {userScore.score}.");
             }
             else
             {
                 yield return null;
 
-                _leaderboardUserEntries[i].UnsetUserEntry();
                 _leaderboardUserEntries[i].gameObject.SetActive(false);
+                _leaderboardUserEntries[i].UnsetUserEntry();
+
+                Debug.Log($"Iteration {i}, user count {userScoreCount}. Nothing to display.");
             }
         }
 
