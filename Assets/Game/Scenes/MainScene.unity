@@ -3758,7 +3758,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &8798012887212708090
 MonoBehaviour:
@@ -3881,8 +3881,8 @@ SceneRoots:
   - {fileID: 1996034404}
   - {fileID: 1099974823}
   - {fileID: 1449794157}
-  - {fileID: 8150927782059506184}
   - {fileID: 5060771723137106247}
+  - {fileID: 8150927782059506184}
   - {fileID: 170311556}
   - {fileID: 969511141591184428}
   - {fileID: 6143151768428447067}

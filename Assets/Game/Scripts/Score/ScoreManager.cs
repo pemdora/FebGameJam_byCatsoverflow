@@ -60,6 +60,7 @@ namespace Game.Scripts.Score
                 if (_frustration >= _settings.maxFrustrationAllowed)
                 {
                     OnGameOver?.Invoke();
+                    return;
                 }
             }
             // else, the spaceship has enough ware in his cargo
