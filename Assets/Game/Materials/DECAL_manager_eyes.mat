@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DECAL_manager_eyes
-  m_Shader: {fileID: -6465566751694194690, guid: f7c3313ef7fc92b4ba36adb85026284d,
+  m_Shader: {fileID: -6465566751694194690, guid: 9473dc5607ef3dd458432c84f1076de9,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Base_Map:
-        m_Texture: {fileID: 2800000, guid: 6622cbabdfc578149ba0336851f19ab2, type: 3}
+        m_Texture: {fileID: 2800000, guid: cea44bcb599b1fb4c9a116e1fb017dcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Normal_Map:
@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 6622cbabdfc578149ba0336851f19ab2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7a9b6b5bae0d0c4458740e76a6a4e07f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -140,7 +140,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 0.07874122, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Emission: {r: 17.148375, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 45.254833, g: 6.190521, b: 6.190521, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
