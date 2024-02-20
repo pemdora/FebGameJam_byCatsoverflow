@@ -12,11 +12,7 @@ namespace Game.Scripts.Audio {
         [SerializeField] private AudioMixer _gameAudioMixer;
         [SerializeField] private AudioSource _musicAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;
-    
-        // @pLeet coucou tu peux mettre ça dans le GameManager stp ?
-        [Header("GlobalSFX")]
-        [SerializeField] private AudioClip _droppedWareSfx;
-
+        
         // put in the scriptable objects the sounds and music to play
         [SerializeField] private AudioScriptableObject audioScriptableObject;
     
@@ -26,7 +22,6 @@ namespace Game.Scripts.Audio {
             }
             else {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
             }
 
             _playerSave = SaveManager.Load();
@@ -50,12 +45,7 @@ namespace Game.Scripts.Audio {
         public void PlaySoundEffect(SoundEffectType soundEffectType) {
             _sfxAudioSource.PlayOneShot(audioScriptableObject.soundsEffectsBySoundType[soundEffectType]);
         }
-
-        // FOR THE TROLL
-        public void PlayOuch() {
-            PlaySoundEffect(SoundEffectType.OUTCH);
-        }
-
+        
         public void SetMasterVolume(float volume) {
             _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(volume));
         }
