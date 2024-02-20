@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class MainMenuManager : MonoBehaviour
 {
     private PlayerSave _playerSave;
 
+    [Header("References")]
+    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private GameObject _ingameUI;
+
     [Header("Screens")]
     [SerializeField] private GameObject _mainMenuScreen;
+    [SerializeField] private LeaderboardManager _leaderboardManager;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private GameObject _creditScreen;
     [SerializeField] private GameObject _settingsScreen;
@@ -23,6 +29,8 @@ public class MainMenuManager : MonoBehaviour
 
     void OnEnable()
     {
+        _ingameUI.SetActive(false);
+
         ShowMainMenu();
         _creditScreen.SetActive(false);
         _settingsScreen.SetActive(false);
@@ -36,13 +44,17 @@ public class MainMenuManager : MonoBehaviour
     }
 
     #region Play
-    
+
     public void Play()
     {
+        _ingameUI.SetActive(true);
+
         HideMainMenu();
         _creditScreen.SetActive(false);
         _settingsScreen.SetActive(false);
         _exitScreen.SetActive(false);
+
+        _gameManager.StartGame();
     }
 
     #endregion
@@ -60,9 +72,19 @@ public class MainMenuManager : MonoBehaviour
     }
 
     #endregion
-    
+
+    #region Leaderboard
+
+    public void ShowLeaderboard(bool isVisible)
+    {
+        _leaderboardManager.gameObject.SetActive(isVisible);
+        _mainMenuScreen.SetActive(!isVisible);
+    }
+
+    #endregion
+
     #region Game Over
-    
+
     public void ShowGameOver()
     {
         _gameOverScreen.Show();

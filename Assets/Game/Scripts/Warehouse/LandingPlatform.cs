@@ -50,6 +50,12 @@ public class LandingPlatform : MonoBehaviour
 
     public void ResetRotation(Action onComplete)
     {
+        if (transform.rotation.y == 0)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+        
         if (_rotationCoroutine != null)
         {
             return;

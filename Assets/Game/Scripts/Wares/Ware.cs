@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Ware : MonoBehaviour, IWareSupport
 {
@@ -21,6 +22,10 @@ public class Ware : MonoBehaviour, IWareSupport
     [Header("References")]
     [SerializeField] private GameObject _highlight;
     [SerializeField] private WareBounds[] _bounds;
+
+    [Header("Events")] 
+    public UnityEvent OnPick;
+    public UnityEvent OnDrop;
 
     public Transform WarePoolContainer { get => _warePoolContainer; }
     public bool HasBeenPlaced => _associatedCargo != null;
@@ -75,6 +80,8 @@ public class Ware : MonoBehaviour, IWareSupport
 
         SetInteractable(false);
         transform.parent = manager.transform;
+        
+        OnPick?.Invoke();
     }
 
     public void Drop()
@@ -83,6 +90,8 @@ public class Ware : MonoBehaviour, IWareSupport
         ClearBoundsIndicators();
         _associatedCargo = null;
         Fall();
+        
+        OnDrop?.Invoke();
     }
 
     // make an transform animation to simulate a fall

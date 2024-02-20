@@ -3,12 +3,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+
+    [Header("Settings")]
+    [SerializeField] private float _timeBeforeWarning; 
+    public float TimeBeforeWarning => _timeBeforeWarning;
+
     [Header("References")]
     [SerializeField] private LandingPlatform _landingPlatform;
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private PickManager _pickManager;
     [SerializeField] private SpaceshipManager _spaceshipManager;
-    [SerializeField] private MainMenuManager _mainMenuManager;
+    [SerializeField] private MainMenuManager _mainMenuManager;    
+
 
     private void Start()
     {
@@ -47,10 +54,6 @@ public class GameManager : MonoBehaviour
         _pickManager.CanPick = false;
         
         _spaceshipManager.CanSpawnSpaceship = false;
-        if (_spaceshipManager.HasSpaceship)
-        {
-            _spaceshipManager.SpaceshipDeparture();
-        }
 
         _mainMenuManager.ShowGameOver();
     } 

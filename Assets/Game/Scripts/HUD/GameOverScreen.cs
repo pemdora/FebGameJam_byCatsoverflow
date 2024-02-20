@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GameOverScreen : MonoBehaviour
 {
-    [Header("Settings")] 
+    [Header("Settings")]
     [SerializeField] private float _showDuration = 0.66f;
     [SerializeField] private float _hideDuration = 0.2f;
-    
-    [Header("References")] 
-    [Header("References")] 
+
+    [Header("References")]
     [SerializeField] private CanvasGroup _canvasGroup;
 
     private Coroutine _fadeCoroutine;

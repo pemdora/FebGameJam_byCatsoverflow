@@ -35,12 +35,14 @@ public class SpaceshipManager : MonoBehaviour
         if (_currentSpaceship.LoadingLeft <= 0)
         {
             OnCurrentSpaceshipTimerReachedZero();
+            return;
         }
 
         // Make the spaceship leave if its cargo is full
         if (_currentSpaceship.Cargo.FillPercentage >= 100)
         {
             OnCurrentSpaceshipFull();
+            return;
         }
         
         // Block landing platform rotation if the spaceship is about to leave
@@ -84,7 +86,7 @@ public class SpaceshipManager : MonoBehaviour
     private void SpaceshipTakeoff()
     {
         OnSpaceshipTakeOff?.Invoke(_currentSpaceship);
-        
+
         _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft, false);
         _currentSpaceship = null;
     }
