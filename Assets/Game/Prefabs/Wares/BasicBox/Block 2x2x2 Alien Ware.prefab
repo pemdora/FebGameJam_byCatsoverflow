@@ -100,12 +100,12 @@ PrefabInstance:
     - target: {fileID: 3165910680159802284, guid: ffe8723a17f94244b8825632c3b5ec00,
         type: 3}
       propertyPath: m_Name
-      value: Block 2x2x2 Ware Variant Variant
+      value: Block 2x2x2 Alien Ware
       objectReference: {fileID: 0}
     - target: {fileID: 3186800975678423667, guid: ffe8723a17f94244b8825632c3b5ec00,
         type: 3}
       propertyPath: _wareType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3947119731127441763, guid: ffe8723a17f94244b8825632c3b5ec00,
         type: 3}
