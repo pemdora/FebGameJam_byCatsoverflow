@@ -85,9 +85,9 @@ public class MainMenuManager : MonoBehaviour
 
     #region Game Over
 
-    public void ShowGameOver()
+    public void ShowGameOver(int score, int deliveryCount)
     {
-        _gameOverScreen.Show();
+        _gameOverScreen.Show(score, deliveryCount);
     }
 
     public void HideGameOver()

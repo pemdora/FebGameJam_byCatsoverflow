@@ -10,15 +10,19 @@ public class GameOverScreen : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private TMPro.TMP_Text _deliveryCount;
+    [SerializeField] private TMPro.TMP_Text _scoreText;
 
     private Coroutine _fadeCoroutine;
 
-    public void Show()
+    public void Show(int score, int deliveryCount)
     {
         if (_fadeCoroutine != null)
         {
             StopCoroutine(_fadeCoroutine);
         }
+        _scoreText.text = score.ToString();
+        _deliveryCount.text = deliveryCount.ToString();
 
         _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;

@@ -50,11 +50,11 @@ public class GameManager : MonoBehaviour
     private void OnGameOver()
     {
         _landingPlatform.CanRotate = false;
+        _mainMenuManager.ShowGameOver(_scoreManager.Score, _scoreManager.DeliveryCount);
         _scoreManager.ResetData();
         _pickManager.CanPick = false;
         
         _spaceshipManager.CanSpawnSpaceship = false;
 
-        _mainMenuManager.ShowGameOver();
     } 
 }
