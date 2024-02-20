@@ -38,6 +38,11 @@ namespace Game.Scripts.Score
 
         private void OnSpaceshipLeft(Spaceship.Spaceship spaceship)
         {
+            if (spaceship == null)
+            {
+                return;
+            }
+            
             Cargo.Cargo cargo = spaceship.Cargo;
             int minimumOccupiedSlotsNeeded = Mathf.CeilToInt(cargo.SlotCount * (_settings.frustrationThreshold / 100f));
             bool minimumOccupiedSlotsReached = 100f - cargo.FillPercentage < _settings.frustrationThreshold;

@@ -59,6 +59,7 @@ namespace Game.Scripts.Spaceship {
         internal void BringNewSpaceship()
         {
             Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
+            spaceship.gameObject.SetActive(false);
             spaceship.Initialize();
             _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded, true);
             spaceship.gameObject.SetActive(true);
@@ -118,7 +119,7 @@ namespace Game.Scripts.Spaceship {
     
         private Spaceship GetSpaceship(Spaceship spaceship)
         {
-            return Instantiate(spaceship.gameObject).GetComponent<Spaceship>();
+            return Instantiate(spaceship.gameObject, Vector3.one * 500, spaceship.transform.rotation).GetComponent<Spaceship>();
         }
 
         private void ReturnSpaceship(Spaceship spaceship)
