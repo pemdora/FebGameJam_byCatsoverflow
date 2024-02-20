@@ -15,30 +15,47 @@ namespace Game.Scripts.Save {
 
     public static class SaveManager
     {
-        private static readonly string path = Application.persistentDataPath;
-        private static readonly string filename = "player.sav";
+        private static readonly string applicationPath = Application.persistentDataPath;
+        private static readonly string saveFile = "player.sav";
 
         /// <summary>
         /// Checks if there is a save file available or not.
         /// </summary>
         /// <returns></returns>
-        public static bool SaveFileExists()
-        {
-            return File.Exists($"{path}/{filename}");
+        private static bool SaveFileExists() {
+            string savePath = Path.Combine(applicationPath, saveFile);
+            return File.Exists(savePath);
+        }
+
+        /// <summary>
+        /// Checks if there is the save file contain valid data.
+        /// </summary>
+        /// <returns></returns>
+        private static bool IsSaveFileValid() {
+            try {
+                string savePath = Path.Combine(applicationPath, saveFile);
+                var savedDataString = File.ReadAllText(savePath);
+                JsonUtility.FromJson<PlayerSave>(savedDataString);
+            }
+            catch (Exception) {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
         /// Creates a new PlayerSave.
         /// </summary>
         /// <returns></returns>
-        public static PlayerSave CreateNew(int highscore = 0, float masterVolume = .25f, float musicVolume = .25f, float soundVolume = .25f)
+        private static PlayerSave CreateNewSave(int highscore = 0, float masterVolume = .25f, float musicVolume = .25f, float soundVolume = .25f)
         {
-            return new PlayerSave()
+            return new PlayerSave
             {
                 playerHighscore = highscore,
                 masterVolume = masterVolume,
                 musicVolume = musicVolume,
-                soundVolume = soundVolume,
+                soundVolume = soundVolume
             };
         }
 
@@ -48,10 +65,8 @@ namespace Game.Scripts.Save {
         /// <param name="playerSave">The PlayerSave to save.</param>
         public static void Save(PlayerSave playerSave)
         {
-            BinaryFormatter binaryFormatter = new();
-            FileStream fileStream = new($"{path}/{filename}", FileMode.Create);
-            binaryFormatter.Serialize(fileStream, playerSave);
-            fileStream.Close();
+            string savePath = Path.Combine(applicationPath, saveFile);
+            File.WriteAllText(savePath, JsonUtility.ToJson(playerSave));
         }
 
         /// <summary>
@@ -62,21 +77,19 @@ namespace Game.Scripts.Save {
         {
             PlayerSave loadedSave;
 
-            if (!SaveFileExists())
+            if (!SaveFileExists() || !IsSaveFileValid())
             {
-                loadedSave = CreateNew();
+                loadedSave = CreateNewSave();
                 Save(loadedSave);
                 Debug.LogWarning($"[SaveManager.Load] No save file available, created a new one.");
                 return loadedSave;
             }
-            else
-            {
-                BinaryFormatter binaryFormatter = new();
-                FileStream fileStream = new($"{path}/{filename}", FileMode.Open);
-                loadedSave = binaryFormatter.Deserialize(fileStream) as PlayerSave;
-                fileStream.Close();
-                return loadedSave;
-            }
+            
+            string savePath = Path.Combine(applicationPath, saveFile);
+            
+            var savedDataString = File.ReadAllText(savePath);
+            
+            return JsonUtility.FromJson<PlayerSave>(savedDataString);
         }
 
         /// <summary>
