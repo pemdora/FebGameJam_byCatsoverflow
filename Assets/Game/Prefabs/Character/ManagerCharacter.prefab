@@ -1,0 +1,277 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1735671827408081779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2236127562714597027}
+  - component: {fileID: 1328136438457032824}
+  m_Layer: 0
+  m_Name: Mouth Decal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2236127562714597027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735671827408081779}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9998444, z: 0.017644359, w: -0}
+  m_LocalPosition: {x: 0, y: -0.19, z: 1.693}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4707900981861732230}
+  m_LocalEulerAnglesHint: {x: 182.022, y: 0, z: -180}
+--- !u!114 &1328136438457032824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735671827408081779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: b842fb95c16748748b366a66f230c3ef, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 1
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 0.76}
+  m_Size: {x: 2, y: 2, z: 1.24}
+  m_FadeFactor: 1
+--- !u!1 &3971403705866810240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4543255883786994186}
+  - component: {fileID: 7567901681043548328}
+  m_Layer: 0
+  m_Name: Eyes Decal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4543255883786994186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971403705866810240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.99396193, z: -0.10972573, w: 0}
+  m_LocalPosition: {x: 0, y: 0.388, z: 1.796}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4707900981861732230}
+  m_LocalEulerAnglesHint: {x: 167.401, y: 0, z: -180}
+--- !u!114 &7567901681043548328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971403705866810240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: afefc94c6ffbf53489fbc2d65110b7a9, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 1
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 0.62}
+  m_Size: {x: 2, y: 2, z: 1.24}
+  m_FadeFactor: 1
+--- !u!1 &9110258727014685269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4707900981861732230}
+  - component: {fileID: 7372965446299959147}
+  m_Layer: 0
+  m_Name: ManagerCharacter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4707900981861732230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110258727014685269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6187769135221684165}
+  - {fileID: 4543255883786994186}
+  - {fileID: 2236127562714597027}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7372965446299959147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110258727014685269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0527f756f2c5ad44c973e60ca32d1b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eyesAnimations:
+  - name: normal
+    texture: {fileID: 21300000, guid: 6622cbabdfc578149ba0336851f19ab2, type: 3}
+  - name: happy
+    texture: {fileID: 21300000, guid: 7a9b6b5bae0d0c4458740e76a6a4e07f, type: 3}
+  - name: angry
+    texture: {fileID: 21300000, guid: 34967a8c631380f4b8a7531c7f022f12, type: 3}
+  - name: heart
+    texture: {fileID: 21300000, guid: cea44bcb599b1fb4c9a116e1fb017dcf, type: 3}
+  - name: confused
+    texture: {fileID: 21300000, guid: 994fc8f259ad8cf4fa33e7eb3d2cd3ae, type: 3}
+  - name: tired
+    texture: {fileID: 21300000, guid: e38c425a037f02745bba71fa360e1cd3, type: 3}
+  mouthAnimations:
+  - name: close
+    texture: {fileID: 21300000, guid: 443d0274fa1339143acafe4194382028, type: 3}
+  - name: open
+    texture: {fileID: 21300000, guid: ebbde4e4fb08b9e47bd14f2c9668a1ed, type: 3}
+  - name: large_open
+    texture: {fileID: 21300000, guid: f68777508c26106418cfeabf63a2bc1c, type: 3}
+  - name: smile
+    texture: {fileID: 21300000, guid: ed332d466ade2ad45bd9b0309066f576, type: 3}
+  - name: sad
+    texture: {fileID: 21300000, guid: a53c69496f27b8b4eb939b1b23407b34, type: 3}
+  - name: confused
+    texture: {fileID: 21300000, guid: 61e7d38f8427fef4bb660ec100b388d3, type: 3}
+  eyesDecalProjector: {fileID: 7567901681043548328}
+  mouthDecalProjector: {fileID: 7567901681043548328}
+  eyeDecalMaterial: {fileID: 2100000, guid: afefc94c6ffbf53489fbc2d65110b7a9, type: 2}
+  mouthDecalMaterial: {fileID: 2100000, guid: b842fb95c16748748b366a66f230c3ef, type: 2}
+  face: {fileID: 5051084308512239816}
+--- !u!1001 &5932901263724171310
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4707900981861732230}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7279273319459097461, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 590c94d15ff989a43a21691bddc02561, type: 2}
+    - target: {fileID: 919132149155446097, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+        type: 3}
+      propertyPath: m_Name
+      value: manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e42f91eb7c283745871f6cab3a9fe08, type: 3}
+--- !u!1 &5051084308512239816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1462799242934690022, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+    type: 3}
+  m_PrefabInstance: {fileID: 5932901263724171310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6187769135221684165 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7e42f91eb7c283745871f6cab3a9fe08,
+    type: 3}
+  m_PrefabInstance: {fileID: 5932901263724171310}
+  m_PrefabAsset: {fileID: 0}
