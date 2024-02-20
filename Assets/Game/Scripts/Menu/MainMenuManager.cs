@@ -1,177 +1,183 @@
+using Game.Scripts.Audio;
+using Game.Scripts.HUD;
+using Game.Scripts.Leaderboard;
+using Game.Scripts.Save;
+using Game.Scripts.Warehouse;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using Unity.VisualScripting;
 
-public class MainMenuManager : MonoBehaviour
-{
-    private PlayerSave _playerSave;
-
-    [Header("References")]
-    [SerializeField] private GameManager _gameManager;
-    [SerializeField] private GameObject _ingameUI;
-
-    [Header("Screens")]
-    [SerializeField] private GameObject _mainMenuScreen;
-    [SerializeField] private LeaderboardManager _leaderboardManager;
-    [SerializeField] private GameOverScreen _gameOverScreen;
-    [SerializeField] private GameObject _creditScreen;
-    [SerializeField] private GameObject _settingsScreen;
-    [SerializeField] private GameObject _exitScreen;
-
-    [Header("Volume")]
-    [SerializeField] private Slider _masterVolumeSlider;
-    [SerializeField] private Slider _musicVolumeSlider;
-    [SerializeField] private Slider _soundVolumeSlider;
-    [SerializeField] private TMP_Text _masterVolumeText;
-    [SerializeField] private TMP_Text _musicVolumeText;
-    [SerializeField] private TMP_Text _soundVolumeText;
-
-    void OnEnable()
+namespace Game.Scripts.Menu {
+    public class MainMenuManager : MonoBehaviour
     {
-        _ingameUI.SetActive(false);
+        private PlayerSave _playerSave;
 
-        ShowMainMenu();
-        _creditScreen.SetActive(false);
-        _settingsScreen.SetActive(false);
-        _exitScreen.SetActive(false);
+        [Header("References")]
+        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private GameObject _ingameUI;
 
-        _playerSave = SaveManager.Load();
+        [Header("Screens")]
+        [SerializeField] private GameObject _mainMenuScreen;
+        [SerializeField] private LeaderboardManager _leaderboardManager;
+        [SerializeField] private GameOverScreen _gameOverScreen;
+        [SerializeField] private GameObject _creditScreen;
+        [SerializeField] private GameObject _settingsScreen;
+        [SerializeField] private GameObject _exitScreen;
 
-        UpdateSliderDisplay(_masterVolumeSlider, _masterVolumeText, _playerSave.masterVolume);
-        UpdateSliderDisplay(_musicVolumeSlider, _musicVolumeText, _playerSave.musicVolume);
-        UpdateSliderDisplay(_soundVolumeSlider, _soundVolumeText, _playerSave.soundVolume);
-    }
+        [Header("Volume")]
+        [SerializeField] private Slider _masterVolumeSlider;
+        [SerializeField] private Slider _musicVolumeSlider;
+        [SerializeField] private Slider _soundVolumeSlider;
+        [SerializeField] private TMP_Text _masterVolumeText;
+        [SerializeField] private TMP_Text _musicVolumeText;
+        [SerializeField] private TMP_Text _soundVolumeText;
 
-    #region Play
+        void OnEnable()
+        {
+            _ingameUI.SetActive(false);
 
-    public void Play()
-    {
-        _ingameUI.SetActive(true);
+            ShowMainMenu();
+            _creditScreen.SetActive(false);
+            _settingsScreen.SetActive(false);
+            _exitScreen.SetActive(false);
 
-        HideMainMenu();
-        _creditScreen.SetActive(false);
-        _settingsScreen.SetActive(false);
-        _exitScreen.SetActive(false);
+            _playerSave = SaveManager.Load();
 
-        _gameManager.StartGame();
-    }
+            UpdateSliderDisplay(_masterVolumeSlider, _masterVolumeText, _playerSave.masterVolume);
+            UpdateSliderDisplay(_musicVolumeSlider, _musicVolumeText, _playerSave.musicVolume);
+            UpdateSliderDisplay(_soundVolumeSlider, _soundVolumeText, _playerSave.soundVolume);
+        }
 
-    #endregion
+        #region Play
 
-    #region MainMenu
+        public void Play()
+        {
+            _ingameUI.SetActive(true);
 
-    public void ShowMainMenu()
-    {
-        _mainMenuScreen.SetActive(true);
-    }
+            HideMainMenu();
+            _creditScreen.SetActive(false);
+            _settingsScreen.SetActive(false);
+            _exitScreen.SetActive(false);
 
-    public void HideMainMenu()
-    {
-        _mainMenuScreen.SetActive(false);
-    }
+            _gameManager.StartGame();
+        }
 
-    #endregion
+        #endregion
 
-    #region Leaderboard
+        #region MainMenu
 
-    public void ShowLeaderboard(bool isVisible)
-    {
-        _leaderboardManager.gameObject.SetActive(isVisible);
-        _mainMenuScreen.SetActive(!isVisible);
-    }
+        public void ShowMainMenu()
+        {
+            _mainMenuScreen.SetActive(true);
+        }
 
-    #endregion
+        public void HideMainMenu()
+        {
+            _mainMenuScreen.SetActive(false);
+        }
 
-    #region Game Over
+        #endregion
+
+        #region Leaderboard
+
+        public void ShowLeaderboard(bool isVisible)
+        {
+            _leaderboardManager.gameObject.SetActive(isVisible);
+            _mainMenuScreen.SetActive(!isVisible);
+        }
+
+        #endregion
+
+        #region Game Over
 
     public void ShowGameOver(int score, int deliveryCount)
     {
         _gameOverScreen.Show(score, deliveryCount);
     }
 
-    public void HideGameOver()
-    {
-        _gameOverScreen.Hide();
-    }
-
-    #endregion
-
-    #region CreditScreen
-
-    public void ShowCreditScreen(bool visible)
-    {
-        _mainMenuScreen.SetActive(!visible);
-        _creditScreen.SetActive(visible);
-    }
-
-    #endregion
-
-    #region SettingsScreen
-
-    public void ShowSettingsScreen(bool visible)
-    {
-        if (!visible)
+        public void HideGameOver()
         {
-            SaveManager.Save(_playerSave);
+            _gameOverScreen.Hide();
         }
-        _mainMenuScreen.SetActive(!visible);
-        _settingsScreen.SetActive(visible);
-    }
 
-    public void ChangeMasterVolume()
-    {
-        float newVolume = _masterVolumeSlider.value * .01f;
-        AudioManager.Instance.SetMasterVolume(Mathf.Clamp(_masterVolumeSlider.value * .01f, 0f, 1f));
-        _playerSave.masterVolume = newVolume;
+        #endregion
 
-        UpdateSliderDisplay(_masterVolumeSlider, _masterVolumeText, newVolume);
-    }
-    public void ChangeMusicVolume()
-    {
-        float newVolume = _musicVolumeSlider.value * .01f;
-        AudioManager.Instance.SetMusicVolume(Mathf.Clamp(_musicVolumeSlider.value * .01f, 0f, 1f));
-        _playerSave.musicVolume = newVolume;
-        UpdateSliderDisplay(_musicVolumeSlider, _musicVolumeText, newVolume);
-    }
-    public void ChangeSoundVolume()
-    {
-        float newVolume = _soundVolumeSlider.value * .01f;
-        AudioManager.Instance.SetSoundVolume(Mathf.Clamp(_soundVolumeSlider.value * .01f, 0f, 1f));
-        _playerSave.soundVolume = newVolume;
-        UpdateSliderDisplay(_soundVolumeSlider, _soundVolumeText, newVolume);
-    }
+        #region CreditScreen
 
-    private void UpdateSliderDisplay(Slider slider, TMP_Text text, float value)
-    {
-        float sliderValue = value * 100f;
-        slider.value = sliderValue;
-        text.SetText($"{sliderValue.ToString("F0")}%");
-
-    }
-
-    #endregion
-
-    #region ExitScreen
-    public void QuitGame()
-    {
-        _mainMenuScreen.SetActive(false);
-        _exitScreen.SetActive(true);
-    }
-
-    public void OnExitConfirmation(bool confirmed)
-    {
-        switch (confirmed)
+        public void ShowCreditScreen(bool visible)
         {
-            case true:
-                Application.Quit();
-                break;
-            case false:
-                _mainMenuScreen.SetActive(true);
-                _exitScreen.SetActive(false);
-                break;
+            _mainMenuScreen.SetActive(!visible);
+            _creditScreen.SetActive(visible);
         }
-    }
 
-    #endregion
+        #endregion
+
+        #region SettingsScreen
+
+        public void ShowSettingsScreen(bool visible)
+        {
+            if (!visible)
+            {
+                SaveManager.Save(_playerSave);
+            }
+            _mainMenuScreen.SetActive(!visible);
+            _settingsScreen.SetActive(visible);
+        }
+
+        public void ChangeMasterVolume()
+        {
+            float newVolume = _masterVolumeSlider.value * .01f;
+            AudioManager.Instance.SetMasterVolume(Mathf.Clamp(_masterVolumeSlider.value * .01f, 0f, 1f));
+            _playerSave.masterVolume = newVolume;
+
+            UpdateSliderDisplay(_masterVolumeSlider, _masterVolumeText, newVolume);
+        }
+        public void ChangeMusicVolume()
+        {
+            float newVolume = _musicVolumeSlider.value * .01f;
+            AudioManager.Instance.SetMusicVolume(Mathf.Clamp(_musicVolumeSlider.value * .01f, 0f, 1f));
+            _playerSave.musicVolume = newVolume;
+            UpdateSliderDisplay(_musicVolumeSlider, _musicVolumeText, newVolume);
+        }
+        public void ChangeSoundVolume()
+        {
+            float newVolume = _soundVolumeSlider.value * .01f;
+            AudioManager.Instance.SetSoundVolume(Mathf.Clamp(_soundVolumeSlider.value * .01f, 0f, 1f));
+            _playerSave.soundVolume = newVolume;
+            UpdateSliderDisplay(_soundVolumeSlider, _soundVolumeText, newVolume);
+        }
+
+        private void UpdateSliderDisplay(Slider slider, TMP_Text text, float value)
+        {
+            float sliderValue = value * 100f;
+            slider.value = sliderValue;
+            text.SetText($"{sliderValue.ToString("F0")}%");
+
+        }
+
+        #endregion
+
+        #region ExitScreen
+        public void QuitGame()
+        {
+            _mainMenuScreen.SetActive(false);
+            _exitScreen.SetActive(true);
+        }
+
+        public void OnExitConfirmation(bool confirmed)
+        {
+            switch (confirmed)
+            {
+                case true:
+                    Application.Quit();
+                    break;
+                case false:
+                    _mainMenuScreen.SetActive(true);
+                    _exitScreen.SetActive(false);
+                    break;
+            }
+        }
+
+        #endregion
+    }
 }
