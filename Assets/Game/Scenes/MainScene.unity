@@ -2888,6 +2888,11 @@ PrefabInstance:
       objectReference: {fileID: 2084074730}
     - target: {fileID: 1231938365840517685, guid: 70decf407b9cd2d4987100424df2a931,
         type: 3}
+      propertyPath: _scoreManager
+      value: 
+      objectReference: {fileID: 776060194778764888}
+    - target: {fileID: 1231938365840517685, guid: 70decf407b9cd2d4987100424df2a931,
+        type: 3}
       propertyPath: _landingPlatform
       value: 
       objectReference: {fileID: 2144418431}

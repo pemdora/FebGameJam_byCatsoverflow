@@ -11,6 +11,8 @@ namespace Game.Scripts.Score
         public int frustrationThreshold = 25;
         [Tooltip("Amount of frustration generated per empty slot.")]
         public int frustrationPerEmptySlots = 2;
+        [Tooltip("Amount of frustration for each discarded ware")]
+        public int frustrationPerDiscardedWare = 10;
         [Tooltip("Max amount of frustration before getting a game over")]
         public int maxFrustrationAllowed = 100;
 

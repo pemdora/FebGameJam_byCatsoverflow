@@ -81,6 +81,21 @@ namespace Game.Scripts.Score
             _deliveryCount++;
         }
 
+        public void DiscardWare()
+        {
+            _frustration += _settings.frustrationPerDiscardedWare;
+            
+            // We call the UI dedicated to display the frustration and we update the Filler Image
+            _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
+
+            // If the frustration reach the maximum value, trigger game over
+            if (_frustration >= _settings.maxFrustrationAllowed)
+            {
+                OnGameOver?.Invoke();
+                return;
+            }
+        }
+
         public void ResetData()
         {
             _deliveryCount = 0;

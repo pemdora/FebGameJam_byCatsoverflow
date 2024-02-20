@@ -1,4 +1,5 @@
 using Game.Scripts.Audio;
+using Game.Scripts.Score;
 using Game.Scripts.Warehouse;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Game.Scripts.Wares {
         [Header("References")]
         [SerializeField] private Camera _camera;
         [SerializeField] private LandingPlatform _landingPlatform;
+        [SerializeField] private ScoreManager _scoreManager;
 
         public bool CanPick { get; set; } = true;
     
@@ -61,6 +63,7 @@ namespace Game.Scripts.Wares {
                 {
                     _selectedWare.Drop();
                     _selectedWare = null;
+                    _scoreManager.DiscardWare();
                     return;
                 }
             
