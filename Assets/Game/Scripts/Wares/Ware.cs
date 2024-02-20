@@ -9,8 +9,9 @@ namespace Game.Scripts.Wares {
         public enum WareTypes
         {
             Undefined,
-            BasicBox,
-            CardBox,
+            Basic,
+            Fragile,
+            Livestock,
             Heavy,
             Explosive
         }
