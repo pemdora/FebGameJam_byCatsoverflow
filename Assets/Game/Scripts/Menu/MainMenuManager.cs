@@ -7,7 +7,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Scripts.Menu {
+namespace Game.Scripts.Menu
+{
     public class MainMenuManager : MonoBehaviour
     {
         private PlayerSave _playerSave;
@@ -90,10 +91,10 @@ namespace Game.Scripts.Menu {
 
         #region Game Over
 
-    public void ShowGameOver(int score, int deliveryCount)
-    {
-        _gameOverScreen.Show(score, deliveryCount);
-    }
+        public void ShowGameOver(int score, int deliveryCount)
+        {
+            _gameOverScreen.Show(score, deliveryCount);
+        }
 
         public void HideGameOver()
         {

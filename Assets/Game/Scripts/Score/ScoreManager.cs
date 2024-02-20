@@ -3,7 +3,8 @@ using Game.Scripts.Spaceship;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.Scripts.Score {
+namespace Game.Scripts.Score
+{
     public class ScoreManager : MonoBehaviour
     {
         [Header("Stats")]
