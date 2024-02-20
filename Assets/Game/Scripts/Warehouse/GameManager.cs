@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.Audio;
+using Game.Scripts.HUD;
 using Game.Scripts.Menu;
 using Game.Scripts.Score;
 using Game.Scripts.Spaceship;
@@ -17,6 +18,8 @@ namespace Game.Scripts.Warehouse {
         [SerializeField] private PickManager _pickManager;
         [SerializeField] private SpaceshipManager _spaceshipManager;
         [SerializeField] private MainMenuManager _mainMenuManager;
+
+        [SerializeField] private TimerUI timerUI;
         
         private void Start()
         {
@@ -40,6 +43,7 @@ namespace Game.Scripts.Warehouse {
             _spaceshipManager.BringNewSpaceship();
             
             AudioManager.Instance.PlayMusic(MusicType.IN_GAME);
+            timerUI.InitTimer();
         }
 
         public void SendSpaceship()
@@ -62,6 +66,7 @@ namespace Game.Scripts.Warehouse {
             _mainMenuManager.ShowGameOver();
             AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
             AudioManager.Instance.PlayMusic(MusicType.DEFEAT);
+            timerUI.StopTimer();
         }
     }
 }

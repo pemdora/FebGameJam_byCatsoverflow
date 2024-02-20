@@ -15,15 +15,15 @@ MonoBehaviour:
   soundsEffectsBySoundType:
     list:
     - key: 0
-      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+      value: {fileID: 8300000, guid: 80eeb53fd49e82544a69952644e3d20c, type: 3}
     - key: 1
-      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+      value: {fileID: 8300000, guid: c31c4cea915755b44ac621a80c160af6, type: 3}
     - key: 2
       value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
     - key: 3
       value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
     - key: 4
-      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+      value: {fileID: 8300000, guid: 80de60ee37b89264db755dd37dc0d040, type: 3}
     - key: 5
       value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
     - key: 6
@@ -44,7 +44,7 @@ MonoBehaviour:
     - key: 0
       value: {fileID: 8300000, guid: c1d886923da1b20499ed70cd2a6b22c7, type: 3}
     - key: 1
-      value: {fileID: 8300000, guid: 26d9790342558ca4d91a6ade530ca7f0, type: 3}
+      value: {fileID: 8300000, guid: 915a382b7f2ace74984c287f91d88dc8, type: 3}
     - key: 2
       value: {fileID: 8300000, guid: 88f5622822a8e5b4fa22c2a4f384c131, type: 3}
     - key: 3

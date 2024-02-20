@@ -1,3 +1,4 @@
+using Game.Scripts.Audio;
 using Game.Scripts.Spaceship;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Game.Scripts.HUD {
     {
         [SerializeField] private SpaceshipManager _spaceshipManager;
         [SerializeField] private TMP_Text _timeText;
-        private float _previousTime;
+        private int _previousTime;
         // Start is called before the first frame update
         void Start()
         {
@@ -15,18 +16,34 @@ namespace Game.Scripts.HUD {
             _previousTime = 0;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (_spaceshipManager.HasSpaceship && _spaceshipManager.TimeRemaining>0) {
+        public void InitTimer() {
+            InvokeRepeating(nameof(IncrementeTimer), 0, 1);
+        }
+
+        public void StopTimer() {
+            CancelInvoke(nameof(IncrementeTimer));
+        }
+
+        private void IncrementeTimer() {
+            if (_spaceshipManager.HasSpaceship && _spaceshipManager.TimeRemaining > 0) {
                 _previousTime = Mathf.FloorToInt(_spaceshipManager.TimeRemaining);
                 _timeText.text = (_previousTime+1).ToString();
                 
-                // TODO : add audio sound when in last seconds (TIC TAC TIC TAC TIC TAC) 
-            } else {
+                if (_previousTime+1 == 8) {
+                    Debug.Log("tic tac");
+                    AudioManager.Instance.PlaySoundEffect(SoundEffectType.TIC_TAC);
+                }
+            } 
+            else {
                 _previousTime = 0;
                 _timeText.text = "0";
             }
+        }
+        
+        // Update is called once per frame
+        void Update()
+        {
+            
         }
     }
 }

@@ -116,7 +116,7 @@ namespace Game.Scripts.Wares {
 
             yield return _waitDropTime;
         
-            AudioManager.Instance.PlayOuch();
+            AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
             rb.isKinematic = true;
             transform.parent = _warePoolContainer;
             gameObject.SetActive(false);
