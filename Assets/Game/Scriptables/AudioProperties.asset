@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43766302fe1ca7844a8124e27aa30a73, type: 3}
+  m_Name: AudioProperties
+  m_EditorClassIdentifier: 
+  soundsEffectsBySoundType:
+    list:
+    - key: 0
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 1
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 2
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 3
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 4
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 5
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 6
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 7
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 8
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 9
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 10
+      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+    - key: 11
+      value: {fileID: 8300000, guid: 0cd7ea318b2a1614380596666d163089, type: 3}
+    keyCollision: 0
+  musicsBySoundType:
+    list:
+    - key: 0
+      value: {fileID: 8300000, guid: c1d886923da1b20499ed70cd2a6b22c7, type: 3}
+    - key: 1
+      value: {fileID: 8300000, guid: 26d9790342558ca4d91a6ade530ca7f0, type: 3}
+    - key: 2
+      value: {fileID: 8300000, guid: 88f5622822a8e5b4fa22c2a4f384c131, type: 3}
+    - key: 3
+      value: {fileID: 8300000, guid: 697d9ac41f7de3f44aa9a70a7e7094a5, type: 3}
+    keyCollision: 0

@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class ConveyorEnd : MonoBehaviour
-{
-    private void OnTriggerEnter(Collider other)
+namespace Game.Scripts.Conveyor {
+    public class ConveyorEnd : MonoBehaviour
     {
-        if (other.TryGetComponent(out ConveyorItem item))
+        private void OnTriggerEnter(Collider other)
         {
-            item.ReachConveyorEnd();
+            if (other.TryGetComponent(out ConveyorItem item))
+            {
+                item.ReachConveyorEnd();
+            }
         }
     }
 }

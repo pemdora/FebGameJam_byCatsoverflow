@@ -780,6 +780,12 @@ PrefabInstance:
       propertyPath: _droppedWareSfx
       value: 
       objectReference: {fileID: 8300000, guid: 0cd7ea318b2a1614380596666d163089, type: 3}
+    - target: {fileID: 6994757479574381210, guid: cb341c3ae14440a469ee8b4e91211975,
+        type: 3}
+      propertyPath: audioScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 74b59cd5c711f814f83673debd25e3f7,
+        type: 2}
     - target: {fileID: 8111574728557055355, guid: cb341c3ae14440a469ee8b4e91211975,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -833,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 8282514328953857728, guid: cb341c3ae14440a469ee8b4e91211975,
         type: 3}
       propertyPath: m_Name
-      value: AudioManager (don't parent pls)
+      value: AudioManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
