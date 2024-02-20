@@ -230,7 +230,7 @@ public class Ware : MonoBehaviour, IWareSupport
         {
             // TODO Set the actual score of the ware
             warePointsUI.transform.position = transform.position;
-            warePointsUI.SetPointsValue(50);
+            warePointsUI.SetPointsValue(Random.Range(50, 350));
             warePointsUI.StartAnimation();
         }
     }

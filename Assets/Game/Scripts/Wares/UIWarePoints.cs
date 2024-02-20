@@ -1,34 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
+using Color = UnityEngine.Color;
 
 public class UIWarePoints : MonoBehaviour
 {
-    [Header ("Settings")]
+    [Header("Settings")]
     [SerializeField] float _apparitionTime = 1f;
-    [SerializeField] float _xOffset = 1f;
-    [SerializeField] float _yOffset = 1f;
-    [SerializeField] float _bounceForce = 1f;
     [SerializeField] AnimationCurve _yCurve;
     [SerializeField] AnimationCurve _xCurve;
     [SerializeField] AnimationCurve _scaleCurve;
     [SerializeField] float resetSeconds = 1f;
+    [SerializeField] float _pointValue = 50f;
+    [SerializeField] float _minFinalScale = 2.0f;
+    [SerializeField] float _maxFinalScale = 3.0f;
+    [SerializeField] float _PointsForMaxScale = 300.0f;
+    [SerializeField] bool _debugStartOnStart = false;
 
 
-    [Header ("References")]
+    [Header("References")]
     [SerializeField] TMP_Text _pointsText;
     [SerializeField] Canvas _canvas;
 
-    [SerializeField] Ware _ware;
+
+
     Camera _mainCamera;
+    float _bonusScale;
 
-    float _scaleStrength;
 
- 
 
-    Vector3 _originalPosition;
 
     Coroutine _testCoroutine;
 
@@ -36,20 +40,14 @@ public class UIWarePoints : MonoBehaviour
     void Start()
     {
         _mainCamera = Camera.main;
-        if (_mainCamera != null )
+        if (_mainCamera != null)
         {
             transform.rotation = _mainCamera.transform.rotation;
             transform.position += (_mainCamera.transform.position - transform.position).normalized * 5;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (_testCoroutine == null)
+        if (_debugStartOnStart)
         {
-            _testCoroutine = StartCoroutine(AnimationCoroutine());
-
+            StartAnimation();
         }
     }
 
@@ -57,7 +55,9 @@ public class UIWarePoints : MonoBehaviour
     {
         if (_pointsText)
         {
-            _pointsText.CrossFadeAlpha(1, 0f, false);
+            ResetText();
+            ApplyText();
+            CalculateScale();
 
             float percent = 0;
             while (percent < 1)
@@ -65,12 +65,13 @@ public class UIWarePoints : MonoBehaviour
                 percent += Time.deltaTime / _apparitionTime;
                 float xLerp = Mathf.Lerp(-5f, 5f, (Mathf.Cos((percent + 0.5f) * 2) + 1) * 0.5f);
                 float yLerp = Mathf.Lerp(2.5f, 20f, _yCurve.Evaluate(percent));
-                float scaleLerp = Mathf.Lerp(0.5f, 2.0f, _scaleCurve.Evaluate(percent));
+                float scaleLerp = Mathf.Lerp(0.5f, _minFinalScale + _bonusScale, _scaleCurve.Evaluate(percent));
                 _pointsText.transform.localPosition = new Vector3(xLerp, yLerp, 0);
                 _pointsText.transform.localScale = new Vector3(scaleLerp, scaleLerp, scaleLerp);
                 yield return null;
             }
             _pointsText.CrossFadeAlpha(0, 0.25f, false);
+            Destroy(gameObject);
         }
     }
     IEnumerator ResetCoroutine()
@@ -79,24 +80,61 @@ public class UIWarePoints : MonoBehaviour
         _testCoroutine = StartCoroutine(AnimationCoroutine());
     }
 
-    public void SetPointsValue(float value)
-    {
-        if (_pointsText)
-        {
-            _pointsText.SetText(value.ToString());
-        }
-    }
-
     public void StartAnimation()
     {
-        if (_pointsText)
+        if (_testCoroutine == null)
         {
-            _originalPosition = _pointsText.transform.localPosition;
+            _testCoroutine = StartCoroutine(AnimationCoroutine());
         }
     }
 
-    void SetWare(Ware ware)
+    private void ApplyText()
     {
-        _ware = ware;
+        int exclamations = Mathf.Min(3, (int)(_pointValue / (_PointsForMaxScale / 3 )));
+        string Text = _pointValue.ToString();
+        for (int i = 0; i < exclamations; i++)
+        {
+            Text += "!";
+        }
+
+        Color32 color = Color.black;
+        switch (exclamations)
+        {
+            case 1:
+                color = Color.yellow;
+
+                break;
+            case 2:
+                color = new Color(1, 0.5f, 0);
+                break;
+            case 3:
+                color = Color.red;
+                break;
+        }
+
+        _pointsText.outlineColor = color;
+        _pointsText.SetText(Text);
+
     }
+
+    private void ResetText()
+    {
+        if (_pointsText)
+        {
+            _pointsText.CrossFadeAlpha(1, 0f, false);
+        }
+    }
+
+    private void CalculateScale()
+    {
+        float maxPointsDivisor = _maxFinalScale - _minFinalScale;
+        int divisor = (int)(_PointsForMaxScale / maxPointsDivisor);
+        _bonusScale = Mathf.Min((_pointValue - 50) / divisor,_maxFinalScale -_minFinalScale);
+    }
+
+    public void SetPointsValue(float value)
+    {
+        _pointValue = value;
+    }
+
 }

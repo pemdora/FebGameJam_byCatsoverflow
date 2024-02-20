@@ -69,7 +69,7 @@ MonoBehaviour:
   m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 58965384d8e7d83429280c9e0bdd10a5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -147,12 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd7268ebd1a9df49825351966ca4465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsText: {fileID: 0}
-  _canvas: {fileID: 0}
   _apparitionTime: 1
-  _xOffset: 1
-  _yOffset: 1
-  _bounceForce: 1
   _yCurve:
     serializedVersion: 2
     m_Curve: []
@@ -172,7 +167,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   resetSeconds: 1
-  _ware: {fileID: 0}
+  _pointValue: 50
+  _minFinalScale: 2
+  _maxFinalScale: 3
+  _PointsForMaxScale: 300
+  _debugStartOnStart: 0
+  _pointsText: {fileID: 0}
+  _canvas: {fileID: 0}
 --- !u!1 &6422356196705920692
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,12 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd7268ebd1a9df49825351966ca4465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsText: {fileID: 3850203404638434640}
-  _canvas: {fileID: 621476386111201307}
   _apparitionTime: 0.75
-  _xOffset: 7.5
-  _yOffset: 7
-  _bounceForce: 1
   _yCurve:
     serializedVersion: 2
     m_Curve:
@@ -421,4 +417,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   resetSeconds: 1
-  _ware: {fileID: 0}
+  _pointValue: 50
+  _minFinalScale: 2
+  _maxFinalScale: 3
+  _PointsForMaxScale: 300
+  _debugStartOnStart: 0
+  _pointsText: {fileID: 3850203404638434640}
+  _canvas: {fileID: 621476386111201307}
