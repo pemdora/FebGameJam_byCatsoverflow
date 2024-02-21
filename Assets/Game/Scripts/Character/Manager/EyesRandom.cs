@@ -27,7 +27,6 @@ public class EyesRandom : StateMachineBehaviour
         {
             
             int random = Random.Range(1, (int)_numberOfAnimations + 1);
-            Debug.Log("Random : " + random);
             animator.SetFloat("EyesAnimation", random);
             _idleTime = 0; 
             _isIdle = false;  // On est plus en phase d'inactivité
