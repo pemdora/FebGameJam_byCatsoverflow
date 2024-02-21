@@ -1790,8 +1790,12 @@ MonoBehaviour:
   _showDuration: 0.66
   _hideDuration: 0.2
   _canvasGroup: {fileID: 7054912348018123648}
+  _inputPanel: {fileID: 0}
   _deliveryCount: {fileID: 465963274518924112}
   _scoreText: {fileID: 6605417717793679013}
+  _failedLeaderboardText: {fileID: 0}
+  _inputField: {fileID: 0}
+  _inputResultsText: {fileID: 0}
 --- !u!225 &7054912348018123648
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2248,6 +2252,7 @@ GameObject:
   - component: {fileID: 1350534493341240510}
   - component: {fileID: 2158284516125974894}
   - component: {fileID: 8199178413980128872}
+  - component: {fileID: 8685096747800429289}
   m_Layer: 5
   m_Name: Leaderboard
   m_TagString: Untagged
@@ -2383,6 +2388,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &8685096747800429289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8782273877508975915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbef77f2311a4f44b0fdbc9b52e6da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScaleMultiplier: 1.1
+  hoverDuration: 0.1
 --- !u!1 &8997699824503525908
 GameObject:
   m_ObjectHideFlags: 0
