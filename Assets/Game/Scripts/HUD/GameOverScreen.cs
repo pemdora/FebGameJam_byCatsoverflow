@@ -45,10 +45,9 @@ public class GameOverScreen : MonoBehaviour
         }
         _scoreText.text = score.ToString();
         _deliveryCount.text = deliveryCount.ToString();
-
-        _canvasGroup.interactable = true;
+        
         _canvasGroup.blocksRaycasts = true;
-        _fadeCoroutine = StartCoroutine(FadeCoroutine(1, _showDuration));
+        _fadeCoroutine = StartCoroutine(FadeCoroutine(1, _showDuration, () => _canvasGroup.interactable = true));
     }
 
     public void Hide()
