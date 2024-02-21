@@ -68,7 +68,7 @@ public class PickManager : MonoBehaviour
             if (!isWareSnapped && Physics.Raycast(ray, out RaycastHit worldHit, Mathf.Infinity, _worldLayerMask))
             {
                 _selectedWare.ClearBoundsIndicators();
-                _selectedWare.transform.position = new Vector3(worldHit.point.x + _selectedWareOffset.x, _selectedWare.transform.position.y, worldHit.point.z + _selectedWareOffset.z);
+                _selectedWare.transform.position = new Vector3(worldHit.point.x + _selectedWareOffset.x, _selectedWareOffset.y, worldHit.point.z + _selectedWareOffset.z);
             }
 
             // Rotate ware if needed
