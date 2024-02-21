@@ -38,6 +38,10 @@ MonoBehaviour:
       value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
     - key: 11
       value: {fileID: 8300000, guid: 0cd7ea318b2a1614380596666d163089, type: 3}
+    - key: 12
+      value: {fileID: 8300000, guid: 06508b4d462e5a04ebefaaf6f3016762, type: 3}
+    - key: 13
+      value: {fileID: 8300000, guid: 959a094a215223c49976ee7f9c82020e, type: 3}
     keyCollision: 0
   musicsBySoundType:
     list:

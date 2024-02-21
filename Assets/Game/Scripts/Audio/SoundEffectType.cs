@@ -1,5 +1,7 @@
-namespace Game.Scripts.Audio {
-    public enum SoundEffectType {
+namespace Game.Scripts.Audio
+{
+    public enum SoundEffectType
+    {
         GRAB_BLOCK,
         CANCEL_BLOCK,
         POSE_BLOCK,
@@ -11,6 +13,8 @@ namespace Game.Scripts.Audio {
         BUTTON_CLICK_OUT,
         BUTTON_CLICK_HOVER,
         TRUCK_STEP_LOADING,
-        OUTCH
+        OUTCH,
+        CLIC,
+        OVER
     }
 }
