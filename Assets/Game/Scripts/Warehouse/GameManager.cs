@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         _scoreManager.enabled = true;
         _pickManager.CanPick = true;
         _spaceshipManager.CanSpawnSpaceship = true;
+        
         _spaceshipManager.BringNewSpaceship();
 
         AudioManager.Instance.PlayMusic(MusicType.IN_GAME);
