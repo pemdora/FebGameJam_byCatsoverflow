@@ -27,6 +27,8 @@ namespace Game.Scripts.Wares {
 
         Camera _mainCamera;
         float _bonusScale;
+        float _xOffsetScale;
+        float _yOffsetScale;
 
 
 
@@ -55,13 +57,14 @@ namespace Game.Scripts.Wares {
                 ResetText();
                 ApplyText();
                 CalculateScale();
-
+                _xOffsetScale = Random.Range(-1f, 1f);
+                _yOffsetScale = Random.Range(0.5f, 1.5f);
                 float percent = 0;
                 while (percent < 1)
                 {
                     percent += Time.deltaTime / _apparitionTime;
-                    float xLerp = Mathf.Lerp(-5f, 5f, (Mathf.Cos((percent + 0.5f) * 2) + 1) * 0.5f);
-                    float yLerp = Mathf.Lerp(2.5f, 20f, _yCurve.Evaluate(percent));
+                    float xLerp = Mathf.Lerp(-5f * _xOffsetScale, 5f * _xOffsetScale, (Mathf.Cos((percent + 0.5f) * 2) + 1) * 0.5f);
+                    float yLerp = Mathf.Lerp(2.5f * _yOffsetScale, 20f * _yOffsetScale, _yCurve.Evaluate(percent));
                     float scaleLerp = Mathf.Lerp(0.5f, _minFinalScale + _bonusScale, _scaleCurve.Evaluate(percent));
                     _pointsText.transform.localPosition = new Vector3(xLerp, yLerp, 0);
                     _pointsText.transform.localScale = new Vector3(scaleLerp, scaleLerp, scaleLerp);
