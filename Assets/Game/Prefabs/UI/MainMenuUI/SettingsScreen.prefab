@@ -2177,6 +2177,7 @@ GameObject:
   - component: {fileID: 6985099141335580265}
   - component: {fileID: 1676566505282940524}
   - component: {fileID: 2984242531517332754}
+  - component: {fileID: 8573973047933088293}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -2352,6 +2353,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8573973047933088293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7492352132657912725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbef77f2311a4f44b0fdbc9b52e6da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScaleMultiplier: 1.1
+  hoverDuration: 0.1
 --- !u!1 &7594573217462997691
 GameObject:
   m_ObjectHideFlags: 0

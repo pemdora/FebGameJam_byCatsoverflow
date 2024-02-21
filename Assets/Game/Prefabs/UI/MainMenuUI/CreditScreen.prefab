@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: laBlondasse, Mordilla Software, Faith
+  m_text: laBlondasse, Mordilla Software, Faith, Aqueuse
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56ddd6fbe2f71444588dcc63aab79ed7, type: 2}
   m_sharedMaterial: {fileID: -5435194332462724885, guid: 56ddd6fbe2f71444588dcc63aab79ed7,
@@ -1638,6 +1638,7 @@ GameObject:
   - component: {fileID: 3530000227086264781}
   - component: {fileID: 6301577393208286665}
   - component: {fileID: 8049222864702738009}
+  - component: {fileID: 6309306957604896470}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1813,3 +1814,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &6309306957604896470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180041941314005578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbef77f2311a4f44b0fdbc9b52e6da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScaleMultiplier: 1.1
+  hoverDuration: 0.1

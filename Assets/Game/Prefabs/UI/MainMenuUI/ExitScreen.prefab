@@ -303,7 +303,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 30
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -431,6 +431,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 704293926, guid: 53b016d2155145a42a90b2ff953118e2,
+        type: 3}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: -1116702345, guid: 53b016d2155145a42a90b2ff953118e2,
+        type: 3}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: -1116702345, guid: 53b016d2155145a42a90b2ff953118e2,
+        type: 3}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -472,7 +495,7 @@ PrefabInstance:
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MainMenuManager, Assembly-CSharp
+      value: Game.Scripts.Menu.MainMenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
@@ -502,6 +525,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 20650819772949375}
+    - targetCorrespondingSourceObject: {fileID: 5645857488979216708, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7024070390615831088}
   m_SourcePrefab: {fileID: 100100000, guid: 70524f5ab3c4f2b42ab2c8112edee6aa, type: 3}
 --- !u!224 &113430601194546476 stripped
 RectTransform:
@@ -544,6 +571,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &7024070390615831088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620354170639623523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbef77f2311a4f44b0fdbc9b52e6da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScaleMultiplier: 1.1
+  hoverDuration: 0.1
 --- !u!1001 &8357778234914502379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -669,6 +710,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 704293926, guid: 53b016d2155145a42a90b2ff953118e2,
+        type: 3}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: -1116702345, guid: 53b016d2155145a42a90b2ff953118e2,
+        type: 3}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: -1116702345, guid: 53b016d2155145a42a90b2ff953118e2,
+        type: 3}
+    - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -710,7 +774,7 @@ PrefabInstance:
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MainMenuManager, Assembly-CSharp
+      value: Game.Scripts.Menu.MainMenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
@@ -730,6 +794,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 271236097234707538}
+    - targetCorrespondingSourceObject: {fileID: 5645857488979216708, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8294311854285439125}
   m_SourcePrefab: {fileID: 100100000, guid: 70524f5ab3c4f2b42ab2c8112edee6aa, type: 3}
 --- !u!1 &4442473914010189743 stripped
 GameObject:
@@ -766,6 +834,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8294311854285439125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442473914010189743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbef77f2311a4f44b0fdbc9b52e6da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScaleMultiplier: 1.1
+  hoverDuration: 0.1
 --- !u!224 &5446413844971798496 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4064858808835492107, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,

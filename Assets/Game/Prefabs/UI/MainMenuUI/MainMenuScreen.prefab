@@ -931,7 +931,7 @@ PrefabInstance:
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MainMenuManager, Assembly-CSharp
+      value: Game.Scripts.Menu.MainMenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
@@ -1514,7 +1514,7 @@ PrefabInstance:
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MainMenuManager, Assembly-CSharp
+      value: Game.Scripts.Menu.MainMenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6207930488812568344, guid: 70524f5ab3c4f2b42ab2c8112edee6aa,
         type: 3}

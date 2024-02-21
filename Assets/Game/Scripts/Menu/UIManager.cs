@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Game.Scripts.Audio;
 
 public class UIManager : MonoBehaviour
 {
@@ -48,10 +49,10 @@ public class UIManager : MonoBehaviour
 
     public void Clic()
     {
-        AudioManager.Instance.PlayClic();
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.CLIC);
     }
     public void Over()
     {
-        AudioManager.Instance.PlayOver();
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.OVER);
     }
 }
