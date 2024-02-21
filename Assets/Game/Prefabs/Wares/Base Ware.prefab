@@ -165,8 +165,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   _UIpointsprefab: {fileID: 6422356196705920692, guid: 6962d54d0e1095b4a802cbb5bab20276,
     type: 3}
-  _highlight: {fileID: 7517559643739856525}
+  _graphicsParents: {fileID: 7387806977841571802}
+  _matOutline: {fileID: 2100000, guid: 4686eefd1d3989e4a9e8ff00c90e8f56, type: 2}
   _bounds: []
-  _graphicObject:
-  - {fileID: 0}
-  _graphicObjectContainer: {fileID: 0}
+  OnPick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDrop:
+    m_PersistentCalls:
+      m_Calls: []

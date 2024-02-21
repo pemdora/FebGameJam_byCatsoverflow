@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,7 +22,8 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject _UIpointsprefab;
 
     [Header("References")]
-    [SerializeField] private GameObject _highlight;
+    [SerializeField] private GameObject _graphicsParents;
+    [SerializeField] private Material _matOutline;
     [SerializeField] private WareBounds[] _bounds;
 
     [Header("Events")]
@@ -31,6 +33,10 @@ public class Ware : MonoBehaviour, IWareSupport
     public Transform WarePoolContainer { get => _warePoolContainer; }
     public bool HasBeenPlaced => _associatedCargo != null;
     public int Size => _bounds.Length;
+
+    private List<MeshRenderer> _graphicRenderers = new List<MeshRenderer>();
+    private List<Material[]> _originalMaterials = new List<Material[]>(); // is not opti sorry but I suck in shader and stuff
+    private List<Material[]> _outlineMaterials = new List<Material[]>();
 
     private GameObject _graphicObjectSelected;
     private Transform _warePoolContainer;
@@ -47,8 +53,44 @@ public class Ware : MonoBehaviour, IWareSupport
         {
             Debug.LogWarning(gameObject.name + " has no waretype");
         }
-    }
 
+        if (_graphicsParents != null)
+        {
+            foreach (Transform child in _graphicsParents.transform)
+            {
+                // Call the method like this:
+                AddOutlineToAllMeshRenderers(_graphicsParents.transform, _matOutline);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No graphics parent set for " + name);
+        }
+    }
+    
+    // Not the best option but it works
+    void AddOutlineToAllMeshRenderers(Transform parent, Material matOutline)
+    {
+        foreach (Transform child in parent)
+        {
+            MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                var materials = meshRenderer.materials;
+                var newMaterials = new Material[materials.Length + 1];
+                materials.CopyTo(newMaterials, 0);
+                newMaterials[materials.Length] = matOutline;
+
+                _graphicRenderers.Add(meshRenderer);
+                _originalMaterials.Add(materials);
+                _outlineMaterials.Add(newMaterials);
+            }
+
+            // Recursively call this method for each child
+            AddOutlineToAllMeshRenderers(child, matOutline);
+        }
+    }
+    
     public void Initialize(Transform poolTransform)
     {
         _warePoolContainer = poolTransform;
@@ -192,7 +234,20 @@ public class Ware : MonoBehaviour, IWareSupport
 
     public void SetHighlight(bool active)
     {
-        _highlight.SetActive(active);
+        if (active)
+        {
+            for(int i = 0; i < _graphicRenderers.Count; i++)
+            {
+                _graphicRenderers[i].materials = _outlineMaterials[i];
+            }
+        }
+        else
+        {
+            for(int i = 0; i < _graphicRenderers.Count; i++)
+            {
+                _graphicRenderers[i].materials = _originalMaterials[i];
+            }
+        }
     }
 
     public void SetInteractable(bool value)
