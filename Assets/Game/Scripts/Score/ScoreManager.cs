@@ -21,6 +21,7 @@ namespace Game.Scripts.Score
 
         [Header("Events")]
         public UnityEvent OnGameOver;
+        public UnityEvent<string> OnScoreChanged;
 
         public int DeliveryCount => _deliveryCount;
         public int Frustration => _frustration;
@@ -78,6 +79,7 @@ namespace Game.Scripts.Score
                 }
             }
 
+            OnScoreChanged?.Invoke(_score.ToString());
             _deliveryCount++;
         }
 
