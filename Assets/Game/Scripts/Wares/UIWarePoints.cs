@@ -3,54 +3,47 @@ using TMPro;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
-namespace Game.Scripts.Wares {
-    public class UIWarePoints : MonoBehaviour
+public class UIWarePoints : MonoBehaviour
+{
+    [Header("Settings")]
+    [SerializeField] float _apparitionTime = 1f;
+    [SerializeField] AnimationCurve _yCurve;
+    [SerializeField] AnimationCurve _xCurve;
+    [SerializeField] AnimationCurve _scaleCurve;
+    [SerializeField] float resetSeconds = 1f;
+    [SerializeField] float _pointValue = 50f;
+    [SerializeField] float _minFinalScale = 2.0f;
+    [SerializeField] float _maxFinalScale = 3.0f;
+    [SerializeField] float _PointsForMaxScale = 300.0f;
+    [SerializeField] bool _debugStartOnStart = false;
+
+
+    [Header("References")]
+    [SerializeField] TMP_Text _pointsText;
+    [SerializeField] Canvas _canvas;
+
+
+    float _xOffsetScale;
+    float _yOffsetScale;
+    Camera _mainCamera;
+    float _bonusScale;
+
+
+
+
+    Coroutine _testCoroutine;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        [Header("Settings")]
-        [SerializeField] float _apparitionTime = 1f;
-        [SerializeField] AnimationCurve _yCurve;
-        [SerializeField] AnimationCurve _xCurve;
-        [SerializeField] AnimationCurve _scaleCurve;
-        [SerializeField] float resetSeconds = 1f;
-        [SerializeField] float _pointValue = 50f;
-        [SerializeField] float _minFinalScale = 2.0f;
-        [SerializeField] float _maxFinalScale = 3.0f;
-        [SerializeField] float _PointsForMaxScale = 300.0f;
-        [SerializeField] bool _debugStartOnStart = false;
+        transform.rotation = _mainCamera.transform.rotation;
+        transform.position += (_mainCamera.transform.position - transform.position).normalized * 5;
+    }
 
 
-        [Header("References")]
-        [SerializeField] TMP_Text _pointsText;
-        [SerializeField] Canvas _canvas;
-
-
-
-        Camera _mainCamera;
-        float _bonusScale;
-        float _xOffsetScale;
-        float _yOffsetScale;
-
-
-
-
-        Coroutine _testCoroutine;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            _mainCamera = Camera.main;
-            if (_mainCamera != null)
-            {
-                transform.rotation = _mainCamera.transform.rotation;
-                transform.position += (_mainCamera.transform.position - transform.position).normalized * 5;
-            }
-            if (_debugStartOnStart)
-            {
-                StartAnimation();
-            }
-        }
-
-        IEnumerator AnimationCoroutine()
+    IEnumerator AnimationCoroutine()
+    {
+        if (_debugStartOnStart)
         {
             if (_pointsText)
             {
@@ -74,68 +67,68 @@ namespace Game.Scripts.Wares {
                 Destroy(gameObject);
             }
         }
-        IEnumerator ResetCoroutine()
+    }
+    IEnumerator ResetCoroutine()
+    {
+        yield return new WaitForSeconds(resetSeconds);
+        _testCoroutine = StartCoroutine(AnimationCoroutine());
+    }
+
+    public void StartAnimation()
+    {
+        if (_testCoroutine == null)
         {
-            yield return new WaitForSeconds(resetSeconds);
             _testCoroutine = StartCoroutine(AnimationCoroutine());
         }
+    }
 
-        public void StartAnimation()
+    private void ApplyText()
+    {
+        int exclamations = Mathf.Min(3, (int)(_pointValue / (_PointsForMaxScale / 3)));
+        string Text = _pointValue.ToString();
+        for (int i = 0; i < exclamations; i++)
         {
-            if (_testCoroutine == null)
-            {
-                _testCoroutine = StartCoroutine(AnimationCoroutine());
-            }
+            Text += "!";
         }
 
-        private void ApplyText()
+        Color32 color = Color.black;
+        switch (exclamations)
         {
-            int exclamations = Mathf.Min(3, (int)(_pointValue / (_PointsForMaxScale / 3 )));
-            string Text = _pointValue.ToString();
-            for (int i = 0; i < exclamations; i++)
-            {
-                Text += "!";
-            }
+            case 1:
+                color = Color.yellow;
 
-            Color32 color = Color.black;
-            switch (exclamations)
-            {
-                case 1:
-                    color = Color.yellow;
-
-                    break;
-                case 2:
-                    color = new Color(1, 0.5f, 0);
-                    break;
-                case 3:
-                    color = Color.red;
-                    break;
-            }
-
-            _pointsText.outlineColor = color;
-            _pointsText.SetText(Text);
-
+                break;
+            case 2:
+                color = new Color(1, 0.5f, 0);
+                break;
+            case 3:
+                color = Color.red;
+                break;
         }
 
-        private void ResetText()
-        {
-            if (_pointsText)
-            {
-                _pointsText.CrossFadeAlpha(1, 0f, false);
-            }
-        }
-
-        private void CalculateScale()
-        {
-            float maxPointsDivisor = _maxFinalScale - _minFinalScale;
-            int divisor = (int)(_PointsForMaxScale / maxPointsDivisor);
-            _bonusScale = Mathf.Min((_pointValue - 50) / divisor,_maxFinalScale -_minFinalScale);
-        }
-
-        public void SetPointsValue(float value)
-        {
-            _pointValue = value;
-        }
+        _pointsText.outlineColor = color;
+        _pointsText.SetText(Text);
 
     }
+
+    private void ResetText()
+    {
+        if (_pointsText)
+        {
+            _pointsText.CrossFadeAlpha(1, 0f, false);
+        }
+    }
+
+    private void CalculateScale()
+    {
+        float maxPointsDivisor = _maxFinalScale - _minFinalScale;
+        int divisor = (int)(_PointsForMaxScale / maxPointsDivisor);
+        _bonusScale = Mathf.Min((_pointValue - 50) / divisor, _maxFinalScale - _minFinalScale);
+    }
+
+    public void SetPointsValue(float value)
+    {
+        _pointValue = value;
+    }
+
 }

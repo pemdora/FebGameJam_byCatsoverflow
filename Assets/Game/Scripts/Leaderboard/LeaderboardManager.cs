@@ -4,138 +4,127 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Game.Scripts.Leaderboard {
-    [Serializable]
-    public class UserScore
+[Serializable]
+public class UserScore
+{
+    public string user;
+    public int score;
+}
+
+[Serializable]
+public class ScoreList
+{
+    public UserScore[] items;
+}
+
+public class LeaderboardManager : MonoBehaviour
+{
+    [SerializeField] private List<LeaderboardUserEntry> _leaderboardUserEntries;
+    private ScoreList scoreList;
+    private Coroutine _getScoreListCoroutine;
+    private Coroutine _parseLeaderboardCoroutine;
+    private WaitForSecondsRealtime _waitBetweenLeaderboardEntry = new(.1f);
+
+    private void Awake()
     {
-        public string user;
-        public int score;
+        CleanLeaderboard();
     }
 
-    [Serializable]
-    public class ScoreList
+    private void OnEnable()
     {
-        public UserScore[] items;
+        _getScoreListCoroutine = null;
+        _parseLeaderboardCoroutine = null;
+
+        GetScoreList();
     }
 
-    public class LeaderboardManager : MonoBehaviour
+    private void OnDisable()
     {
-        [SerializeField] private List<LeaderboardUserEntry> _leaderboardUserEntries;
-        private ScoreList scoreList;
-        private Coroutine _getScoreListCoroutine;
-        private Coroutine _parseLeaderboardCoroutine;
-        private WaitForSecondsRealtime _waitBetweenLeaderboardEntry = new(.1f);
+        StopAllCoroutines();
+        CleanLeaderboard();
+    }
 
-        private void Awake()
-        {
-            CleanLeaderboard();
-        }
+    public void OnExitButtonClicked()
+    {
+        gameObject.SetActive(false);
+    }
 
-        private void OnEnable()
+    public void GetScoreList()
+    {
+        if (_getScoreListCoroutine != null)
         {
+            StopCoroutine(_getScoreListCoroutine);
             _getScoreListCoroutine = null;
-            _parseLeaderboardCoroutine = null;
-
-            GetScoreList();
+            return;
         }
 
-        private void OnDisable()
-        {
-            StopAllCoroutines();
-            CleanLeaderboard();
-        }
+        CleanLeaderboard();
 
-        public void OnExitButtonClicked()
-        {
-            gameObject.SetActive(false);
-        }
+        _getScoreListCoroutine = StartCoroutine(GetScoreListCoroutine());
 
-        public void GetScoreList()
+        IEnumerator GetScoreListCoroutine()
         {
-            if (_getScoreListCoroutine != null)
+            using UnityWebRequest www = UnityWebRequest.Get($"{LeaderboardApi.Uri}/score");
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
             {
-                // To prevent making multiple API calls if one is already going.
-                StopCoroutine(_getScoreListCoroutine);
-                _getScoreListCoroutine = null;
-                return;
+                CleanLeaderboard();
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                string jsonResult = www.downloadHandler.text;
+
+                scoreList = JsonUtility.FromJson<ScoreList>("{\"items\":" + jsonResult + "}");
+
+                if (_parseLeaderboardCoroutine != null)
+                {
+                    StopCoroutine(_parseLeaderboardCoroutine);
+                    _parseLeaderboardCoroutine = null;
+                }
+
+                _parseLeaderboardCoroutine = StartCoroutine(ParseScoreList());
             }
 
-            CleanLeaderboard();
+            _getScoreListCoroutine = null;
+        }
+    }
 
-            _getScoreListCoroutine = StartCoroutine(GetScoreListCoroutine());
+    private IEnumerator ParseScoreList()
+    {
+        int userScoreCount = scoreList.items.Length;
 
-            IEnumerator GetScoreListCoroutine()
+        for (int i = 0; i < 10; i++)
+        {
+            if (i < userScoreCount)
             {
-                using UnityWebRequest www = UnityWebRequest.Get($"{LeaderboardApi.Uri}/score");
-                www.SetRequestHeader("Content-Type", "application/json");
-                yield return www.SendWebRequest();
+                yield return _waitBetweenLeaderboardEntry;
 
-                if (www.result != UnityWebRequest.Result.Success)
-                {
-                    // If GET call failed, handle it.
-                    CleanLeaderboard();
-                    Debug.LogError(www.error);
-                }
-                else
-                {
-                    string jsonResult = www.downloadHandler.text;
+                UserScore userScore = scoreList.items[i];
 
-                    // Override the results for debug purpose
-                    // jsonResult = "[{\"user\":\"Pemdora\", \"score\":\"154\"}, {\"user\":\"pLeet\", \"score\":\"102\"}, {\"user\":\"ShidyGames\", \"score\":\"69\"}, {\"user\":\"laBlondasse\", \"score\":\"63\"}, {\"user\":\"Zakku\", \"score\":\"54\"}, {\"user\":\"Foxy WhiteTrack\", \"score\":\"49\"}, {\"user\":\"Faith\", \"score\":\"46\"}, {\"user\":\"Mizaka\", \"score\":\"41\"}, {\"user\":\"Wenzelie\", \"score\":\"36\"}, {\"user\":\"Mordilla Software\", \"score\":\"24\"}]";
+                _leaderboardUserEntries[i].gameObject.SetActive(true);
+                _leaderboardUserEntries[i].SetUserEntry(userScore.user, userScore.score);
+            }
+            else
+            {
+                yield return null;
 
-                    scoreList = JsonUtility.FromJson<ScoreList>("{\"items\":" + jsonResult + "}");
-
-                    if (_parseLeaderboardCoroutine != null)
-                    {
-                        StopCoroutine(_parseLeaderboardCoroutine);
-                        _parseLeaderboardCoroutine = null;
-                    }
-
-                    _parseLeaderboardCoroutine = StartCoroutine(ParseScoreList());
-                }
-
-                _getScoreListCoroutine = null;
+                _leaderboardUserEntries[i].gameObject.SetActive(false);
+                _leaderboardUserEntries[i].UnsetUserEntry();
             }
         }
 
-        private IEnumerator ParseScoreList()
+        _parseLeaderboardCoroutine = null;
+    }
+
+    private void CleanLeaderboard()
+    {
+        foreach (LeaderboardUserEntry userEntry in _leaderboardUserEntries)
         {
-            int userScoreCount = scoreList.items.Length;
-
-            for (int i = 0; i < 10; i++)
-            {
-                if (i < userScoreCount)
-                {
-                    yield return _waitBetweenLeaderboardEntry;
-
-                    UserScore userScore = scoreList.items[i];
-
-                    _leaderboardUserEntries[i].gameObject.SetActive(true);
-                    _leaderboardUserEntries[i].SetUserEntry(userScore.user, userScore.score);
-
-                    Debug.Log($"Iteration {i}, user count {userScoreCount}. Displaying: {userScore.user} => {userScore.score}.");
-                }
-                else
-                {
-                    yield return null;
-
-                    _leaderboardUserEntries[i].gameObject.SetActive(false);
-                    _leaderboardUserEntries[i].UnsetUserEntry();
-
-                    Debug.Log($"Iteration {i}, user count {userScoreCount}. Nothing to display.");
-                }
-            }
-
-            _parseLeaderboardCoroutine = null;
-        }
-
-        private void CleanLeaderboard()
-        {
-            foreach (LeaderboardUserEntry userEntry in _leaderboardUserEntries)
-            {
-                userEntry.UnsetUserEntry();
-                userEntry.gameObject.SetActive(false);
-            }
+            userEntry.UnsetUserEntry();
+            userEntry.gameObject.SetActive(false);
         }
     }
 }

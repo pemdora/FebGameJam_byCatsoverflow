@@ -1,114 +1,112 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game.Scripts.Wares {
-    [Flags]
-    public enum WareBoundsIndicator
+[Flags]
+public enum WareBoundsIndicator
+{
+    None,
+    Correct,
+    Overlap,
+    NoSupport,
+}
+
+public class WareBounds : MonoBehaviour
+{
+    [Header("References")]
+    [SerializeField] private Collider _collider;
+    [SerializeField] private GameObject _correctIndicator;
+    [SerializeField] private GameObject _overlapIndicator;
+    [SerializeField] private GameObject _noSupportIndicator;
+
+    private Ware _associatedWare;
+
+    public void Initialize(Ware ware)
     {
-        None,
-        Correct,
-        Overlap,
-        NoSupport,
+        _associatedWare = ware;
     }
 
-    public class WareBounds : MonoBehaviour
+    public Ware GetWare()
     {
-        [Header("References")] 
-        [SerializeField] private Collider _collider;
-        [SerializeField] private GameObject _correctIndicator;
-        [SerializeField] private GameObject _overlapIndicator;
-        [SerializeField] private GameObject _noSupportIndicator;
-    
-        private Ware _associatedWare;
+        return _associatedWare;
+    }
 
-        public void Initialize(Ware ware)
+    public void SetInteractible(bool value)
+    {
+        _collider.enabled = value;
+    }
+
+    public void SetIndicator(WareBoundsIndicator indicator)
+    {
+        if (indicator.HasFlag(WareBoundsIndicator.None))
         {
-            _associatedWare = ware;        
-        }
-    
-        public Ware GetWare()
-        {
-            return _associatedWare;
+            ClearIndicators();
         }
 
-        public void SetInteractible(bool value)
+        if (indicator.HasFlag(WareBoundsIndicator.Correct))
         {
-            _collider.enabled = value;
+            _correctIndicator.SetActive(true);
         }
 
-        public void SetIndicator(WareBoundsIndicator indicator)
+        if (indicator.HasFlag(WareBoundsIndicator.Overlap))
         {
-            if (indicator.HasFlag(WareBoundsIndicator.None))
+            _overlapIndicator.SetActive(true);
+        }
+
+        if (indicator.HasFlag(WareBoundsIndicator.NoSupport))
+        {
+            _noSupportIndicator.SetActive(true);
+        }
+    }
+
+    public void ClearIndicators()
+    {
+        _correctIndicator.SetActive(false);
+        _overlapIndicator.SetActive(false);
+        _noSupportIndicator.SetActive(false);
+    }
+
+    public bool DoesOverlap(LayerMask obstaclesLayerMask)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position + Vector3.up / 2, transform.localScale / (1 / 0.49f), Quaternion.identity, obstaclesLayerMask);
+
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.gameObject == gameObject)
             {
-                ClearIndicators();
+                // Don't take into account for self overlap
+                continue;
             }
-        
-            if (indicator.HasFlag(WareBoundsIndicator.Correct))
-            {
-                _correctIndicator.SetActive(true);
-            }
-        
-            if (indicator.HasFlag(WareBoundsIndicator.Overlap))
-            {
-                _overlapIndicator.SetActive(true);
-            }
-        
-            if (indicator.HasFlag(WareBoundsIndicator.NoSupport))
-            {
-                _noSupportIndicator.SetActive(true);
-            }
+
+            return true;
         }
 
-        public void ClearIndicators()
-        {
-            _correctIndicator.SetActive(false);
-            _overlapIndicator.SetActive(false);
-            _noSupportIndicator.SetActive(false);
-        }
+        return false;
+    }
 
-        public bool DoesOverlap(LayerMask obstaclesLayerMask)
-        {
-            Collider[] hitColliders = Physics.OverlapBox(transform.position + Vector3.up / 2, transform.localScale / (1 / 0.49f), Quaternion.identity, obstaclesLayerMask);
+    public bool HasWareAbove(LayerMask wareLayerMask)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position + Vector3.up * 1.5f, transform.localScale / (1 / 0.49f), Quaternion.identity, wareLayerMask);
 
-            foreach (Collider collider in hitColliders)
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.gameObject == gameObject)
             {
-                if (collider.gameObject == gameObject)
+                // Don't take into account for self overlap
+                continue;
+            }
+
+            if (collider.TryGetComponent(out WareBounds bounds))
+            {
+                if (bounds.GetWare() == GetWare())
                 {
-                    // Don't take into account for self overlap
+                    // Don't take into account for other ware bounds that are in the same ware as this one
                     continue;
                 }
-
-                return true;
             }
-        
-            return false;
+
+            return true;
         }
 
-        public bool HasWareAbove(LayerMask wareLayerMask)
-        {
-            Collider[] hitColliders = Physics.OverlapBox(transform.position + Vector3.up * 1.5f, transform.localScale / (1 / 0.49f), Quaternion.identity, wareLayerMask);
-
-            foreach (Collider collider in hitColliders)
-            {
-                if (collider.gameObject == gameObject)
-                {
-                    // Don't take into account for self overlap
-                    continue;
-                }
-
-                if (collider.TryGetComponent(out WareBounds bounds))
-                {
-                    if (bounds.GetWare() == GetWare())
-                    {
-                        // Don't take into account for other ware bounds that are in the same ware as this one
-                        continue;
-                    }
-                }
-
-                return true;
-            }
-        
-            return false;
-        }
+        return false;
     }
 }

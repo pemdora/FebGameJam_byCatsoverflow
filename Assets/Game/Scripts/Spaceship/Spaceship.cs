@@ -1,43 +1,41 @@
 using UnityEngine;
 
-namespace Game.Scripts.Spaceship {
-    public class Spaceship : MonoBehaviour
+public class Spaceship : MonoBehaviour
+{
+    [Header("Settings")]
+    public int id;
+    [SerializeField] private float _loadingDuration = 10;
+
+    [Header("References")]
+    [SerializeField] private Cargo _cargo;
+
+    public float LoadingDuration => _loadingDuration;
+    public float LoadingTimer { get; private set; }
+    public float LoadingLeft => LoadingDuration - LoadingTimer;
+    public bool IsLoading { get; private set; }
+    public Cargo Cargo => _cargo;
+
+    public void Initialize()
     {
-        [Header("Settings")]
-        public int id; 
-        [SerializeField] private float _loadingDuration = 10;
-    
-        [Header("References")] 
-        [SerializeField] private Cargo.Cargo _cargo;
+        LoadingTimer = 0;
+        _cargo.ResetWares();
+    }
 
-        public float LoadingDuration => _loadingDuration;
-        public float LoadingTimer { get; private set; }
-        public float LoadingLeft => LoadingDuration - LoadingTimer;
-        public bool IsLoading { get; private set; }
-        public Cargo.Cargo Cargo => _cargo;
-
-        public void Initialize()
+    private void Update()
+    {
+        if (IsLoading)
         {
-            LoadingTimer = 0;
-            _cargo.ResetWares();
+            LoadingTimer += Time.deltaTime;
         }
+    }
 
-        private void Update()
-        {
-            if (IsLoading)
-            {
-                LoadingTimer += Time.deltaTime;
-            }
-        }
+    public void StartLoading()
+    {
+        IsLoading = true;
+    }
 
-        public void StartLoading()
-        {
-            IsLoading = true;
-        }
-
-        public void StopLoading()
-        {
-            IsLoading = false;
-        }
+    public void StopLoading()
+    {
+        IsLoading = false;
     }
 }
