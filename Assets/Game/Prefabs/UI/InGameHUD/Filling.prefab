@@ -294,6 +294,7 @@ MonoBehaviour:
   _percentageText: {fileID: 1000844394015196315}
   _objectiveSlider: {fileID: 8709156045891112844}
   _filler: {fileID: 3235538932784335165}
+  _scoreSettings: {fileID: 11400000, guid: 08fc73dbe09f9a84d98bed239e016dc2, type: 2}
 --- !u!1 &4203763274621118841
 GameObject:
   m_ObjectHideFlags: 0

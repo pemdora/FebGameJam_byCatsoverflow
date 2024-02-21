@@ -1,101 +1,83 @@
+using Game.Scripts.Save;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioManager : MonoBehaviour
+namespace Game.Scripts.Audio
 {
-    public static AudioManager Instance { get; private set; }
-
-    private PlayerSave _playerSave;
-
-    [Header("References")]
-    [SerializeField] private AudioMixer _gameAudioMixer;
-    [SerializeField] private AudioSource _musicAudioSource;
-    [SerializeField] private AudioSource _sfxAudioSource;
-
-    // @pLeet coucou tu peux mettre ça dans le GameManager stp ?
-    [Header("GlobalSFX")]
-    [SerializeField] private AudioClip _droppedWareSfx;
-    [SerializeField] private AudioClip _overSfx;
-    [SerializeField] private AudioClip _clicSfx;
-
-    void Awake()
+    public class AudioManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static AudioManager Instance { get; private set; }
+
+        private PlayerSave _playerSave;
+
+        [Header("References")]
+        [SerializeField] private AudioMixer _gameAudioMixer;
+        [SerializeField] private AudioSource _musicAudioSource;
+        [SerializeField] private AudioSource _sfxAudioSource;
+
+        // put in the scriptable objects the sounds and music to play
+        [SerializeField] private AudioScriptableObject audioScriptableObject;
+
+        void Awake()
         {
-            Destroy(gameObject);
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+            }
+
+            _playerSave = SaveManager.Load();
         }
-        else
+
+        private void Start()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(_playerSave.masterVolume));
+            _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(_playerSave.musicVolume));
+            _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(_playerSave.soundVolume));
         }
 
-        _playerSave = SaveManager.Load();
-    }
-
-    void Start()
-    {
-        _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(_playerSave.masterVolume));
-        _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(_playerSave.musicVolume));
-        _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(_playerSave.soundVolume));
-    }
-
-    public void PlayMusic(AudioClip music)
-    {
-        _musicAudioSource.clip = music;
-        _musicAudioSource.Play();
-    }
-
-    public void StopMusic()
-    {
-        _musicAudioSource.Stop();
-    }
-
-    public void PlaySound(AudioClip sound)
-    {
-        _sfxAudioSource.PlayOneShot(sound);
-    }
-
-    // FOR THE TROLL
-
-    public void PlayOuch()
-    {
-        _sfxAudioSource.PlayOneShot(_droppedWareSfx);
-    }
-    public void PlayOver()
-    {
-        _sfxAudioSource.PlayOneShot(_overSfx);
-    }
-    public void PlayClic()
-    {
-        _sfxAudioSource.PlayOneShot(_clicSfx);
-    }
-
-    public void SetMasterVolume(float volume)
-    {
-        _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(volume));
-    }
-
-    public void SetMusicVolume(float volume)
-    {
-        _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(volume));
-    }
-
-    public void SetSoundVolume(float volume)
-    {
-        _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(volume));
-    }
-
-    private float VolumeToDecibel(float volume)
-    {
-        if (volume <= 0f)
+        public void PlayMusic(MusicType musicType)
         {
-            return -80f;
+            _musicAudioSource.clip = audioScriptableObject.musicsBySoundType[musicType];
+            _musicAudioSource.Play();
         }
-        else
+
+        public void StopMusic()
         {
+            _musicAudioSource.Stop();
+        }
+
+        public void PlaySoundEffect(SoundEffectType soundEffectType)
+        {
+            _sfxAudioSource.PlayOneShot(audioScriptableObject.soundsEffectsBySoundType[soundEffectType]);
+        }
+
+        public void SetMasterVolume(float volume)
+        {
+            _gameAudioMixer.SetFloat("MasterVolume", VolumeToDecibel(volume));
+        }
+
+        public void SetMusicVolume(float volume)
+        {
+            _gameAudioMixer.SetFloat("MusicVolume", VolumeToDecibel(volume));
+        }
+
+        public void SetSoundVolume(float volume)
+        {
+            _gameAudioMixer.SetFloat("SFXVolume", VolumeToDecibel(volume));
+        }
+
+        private float VolumeToDecibel(float volume)
+        {
+            if (volume <= 0f)
+            {
+                return -80f;
+            }
+
             return Mathf.Clamp(20 * Mathf.Log10(volume), -80f, 0f);
         }
     }
-
 }
