@@ -22,6 +22,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
     [Header("References")]
     [SerializeField] private GameObject _highlight;
+    [SerializeField] private Material _matOutline;
     [SerializeField] private WareBounds[] _bounds;
 
     [Header("Events")]
@@ -190,10 +191,10 @@ public class Ware : MonoBehaviour, IWareSupport
         _rotationCoroutine = null;
     }
 
-    public void SetHighlight(bool active)
-    {
-        _highlight.SetActive(active);
-    }
+        public void SetHighlight(bool active)
+        {
+            _highlight.SetActive(active);
+        }
 
     public void SetInteractable(bool value)
     {
