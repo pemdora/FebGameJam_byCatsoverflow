@@ -27,7 +27,8 @@ public class UIWarePoints : MonoBehaviour
     float _yOffsetScale;
     Camera _mainCamera;
     float _bonusScale;
-
+    Vector3 _originalPosition;
+    static bool _rightMovement = false;
 
 
 
@@ -36,12 +37,6 @@ public class UIWarePoints : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _mainCamera = Camera.main;
-        if (_mainCamera)
-        {
-            transform.rotation = _mainCamera.transform.rotation;
-            transform.position += (_mainCamera.transform.position - transform.position).normalized * 5;
-        }
         if (_debugStartOnStart)
         {
             StartAnimation();
@@ -56,14 +51,29 @@ public class UIWarePoints : MonoBehaviour
             ResetText();
             ApplyText();
             CalculateScale();
-            _xOffsetScale = Random.Range(-1f, 1f);
+            _xOffsetScale = Random.Range(0.25f, 1f);
+            int xDirection = GetXDirection();
             _yOffsetScale = Random.Range(0.5f, 1.5f);
+            _mainCamera = Camera.main;
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("PointsUI");
+            if (gameObjects.Length > 0)
+            {
+                _canvas = gameObjects[0].GetComponent<Canvas>();
+                transform.SetParent(_canvas.transform, true);
+            }
+          
+            if (_mainCamera)
+            {
+                Vector3 screenPosition = _mainCamera.WorldToScreenPoint(transform.position);
+                _originalPosition = new Vector3(screenPosition.x,screenPosition.y,0);
+            }
+          
             float percent = 0;
             while (percent < 1)
             {
                 percent += Time.deltaTime / _apparitionTime;
-                float xLerp = Mathf.Lerp(-5f * _xOffsetScale, 5f * _xOffsetScale, (Mathf.Cos((percent + 0.5f) * 2) + 1) * 0.5f);
-                float yLerp = Mathf.Lerp(2.5f * _yOffsetScale, 20f * _yOffsetScale, _yCurve.Evaluate(percent));
+                float xLerp = Mathf.Lerp(-50f * _xOffsetScale * xDirection, 50f * _xOffsetScale * xDirection, _xCurve.Evaluate (percent)) + _originalPosition.x;
+                float yLerp = Mathf.Lerp(0f * _yOffsetScale, 100f * _yOffsetScale, _yCurve.Evaluate(percent)) + _originalPosition.y;
                 float scaleLerp = Mathf.Lerp(0.5f, _minFinalScale + _bonusScale, _scaleCurve.Evaluate(percent));
                 _pointsText.transform.localPosition = new Vector3(xLerp, yLerp, 0);
                 _pointsText.transform.localScale = new Vector3(scaleLerp, scaleLerp, scaleLerp);
@@ -129,6 +139,13 @@ public class UIWarePoints : MonoBehaviour
         float maxPointsDivisor = _maxFinalScale - _minFinalScale;
         int divisor = (int)(_PointsForMaxScale / maxPointsDivisor);
         _bonusScale = Mathf.Min((_pointValue - 50) / divisor, _maxFinalScale - _minFinalScale);
+    }
+
+    static private int GetXDirection()
+    {
+        int direction = (_rightMovement) ? 1 : -1;
+        _rightMovement = !_rightMovement;
+        return direction;
     }
 
     public void SetPointsValue(float value)

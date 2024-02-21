@@ -232,7 +232,7 @@ public class Ware : MonoBehaviour, IWareSupport
     {
         if (!_UIpointsprefab)
         {
-
+            return;
         }
         GameObject uiPrefab = Instantiate(_UIpointsprefab, new Vector3(0, 0, 0), Quaternion.identity);
         UIWarePoints warePointsUI = uiPrefab.GetComponent<UIWarePoints>();
