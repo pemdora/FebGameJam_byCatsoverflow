@@ -11,10 +11,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer _gameAudioMixer;
     [SerializeField] private AudioSource _musicAudioSource;
     [SerializeField] private AudioSource _sfxAudioSource;
-    
+
     // @pLeet coucou tu peux mettre ça dans le GameManager stp ?
     [Header("GlobalSFX")]
     [SerializeField] private AudioClip _droppedWareSfx;
+    [SerializeField] private AudioClip _overSfx;
+    [SerializeField] private AudioClip _clicSfx;
 
     void Awake()
     {
@@ -59,6 +61,14 @@ public class AudioManager : MonoBehaviour
     public void PlayOuch()
     {
         _sfxAudioSource.PlayOneShot(_droppedWareSfx);
+    }
+    public void PlayOver()
+    {
+        _sfxAudioSource.PlayOneShot(_overSfx);
+    }
+    public void PlayClic()
+    {
+        _sfxAudioSource.PlayOneShot(_clicSfx);
     }
 
     public void SetMasterVolume(float volume)

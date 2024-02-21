@@ -50,6 +50,8 @@ MonoBehaviour:
   _musicAudioSource: {fileID: 5524252995834534959}
   _sfxAudioSource: {fileID: 4301437145058744521}
   _droppedWareSfx: {fileID: 8300000, guid: 0cd7ea318b2a1614380596666d163089, type: 3}
+  _overSfx: {fileID: 8300000, guid: 959a094a215223c49976ee7f9c82020e, type: 3}
+  _clicSfx: {fileID: 8300000, guid: 06508b4d462e5a04ebefaaf6f3016762, type: 3}
 --- !u!82 &5524252995834534959
 AudioSource:
   m_ObjectHideFlags: 0

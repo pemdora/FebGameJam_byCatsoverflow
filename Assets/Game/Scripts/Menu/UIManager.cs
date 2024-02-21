@@ -45,4 +45,13 @@ public class UIManager : MonoBehaviour
         }
         _canvasTransitionCoroutine = StartCoroutine(CanvasTransitionCoroutine(From, destination));
     }
+
+    public void Clic()
+    {
+        AudioManager.Instance.PlayClic();
+    }
+    public void Over()
+    {
+        AudioManager.Instance.PlayOver();
+    }
 }
