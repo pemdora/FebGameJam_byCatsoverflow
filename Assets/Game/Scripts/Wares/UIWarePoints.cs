@@ -22,6 +22,12 @@ public class UIWarePoints : MonoBehaviour
     [SerializeField] TMP_Text _pointsText;
     [SerializeField] Canvas _canvas;
 
+    [Header("Colors")]
+    [SerializeField] Color _colorScorelow;
+    [SerializeField] Color _colorScoremedium;
+    [SerializeField] Color _colorScoreHigh;
+    [SerializeField] Color _colorScoreExtrahigh;
+
 
     float _xOffsetScale;
     float _yOffsetScale;
@@ -106,22 +112,21 @@ public class UIWarePoints : MonoBehaviour
             Text += "!";
         }
 
-        Color32 color = Color.black;
+        Color32 color = _colorScorelow;
         switch (exclamations)
         {
             case 1:
-                color = Color.yellow;
-
+                color = _colorScoremedium;
                 break;
             case 2:
-                color = new Color(1, 0.5f, 0);
+                color = _colorScoreHigh;
                 break;
             case 3:
-                color = Color.red;
+                color = _colorScoreExtrahigh;
                 break;
         }
 
-        _pointsText.outlineColor = color;
+        _pointsText.color = color;
         _pointsText.SetText(Text);
 
     }

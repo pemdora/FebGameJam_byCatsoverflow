@@ -50,6 +50,7 @@ public class PickManager : MonoBehaviour
                     {
                         // We drop the ware at the location
                         _selectedWare.Place(support.GetAssociatedCargo());
+                        _scoreManager.PlaceWare(_selectedWare); // Calculate the score of the placed  ware
                         _selectedWare = null;
                     }
                 }

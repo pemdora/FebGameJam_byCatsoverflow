@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Score calculation
+/// Rules :
+/// - Each filled slot will generate points (when a ware is placed)
+/// - Each empty slot past the given percentage will generate frustration
+/// - Each discarded ware will generate frustration
+/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     [Header("Stats")]
@@ -43,10 +50,12 @@ public class ScoreManager : MonoBehaviour
         Cargo cargo = spaceship.Cargo;
         int minimumOccupiedSlotsNeeded = Mathf.CeilToInt(cargo.SlotCount * (_settings.frustrationThreshold / 100f));
         bool minimumOccupiedSlotsReached = 100f - cargo.FillPercentage < _settings.frustrationThreshold;
-        int numberOfOccupiedSlotsUnderThreshold = Mathf.Min(cargo.OccupiedSlotCount, minimumOccupiedSlotsNeeded);
+        // int numberOfOccupiedSlotsUnderThreshold = Mathf.Min(cargo.OccupiedSlotCount, minimumOccupiedSlotsNeeded); 
         int numberOfOccupiedSlotsAboveThreshold = Mathf.Max(0, cargo.OccupiedSlotCount - minimumOccupiedSlotsNeeded);
 
-        _score += numberOfOccupiedSlotsUnderThreshold * _settings.pointsPerSlotFilled;
+        // Debug.Log($"<color=red> TEST: _score {_score} occupied slot {_score/_settings.pointsPerSlotFilled} </color>");
+        // Debug.Log($"<color=red> TEST: VERIF _score {numberOfOccupiedSlotsUnderThreshold * _settings.pointsPerSlotFilled}  occupied slot {numberOfOccupiedSlotsUnderThreshold} </color>");
+
         _score += numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
 
         // If the number of empty slots are above the allowed threshold
@@ -77,6 +86,14 @@ public class ScoreManager : MonoBehaviour
 
         OnScoreChanged?.Invoke(_score.ToString());
         _deliveryCount++;
+    }
+
+    public void PlaceWare(Ware ware)
+    {
+        int wareScore = ware.Size * _settings.pointsPerSlotFilled;
+        ware.DisplayWareScore(wareScore, ware.BonusScore);
+        _score += wareScore + ware.BonusScore;
+        OnScoreChanged?.Invoke(_score.ToString());
     }
 
     public void DiscardWare()

@@ -175,6 +175,10 @@ MonoBehaviour:
   _debugStartOnStart: 0
   _pointsText: {fileID: 0}
   _canvas: {fileID: 0}
+  _colorScorelow: {r: 0, g: 0, b: 0, a: 0}
+  _colorScoremedium: {r: 0, g: 0, b: 0, a: 0}
+  _colorScoreHigh: {r: 0, g: 0, b: 0, a: 0}
+  _colorScoreExtrahigh: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6422356196705920692
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,3 +420,7 @@ MonoBehaviour:
   _debugStartOnStart: 0
   _pointsText: {fileID: 3850203404638434640}
   _canvas: {fileID: 0}
+  _colorScorelow: {r: 1, g: 1, b: 1, a: 1}
+  _colorScoremedium: {r: 0.8962264, g: 0.70032305, b: 0.47770557, a: 1}
+  _colorScoreHigh: {r: 0.9056604, g: 0.44001427, b: 0.44001427, a: 1}
+  _colorScoreExtrahigh: {r: 0.65496117, g: 0.508366, b: 0.9056604, a: 1}
