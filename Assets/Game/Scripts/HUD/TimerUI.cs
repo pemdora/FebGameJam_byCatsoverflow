@@ -30,7 +30,6 @@ namespace Game.Scripts.HUD {
                 _timeText.text = (_previousTime+1).ToString();
                 
                 if (_previousTime+1 == 8) {
-                    Debug.Log("tic tac");
                     AudioManager.Instance.PlaySoundEffect(SoundEffectType.TIC_TAC);
                 }
             } 
