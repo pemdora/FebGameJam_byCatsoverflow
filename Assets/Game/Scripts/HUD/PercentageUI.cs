@@ -8,15 +8,18 @@ public class PercentageUI : MonoBehaviour
     [SerializeField] private TMP_Text _percentageText;
     [SerializeField] private Slider _objectiveSlider;
     [SerializeField] private Image _filler;
-    [SerializeField] private ScoreSettings _scoreSettings;
     private float _previousPercentage;
 
     void Start()
     {
-        _objectiveSlider.value = (100 - _scoreSettings.frustrationThreshold) / 100f;
         _percentageText.text = "??";
         _previousPercentage = 0;
         _filler.fillAmount = 0;
+    }
+
+    public void SetObjectiveSlider(int frustrationThreshold)
+    {
+        _objectiveSlider.value = (100 - frustrationThreshold) / 100f;
     }
 
     void Update()

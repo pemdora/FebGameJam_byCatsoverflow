@@ -26,6 +26,9 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private Material _matOutline;
     [SerializeField] private WareBounds[] _bounds;
 
+    [Header("Score")]
+    private int _bonusScore = 0;
+
     [Header("Events")]
     public UnityEvent OnPick;
     public UnityEvent OnDrop;
@@ -33,6 +36,7 @@ public class Ware : MonoBehaviour, IWareSupport
     public Transform WarePoolContainer { get => _warePoolContainer; }
     public bool HasBeenPlaced => _associatedCargo != null;
     public int Size => _bounds.Length;
+    public int BonusScore => _bonusScore;
 
     private List<MeshRenderer> _graphicRenderers = new List<MeshRenderer>();
     private List<Material[]> _originalMaterials = new List<Material[]>(); // is not opti sorry but I suck in shader and stuff
@@ -110,7 +114,6 @@ public class Ware : MonoBehaviour, IWareSupport
         _associatedCargo.AddWare(this);
         transform.parent = destination.transform;
         StartPlaceAnimation();
-        PointsAnimation();
     }
 
     public void Pick(PickManager manager)
@@ -283,7 +286,7 @@ public class Ware : MonoBehaviour, IWareSupport
         }
     }
 
-    private void PointsAnimation()
+    public void DisplayWareScore(int score, int bonusScore)
     {
         if (!_UIpointsprefab)
         {
@@ -295,8 +298,13 @@ public class Ware : MonoBehaviour, IWareSupport
         {
             // TODO Set the actual score of the ware
             warePointsUI.transform.position = transform.position;
-            warePointsUI.SetPointsValue(Random.Range(50, 350));
+            warePointsUI.SetPointsValue(score);
             warePointsUI.StartAnimation();
+        }
+
+        if(bonusScore > 0)
+        {
+            // TODO (Pem) you can ping me if you need it right now
         }
     }
 

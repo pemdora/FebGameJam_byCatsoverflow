@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6f61c8ef79464aa6c10027b23766ba, type: 3}
   m_Name: Standard Score Settings
   m_EditorClassIdentifier: 
-  frustrationThreshold: 25
   frustrationPerEmptySlots: 2
+  frustrationPerDiscardedWare: 10
+  maxFrustrationAllowed: 100
+  frustrationThresholdCargo3Min: 50
+  frustrationThresholdCargo3Max: 25
+  frustrationThresholdCargo4Min: 70
+  frustrationThresholdCargo4Max: 40
+  frustrationThresholdStep: 10
+  pointsForEachSecondBeforeEndTimer: 1
+  pointsPerSlotFilled: 50
+  pointsPerExtraSlotFilled: 2

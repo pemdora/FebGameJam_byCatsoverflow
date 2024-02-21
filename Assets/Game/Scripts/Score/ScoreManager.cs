@@ -1,12 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Score calculation
+/// Rules :
+/// - Each filled slot will generate points (when a ware is placed)
+/// - Each empty slot past the given percentage will generate frustration
+/// - Each discarded ware will generate frustration
+/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private int _deliveryCount;
     [SerializeField] private int _frustration;
     [SerializeField] private int _score;
+    
 
     [Header("Settings")]
     [SerializeField] private ScoreSettings _settings;
@@ -18,10 +27,18 @@ public class ScoreManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnGameOver;
     public UnityEvent<string> OnScoreChanged;
+    public UnityEvent<int> OnFrustrationThresholdChanged;
 
     public int DeliveryCount => _deliveryCount;
     public int Frustration => _frustration;
     public int Score => _score;
+
+    private int frustrationThreshold; // dynamic treshold based on cargo
+    public int FrustrationThreshold
+    {
+        get => frustrationThreshold;
+        set => frustrationThreshold = value;
+    }
 
     private void OnEnable()
     {
@@ -33,6 +50,27 @@ public class ScoreManager : MonoBehaviour
         _spaceshipManager.OnSpaceshipTakeOff.RemoveListener(OnSpaceshipLeft);
     }
 
+    public void SetObjectiveTreshold(int cargoSize)
+    {
+        if (cargoSize == 3)
+        {
+            int frustration = _settings.frustrationThresholdCargo3Min - _deliveryCount*_settings.frustrationThresholdStep;
+            frustrationThreshold = Mathf.Max(frustration,_settings.frustrationThresholdCargo3Max);
+        }
+        else if (cargoSize == 4)
+        {
+            int frustration = _settings.frustrationThresholdCargo4Min - _deliveryCount*_settings.frustrationThresholdStep;
+            frustrationThreshold = Mathf.Max(frustration,_settings.frustrationThresholdCargo4Max) ;
+        }
+        else
+        {
+            frustrationThreshold = _settings.frustrationThresholdCargo3Min;
+        }
+
+        // _objectiveSlider.value = (100 - frustrationThreshold) / 100f;
+        OnFrustrationThresholdChanged?.Invoke(frustrationThreshold);
+    }
+
     private void OnSpaceshipLeft(Spaceship spaceship)
     {
         if (spaceship == null)
@@ -41,13 +79,13 @@ public class ScoreManager : MonoBehaviour
         }
 
         Cargo cargo = spaceship.Cargo;
-        int minimumOccupiedSlotsNeeded = Mathf.CeilToInt(cargo.SlotCount * (_settings.frustrationThreshold / 100f));
-        bool minimumOccupiedSlotsReached = 100f - cargo.FillPercentage < _settings.frustrationThreshold;
-        int numberOfOccupiedSlotsUnderThreshold = Mathf.Min(cargo.OccupiedSlotCount, minimumOccupiedSlotsNeeded);
+        int minimumOccupiedSlotsNeeded = Mathf.CeilToInt(cargo.SlotCount * (frustrationThreshold / 100f));
+        bool minimumOccupiedSlotsReached = 100f - cargo.FillPercentage < frustrationThreshold;
+        // int numberOfOccupiedSlotsUnderThreshold = Mathf.Min(cargo.OccupiedSlotCount, minimumOccupiedSlotsNeeded);  // cargo.OccupiedSlotCount* _settings.pointsPerSlotFilled;
         int numberOfOccupiedSlotsAboveThreshold = Mathf.Max(0, cargo.OccupiedSlotCount - minimumOccupiedSlotsNeeded);
 
-        _score += numberOfOccupiedSlotsUnderThreshold * _settings.pointsPerSlotFilled;
-        _score += numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
+        // TODO BONUS SCORE
+        // _score += numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
 
         // If the number of empty slots are above the allowed threshold
         if (!minimumOccupiedSlotsReached)
@@ -69,14 +107,23 @@ public class ScoreManager : MonoBehaviour
         else
         {
             // Check if the player manually send the spaceship
-            if (spaceship.LoadingLeft > 0)
-            {
-                _score += Mathf.CeilToInt(spaceship.LoadingLeft) * _settings.pointsForEachSecondBeforeEndTimer;
-            }
+            // if (spaceship.LoadingLeft > 0)
+            // {
+            //     _score += Mathf.CeilToInt(spaceship.LoadingLeft) * _settings.pointsForEachSecondBeforeEndTimer;
+            // }
         }
 
         OnScoreChanged?.Invoke(_score.ToString());
         _deliveryCount++;
+    }
+
+
+    public void PlaceWare(Ware ware)
+    {
+        int wareScore = ware.Size * _settings.pointsPerSlotFilled;
+        ware.DisplayWareScore(wareScore, ware.BonusScore);
+        _score += wareScore + ware.BonusScore;
+        OnScoreChanged?.Invoke(_score.ToString());
     }
 
     public void DiscardWare()
@@ -99,6 +146,7 @@ public class ScoreManager : MonoBehaviour
         _deliveryCount = 0;
         _frustration = 0;
         _score = 0;
+        _frustrationUI.UpdateFiller(0);
     }
 }
 

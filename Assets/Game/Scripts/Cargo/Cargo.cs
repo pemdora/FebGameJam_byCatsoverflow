@@ -16,6 +16,7 @@ public class Cargo : MonoBehaviour
     public int SlotCount => _slotCount;
     public int OccupiedSlotCount => _occupiedSlotCount;
     public int EmptySlotCount => _emptySlotCount;
+    public int CargoSize => _cargoSize;
 
     private List<Ware> _placedWare;
     private Dictionary<Ware.WareTypes, int> _typesCounter;
