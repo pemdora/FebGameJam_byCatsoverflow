@@ -53,7 +53,6 @@ public class LeaderboardManager : MonoBehaviour
     {
         if (_getScoreListCoroutine != null)
         {
-            // To prevent making multiple API calls if one is already going.
             StopCoroutine(_getScoreListCoroutine);
             _getScoreListCoroutine = null;
             return;
@@ -71,16 +70,12 @@ public class LeaderboardManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                // If GET call failed, handle it.
                 CleanLeaderboard();
                 Debug.LogError(www.error);
             }
             else
             {
                 string jsonResult = www.downloadHandler.text;
-
-                // Override the results for debug purpose
-                // jsonResult = "[{\"user\":\"Pemdora\", \"score\":\"154\"}, {\"user\":\"pLeet\", \"score\":\"102\"}, {\"user\":\"ShidyGames\", \"score\":\"69\"}, {\"user\":\"laBlondasse\", \"score\":\"63\"}, {\"user\":\"Zakku\", \"score\":\"54\"}, {\"user\":\"Foxy WhiteTrack\", \"score\":\"49\"}, {\"user\":\"Faith\", \"score\":\"46\"}, {\"user\":\"Mizaka\", \"score\":\"41\"}, {\"user\":\"Wenzelie\", \"score\":\"36\"}, {\"user\":\"Mordilla Software\", \"score\":\"24\"}]";
 
                 scoreList = JsonUtility.FromJson<ScoreList>("{\"items\":" + jsonResult + "}");
 
@@ -111,8 +106,6 @@ public class LeaderboardManager : MonoBehaviour
 
                 _leaderboardUserEntries[i].gameObject.SetActive(true);
                 _leaderboardUserEntries[i].SetUserEntry(userScore.user, userScore.score);
-
-                Debug.Log($"Iteration {i}, user count {userScoreCount}. Displaying: {userScore.user} => {userScore.score}.");
             }
             else
             {
@@ -120,8 +113,6 @@ public class LeaderboardManager : MonoBehaviour
 
                 _leaderboardUserEntries[i].gameObject.SetActive(false);
                 _leaderboardUserEntries[i].UnsetUserEntry();
-
-                Debug.Log($"Iteration {i}, user count {userScoreCount}. Nothing to display.");
             }
         }
 
