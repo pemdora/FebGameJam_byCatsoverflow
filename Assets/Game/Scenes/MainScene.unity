@@ -1698,6 +1698,36 @@ PrefabInstance:
       propertyPath: _spaceshipManager
       value: 
       objectReference: {fileID: 1932589794}
+    - target: {fileID: 2783431754562966906, guid: fb8de4115add4964da3760f579b2e7ed,
+        type: 3}
+      propertyPath: OnScoreChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783431754562966906, guid: fb8de4115add4964da3760f579b2e7ed,
+        type: 3}
+      propertyPath: OnScoreChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6547057178104080718}
+    - target: {fileID: 2783431754562966906, guid: fb8de4115add4964da3760f579b2e7ed,
+        type: 3}
+      propertyPath: OnScoreChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783431754562966906, guid: fb8de4115add4964da3760f579b2e7ed,
+        type: 3}
+      propertyPath: OnScoreChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_text
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783431754562966906, guid: fb8de4115add4964da3760f579b2e7ed,
+        type: 3}
+      propertyPath: OnScoreChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TMPro.TMP_Text, Unity.TextMeshPro
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783431754562966906, guid: fb8de4115add4964da3760f579b2e7ed,
+        type: 3}
+      propertyPath: OnScoreChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3278545745302500564, guid: fb8de4115add4964da3760f579b2e7ed,
         type: 3}
       propertyPath: m_Name
@@ -3609,6 +3639,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b576197dc15eb43478fa0a873eabab94, type: 3}
+--- !u!114 &6547057178104080718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3257273964031464132, guid: b576197dc15eb43478fa0a873eabab94,
+    type: 3}
+  m_PrefabInstance: {fileID: 6547057178104080717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6547169249991647557
 MonoBehaviour:
   m_ObjectHideFlags: 0
