@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LandingPlatform : MonoBehaviour
 {
+    [Header("Inputs")]
+    private PlayerControls _playerControls;
+
     [Header("Settings")]
     [SerializeField] private float _duration;
     [SerializeField] private AnimationCurve _ease;
@@ -14,22 +18,27 @@ public class LandingPlatform : MonoBehaviour
 
     private Coroutine _rotationCoroutine;
 
-    private void Update()
+    private void Awake()
     {
-        if (!CanRotate)
-        {
-            return;
-        }
+        _playerControls = new PlayerControls();
+    }
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            Rotate(true);
-        }
+    private void OnEnable()
+    {
+        _playerControls.Player.RotateLeft.Enable();
+        _playerControls.Player.RotateRight.Enable();
 
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            Rotate(false);
-        }
+        _playerControls.Player.RotateLeft.performed += RotateLeft;
+        _playerControls.Player.RotateRight.performed += RotateRight;
+    }
+
+    private void OnDisable()
+    {
+        _playerControls.Player.RotateLeft.Disable();
+        _playerControls.Player.RotateRight.Disable();
+
+        _playerControls.Player.RotateLeft.performed -= RotateLeft;
+        _playerControls.Player.RotateRight.performed -= RotateRight;
     }
 
     public void PlaceSpaceship(Spaceship spaceship)
@@ -38,8 +47,16 @@ public class LandingPlatform : MonoBehaviour
         spaceship.transform.position = transform.position;
     }
 
+    private void RotateLeft(InputAction.CallbackContext context) => Rotate(true);
+    private void RotateRight(InputAction.CallbackContext context) => Rotate(false);
+
     public void Rotate(bool clockwise)
     {
+        if (!CanRotate)
+        {
+            return;
+        }
+
         if (_rotationCoroutine != null)
         {
             return;
