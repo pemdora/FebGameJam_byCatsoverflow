@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4707900981861732230}
   - component: {fileID: 7372965446299959147}
+  - component: {fileID: 7581584164879490013}
   m_Layer: 0
   m_Name: ManagerCharacter
   m_TagString: Untagged
@@ -137,8 +138,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9110258727014685269}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.10754848, y: -0.37177506, z: -0.077539936, w: 0.9188059}
-  m_LocalPosition: {x: -6.3, y: 8.01, z: 3.28}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -146,7 +147,7 @@ Transform:
   - {fileID: 4543255883786994186}
   - {fileID: 2236127562714597027}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -14.791, y: -43.578, z: -3.708}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7372965446299959147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,9 +162,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _color: {r: 1, g: 1, b: 1, a: 1}
   _emissionColor: {r: 17.148375, g: 0, b: 0, a: 1}
-  _eyesAnimationSpeed: 1
-  _mouthAnimationSpeed: 1
   eyesAnimations:
+  - name: normal
+    texture: {fileID: 21300000, guid: 6622cbabdfc578149ba0336851f19ab2, type: 3}
   - name: heart
     texture: {fileID: 21300000, guid: cea44bcb599b1fb4c9a116e1fb017dcf, type: 3}
   - name: angry
@@ -172,17 +173,15 @@ MonoBehaviour:
     texture: {fileID: 21300000, guid: 994fc8f259ad8cf4fa33e7eb3d2cd3ae, type: 3}
   - name: happy
     texture: {fileID: 21300000, guid: 7a9b6b5bae0d0c4458740e76a6a4e07f, type: 3}
-  - name: normal
-    texture: {fileID: 21300000, guid: 6622cbabdfc578149ba0336851f19ab2, type: 3}
   - name: tired
     texture: {fileID: 21300000, guid: e38c425a037f02745bba71fa360e1cd3, type: 3}
   mouthAnimations:
+  - name: close
+    texture: {fileID: 21300000, guid: 443d0274fa1339143acafe4194382028, type: 3}
   - name: confused
     texture: {fileID: 21300000, guid: 61e7d38f8427fef4bb660ec100b388d3, type: 3}
   - name: large_open
     texture: {fileID: 21300000, guid: f68777508c26106418cfeabf63a2bc1c, type: 3}
-  - name: close
-    texture: {fileID: 21300000, guid: 443d0274fa1339143acafe4194382028, type: 3}
   - name: open
     texture: {fileID: 21300000, guid: ebbde4e4fb08b9e47bd14f2c9668a1ed, type: 3}
   - name: smile
@@ -194,6 +193,27 @@ MonoBehaviour:
   eyeDecalMaterial: {fileID: 2100000, guid: afefc94c6ffbf53489fbc2d65110b7a9, type: 2}
   mouthDecalMaterial: {fileID: 2100000, guid: b842fb95c16748748b366a66f230c3ef, type: 2}
   face: {fileID: 5051084308512239816}
+--- !u!95 &7581584164879490013
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110258727014685269}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61b34d34d24a36c46a4a5426aaff9c99, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5932901263724171310
 PrefabInstance:
   m_ObjectHideFlags: 0
