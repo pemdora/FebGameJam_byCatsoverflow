@@ -17,6 +17,11 @@ public class SpaceshipConductor : MonoBehaviour
 
     public void AttachSpaceship(Spaceship spaceship, Action<Spaceship> onArrivalCallback, bool forcePosition)
     {
+        if (!spaceship)
+        {
+            return;
+        }
+        
         _spaceship = spaceship;
         _endRotation = _spaceship.transform.rotation;
         _spaceship.transform.SetParent(_conductor, forcePosition);
@@ -29,6 +34,11 @@ public class SpaceshipConductor : MonoBehaviour
 
     public void OnAnimationEnded()
     {
+        if (!_spaceship)
+        {
+            return;
+        }
+        
         _spaceship.transform.rotation = _endRotation;
         _onArrivalCallback?.Invoke(_spaceship);
         _spaceship = null;
