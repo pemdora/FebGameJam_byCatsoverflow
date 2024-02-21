@@ -1244,6 +1244,7 @@ GameObject:
   - component: {fileID: 2021566968}
   - component: {fileID: 2021566967}
   - component: {fileID: 2021566966}
+  - component: {fileID: 2021566969}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1351,6 +1352,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1996034404}
   m_LocalEulerAnglesHint: {x: 41.793, y: -2.672, z: 33.888}
+--- !u!114 &2021566969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021566965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b8d48942f2c1c4c9a280be3ce97818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _warningColor: {r: 1, g: 0, b: 0, a: 0}
+  _WarningLightIntensity: 3
+  _blinkLightSpeed: 2.67
+  _gameManager: {fileID: 630130084}
+  _spaceShipManager: {fileID: 1932589794}
+  _light: {fileID: 2021566967}
 --- !u!1 &2084074728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,6 +2038,11 @@ PrefabInstance:
       propertyPath: _spaceshipManager
       value: 
       objectReference: {fileID: 1932589794}
+    - target: {fileID: 1064559367886754716, guid: 5b641828928e9b8458d89d2d9e56be01,
+        type: 3}
+      propertyPath: _timeBeforeWarning
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2998641431398965835, guid: 5b641828928e9b8458d89d2d9e56be01,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3901,6 +3925,31 @@ PrefabInstance:
       propertyPath: _spaceShipManager
       value: 
       objectReference: {fileID: 1932589794}
+    - target: {fileID: 361158725081852612, guid: 3820be09c94f1f340a33ea156465eece,
+        type: 3}
+      propertyPath: _lightAnimationCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 361158725081852612, guid: 3820be09c94f1f340a33ea156465eece,
+        type: 3}
+      propertyPath: _lightAnimationCurve.m_Curve.Array.data[0].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 361158725081852612, guid: 3820be09c94f1f340a33ea156465eece,
+        type: 3}
+      propertyPath: _lightAnimationCurve.m_Curve.Array.data[0].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 361158725081852612, guid: 3820be09c94f1f340a33ea156465eece,
+        type: 3}
+      propertyPath: _lightAnimationCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 361158725081852612, guid: 3820be09c94f1f340a33ea156465eece,
+        type: 3}
+      propertyPath: _lightAnimationCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5810687814813299402, guid: 3820be09c94f1f340a33ea156465eece,
         type: 3}
       propertyPath: m_Name
