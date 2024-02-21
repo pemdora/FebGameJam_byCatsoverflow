@@ -260,7 +260,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3488448685618587894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,4 +424,4 @@ MonoBehaviour:
   _PointsForMaxScale: 300
   _debugStartOnStart: 0
   _pointsText: {fileID: 3850203404638434640}
-  _canvas: {fileID: 621476386111201307}
+  _canvas: {fileID: 0}

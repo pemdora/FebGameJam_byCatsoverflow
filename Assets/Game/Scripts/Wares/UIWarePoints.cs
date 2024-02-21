@@ -36,36 +36,41 @@ public class UIWarePoints : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.rotation = _mainCamera.transform.rotation;
-        transform.position += (_mainCamera.transform.position - transform.position).normalized * 5;
+        _mainCamera = Camera.main;
+        if (_mainCamera)
+        {
+            transform.rotation = _mainCamera.transform.rotation;
+            transform.position += (_mainCamera.transform.position - transform.position).normalized * 5;
+        }
+        if (_debugStartOnStart)
+        {
+            StartAnimation();
+        }
     }
 
 
     IEnumerator AnimationCoroutine()
     {
-        if (_debugStartOnStart)
+        if (_pointsText)
         {
-            if (_pointsText)
+            ResetText();
+            ApplyText();
+            CalculateScale();
+            _xOffsetScale = Random.Range(-1f, 1f);
+            _yOffsetScale = Random.Range(0.5f, 1.5f);
+            float percent = 0;
+            while (percent < 1)
             {
-                ResetText();
-                ApplyText();
-                CalculateScale();
-                _xOffsetScale = Random.Range(-1f, 1f);
-                _yOffsetScale = Random.Range(0.5f, 1.5f);
-                float percent = 0;
-                while (percent < 1)
-                {
-                    percent += Time.deltaTime / _apparitionTime;
-                    float xLerp = Mathf.Lerp(-5f * _xOffsetScale, 5f * _xOffsetScale, (Mathf.Cos((percent + 0.5f) * 2) + 1) * 0.5f);
-                    float yLerp = Mathf.Lerp(2.5f * _yOffsetScale, 20f * _yOffsetScale, _yCurve.Evaluate(percent));
-                    float scaleLerp = Mathf.Lerp(0.5f, _minFinalScale + _bonusScale, _scaleCurve.Evaluate(percent));
-                    _pointsText.transform.localPosition = new Vector3(xLerp, yLerp, 0);
-                    _pointsText.transform.localScale = new Vector3(scaleLerp, scaleLerp, scaleLerp);
-                    yield return null;
-                }
-                _pointsText.CrossFadeAlpha(0, 0.25f, false);
-                Destroy(gameObject);
+                percent += Time.deltaTime / _apparitionTime;
+                float xLerp = Mathf.Lerp(-5f * _xOffsetScale, 5f * _xOffsetScale, (Mathf.Cos((percent + 0.5f) * 2) + 1) * 0.5f);
+                float yLerp = Mathf.Lerp(2.5f * _yOffsetScale, 20f * _yOffsetScale, _yCurve.Evaluate(percent));
+                float scaleLerp = Mathf.Lerp(0.5f, _minFinalScale + _bonusScale, _scaleCurve.Evaluate(percent));
+                _pointsText.transform.localPosition = new Vector3(xLerp, yLerp, 0);
+                _pointsText.transform.localScale = new Vector3(scaleLerp, scaleLerp, scaleLerp);
+                yield return null;
             }
+            _pointsText.CrossFadeAlpha(0, 0.25f, false);
+            Destroy(gameObject);
         }
     }
     IEnumerator ResetCoroutine()
