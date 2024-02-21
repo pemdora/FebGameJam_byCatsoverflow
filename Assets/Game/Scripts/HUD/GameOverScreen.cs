@@ -26,7 +26,6 @@ public class GameOverScreen : MonoBehaviour
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private TMP_Text _failedLeaderboardText;
     [SerializeField] private TMP_InputField _inputField;
-    [SerializeField] private TMP_Text _inputResultsText;
 
     private int _userScore;
 
@@ -35,7 +34,9 @@ public class GameOverScreen : MonoBehaviour
 
     public void Show(int score, int deliveryCount)
     {
-        _inputPanel.SetActive(true);
+        // Show the input to set a new score to the leaderboard only if you actually had points.
+        _inputPanel.SetActive(score > 0);
+
         _failedLeaderboardText.SetText(string.Empty);
         _userScore = score;
 
@@ -45,10 +46,9 @@ public class GameOverScreen : MonoBehaviour
         }
         _scoreText.text = score.ToString();
         _deliveryCount.text = deliveryCount.ToString();
-
-        _canvasGroup.interactable = true;
+        
         _canvasGroup.blocksRaycasts = true;
-        _fadeCoroutine = StartCoroutine(FadeCoroutine(1, _showDuration));
+        _fadeCoroutine = StartCoroutine(FadeCoroutine(1, _showDuration, () => _canvasGroup.interactable = true));
     }
 
     public void Hide()
@@ -83,7 +83,8 @@ public class GameOverScreen : MonoBehaviour
 
     public void SubmitLeaderboardEntry()
     {
-        if (string.IsNullOrWhiteSpace(_inputResultsText.text))
+        // If no username set, no score injected.
+        if (string.IsNullOrWhiteSpace(_inputField.text))
         {
             Debug.LogWarning("Cannot publish score to leaderboard because the username is not set.");
             return;
@@ -94,7 +95,7 @@ public class GameOverScreen : MonoBehaviour
 
     private IEnumerator SubmitScore()
     {
-        string username = _inputResultsText.text;
+        string username = _inputField.text;
 
         WWWForm form = new();
         using UnityWebRequest www = UnityWebRequest.Post($"{LeaderboardApi.Uri}/score?user={username}&score={_userScore}", form);
@@ -110,7 +111,15 @@ public class GameOverScreen : MonoBehaviour
         {
             string jsonResult = www.downloadHandler.text;
             UserSubmittedScore userSubmittedScore = JsonUtility.FromJson<UserSubmittedScore>(jsonResult);
-            // TODO: Polish = envoi sur leaderboard si TOP 10, display message déso t'es nul si pas TOP 10.
+
+            if (userSubmittedScore.position <= 10)
+            {
+                _failedLeaderboardText.SetText($"You made it! Your position on the leaderboard is now {userSubmittedScore.position}");
+            }
+            else
+            {
+                _failedLeaderboardText.SetText($"Almost there! Your position on the leaderboard was {userSubmittedScore.position}");
+            }
         }
 
         _apiCallCoroutine = null;
