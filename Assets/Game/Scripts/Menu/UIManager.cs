@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using Game.Scripts.Audio;
 
 public class UIManager : MonoBehaviour
 {
