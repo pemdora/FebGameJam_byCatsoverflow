@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Props
   - WareBond
+  - PointsUI
   layers:
   - Default
   - TransparentFX
