@@ -46,7 +46,10 @@ namespace Game.Scripts.Light {
         // Update is called once per frame
         void Update()
         {
+            if(!_spaceShipManager.HasSpaceship) return;
             if (_spaceShipManager.HasSpaceship && _spaceShipManager.TimeRemaining<_gameManager.TimeBeforeWarning) {
+
+                
                 WarningLight();
 
                 //ping pong between 0 and 1
