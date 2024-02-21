@@ -29,7 +29,6 @@ public class ManagerFaceAnimation : MonoBehaviour
     //hdr color emission
     [ColorUsageAttribute(true, true)]
     [SerializeField] private Color _emissionColor = Color.white;    
-    [SerializeField] private float _eyesAnimationSpeed = 1f;
 
     // [Range(0f, 10f)]
     // [SerializeField] private float _mouthAnimationSpeed = 1f; //polish
