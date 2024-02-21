@@ -78,6 +78,11 @@ public class SpaceshipManager : MonoBehaviour
 
     internal void SpaceshipDeparture()
     {
+        if (!_currentSpaceship)
+        {
+            return;
+        }
+        
         _currentSpaceship.StopLoading();
         _currentSpaceship.Cargo.DeactivateCargo();
         _conveyorStart.StopConveyor();
