@@ -8,6 +8,7 @@ public class SpaceshipManager : MonoBehaviour
     [SerializeField] private List<Spaceship> _spaceshipsPrefab;
 
     [Header("References")]
+    [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private LandingPlatform _landingPlatform;
     [SerializeField] private ConveyorStart _conveyorStart;
     [SerializeField] private SpaceshipConductor _arrivalConductor;
@@ -55,6 +56,7 @@ public class SpaceshipManager : MonoBehaviour
     internal void BringNewSpaceship()
     {
         Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
+        _scoreManager.SetObjectiveTreshold(spaceship.Cargo.CargoSize); // Set score objective based on the cargo size
         spaceship.gameObject.SetActive(false);
         spaceship.Initialize();
         _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded, true);
