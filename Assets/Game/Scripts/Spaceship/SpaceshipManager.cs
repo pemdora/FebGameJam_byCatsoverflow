@@ -91,6 +91,11 @@ namespace Game.Scripts.Spaceship {
 
         private void SpaceshipTakeoff()
         {
+            if (!_currentSpaceship)
+            {
+                return;
+            }
+            
             OnSpaceshipTakeOff?.Invoke(_currentSpaceship);
 
             _departureConductor.AttachSpaceship(_currentSpaceship, SpaceshipLeft, false);
@@ -119,7 +124,7 @@ namespace Game.Scripts.Spaceship {
     
         private Spaceship GetSpaceship(Spaceship spaceship)
         {
-            return Instantiate(spaceship.gameObject, Vector3.one * 500, spaceship.transform.rotation).GetComponent<Spaceship>();
+            return Instantiate(spaceship.gameObject, Vector3.one * -500, spaceship.transform.rotation).GetComponent<Spaceship>();
         }
 
         private void ReturnSpaceship(Spaceship spaceship)

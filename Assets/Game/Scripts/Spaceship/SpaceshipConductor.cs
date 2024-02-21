@@ -21,8 +21,9 @@ namespace Game.Scripts.Spaceship {
             _spaceship.transform.SetParent(_conductor, forcePosition);
             _spaceship.transform.localPosition = Vector3.zero;
             _onArrivalCallback = onArrivalCallback;
-        
+            
             _animator.SetTrigger(_triggers[Random.Range(0, _triggers.Length)]);
+            _animator.Update(0);
         }
 
         public void OnAnimationEnded()
