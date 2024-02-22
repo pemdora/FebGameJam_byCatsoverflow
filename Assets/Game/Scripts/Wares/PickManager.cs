@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public struct WareEventData
 {
@@ -130,6 +131,10 @@ public class PickManager : MonoBehaviour
                     if (_hoveredWare != ware)
                     {
                         ActiveHighlight(ware);
+
+                        WareEventData eventData = new();
+                        eventData.ware = _hoveredWare;
+                        OnHoverWare.Invoke(eventData);
                         AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
                     }
 
@@ -141,6 +146,10 @@ public class PickManager : MonoBehaviour
                         _selectedWare.Pick(this);
 
                         ClearPreviousHighlight();
+
+                        WareEventData eventData = new();
+                        eventData.ware = _selectedWare;
+                        OnGrabWare.Invoke(eventData);
                     }
                 }
             }
@@ -150,6 +159,9 @@ public class PickManager : MonoBehaviour
                 // If a ware was previously highlighted, we disable the highlight
                 if (_hoveredWare != null)
                 {
+                    WareEventData eventData = new();
+                    eventData.ware = _hoveredWare;
+                    OnUnHoverWare.Invoke(eventData);
                     ClearPreviousHighlight();
                 }
             }

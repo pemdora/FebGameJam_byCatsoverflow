@@ -62,31 +62,36 @@ public class CursorManager : MonoBehaviour
     public void OnHoverCargo(WareEventData data)
     {
         hovering = true;
-        if (!grabbing)
-        {
-            Cursor.SetCursor(_hoverResized, _offsetResized, CursorMode.ForceSoftware);
-        }
+        ComputeCursorTexture();
     }
     public void OnUnHoverCargo(WareEventData data)
     {
         hovering = false;
-        if (!grabbing)
-        {
-            Cursor.SetCursor(_pointResized, _offsetResized, CursorMode.ForceSoftware);
-        }
+        ComputeCursorTexture();
     }
     public void OnGrabCargo(WareEventData data)
     {
         grabbing = true;
-        Cursor.SetCursor(_grabResized, _offsetResized, CursorMode.ForceSoftware);
+        ComputeCursorTexture();
     }
     public void OnDropCargo(WareEventData data)
     {
-        if (hovering)
+        hovering = false;
+        grabbing = false;
+        ComputeCursorTexture();
+    }
+
+    public void ComputeCursorTexture()
+    {
+        if(grabbing)
+        {
+            Cursor.SetCursor(_grabResized, _offsetResized, CursorMode.ForceSoftware);
+        }
+        else if(hovering)
         {
             Cursor.SetCursor(_hoverResized, _offsetResized, CursorMode.ForceSoftware);
         }
-        else
+        else 
         {
             Cursor.SetCursor(_pointResized, _offsetResized, CursorMode.ForceSoftware);
         }
