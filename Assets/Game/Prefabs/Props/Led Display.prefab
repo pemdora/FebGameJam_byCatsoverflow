@@ -97,13 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb81b2ee52fb4914971668a44a34a934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 11bba2f2bd264294bb8ffecb31966b07, type: 2}
   _spaceByLetters: 120
   _offset: 45
-  _speed: 750
-  _sentences:
-  - BREAKING NEWS - NEW SPACESHIP AVAILABLE TO BUY
-  - DON'T FORGET - YOU'RE HERE TO BE PRODUCTIVE
-  - WANT TO CHANGE THE WORLD? START WITH YOURSEFL!
   _text: {fileID: 232228104765708200}
   _rect: {fileID: 8399313774460825764}
   _canvas: {fileID: 6353330929120632735}
