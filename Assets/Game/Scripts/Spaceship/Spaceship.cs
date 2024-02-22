@@ -12,13 +12,21 @@ public class Spaceship : MonoBehaviour
     public float LoadingDuration => _loadingDuration;
     public float LoadingTimer { get; private set; }
     public float LoadingLeft => LoadingDuration - LoadingTimer;
+    public bool HasLeft
+    {
+        get => _hasLeft;
+        set => _hasLeft = value;
+    }
     public bool IsLoading { get; private set; }
     public Cargo Cargo => _cargo;
+
+    private bool _hasLeft;
 
     public void Initialize()
     {
         LoadingTimer = 0;
         _cargo.ResetWares();
+        _hasLeft = false;
     }
 
     private void Update()

@@ -1260,6 +1260,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 776060194778764887}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1061073976 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1120838797104374533, guid: f5be81e71b13fc14eaf43ec9188bc5ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 6143151768428447067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1077690061 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2555119488024605368, guid: 6378fa7866387f1408b9136692520abe,
@@ -5143,8 +5149,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1081465703976776727, guid: f5be81e71b13fc14eaf43ec9188bc5ab,
         type: 3}
+      propertyPath: _beltAnimator
+      value: 
+      objectReference: {fileID: 1061073976}
+    - target: {fileID: 1081465703976776727, guid: f5be81e71b13fc14eaf43ec9188bc5ab,
+        type: 3}
       propertyPath: _spawnInterval
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081465703976776727, guid: f5be81e71b13fc14eaf43ec9188bc5ab,
+        type: 3}
+      propertyPath: conveyorGraphic
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1081465703976776727, guid: f5be81e71b13fc14eaf43ec9188bc5ab,
         type: 3}

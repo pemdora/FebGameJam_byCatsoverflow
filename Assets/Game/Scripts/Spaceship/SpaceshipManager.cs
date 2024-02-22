@@ -33,8 +33,8 @@ public class SpaceshipManager : MonoBehaviour
         }
 
         // Make the spaceship leave if there is no time left on the counter
-        if (_currentSpaceship.LoadingLeft <= 0)
-        {
+        if (!_currentSpaceship.HasLeft && _currentSpaceship.LoadingLeft <= 0)
+        {   
             OnCurrentSpaceshipTimerReachedZero();
             return;
         }
@@ -84,10 +84,12 @@ public class SpaceshipManager : MonoBehaviour
         {
             return;
         }
+        _currentSpaceship.HasLeft = true;
         
         _currentSpaceship.StopLoading();
         _currentSpaceship.Cargo.DeactivateCargo();
         _conveyorStart.StopConveyor();
+        _conveyorStart.ChangeSpeed(_conveyorStart.Speed*1.2f,1.2f);
 
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.TRUCK_REPART);

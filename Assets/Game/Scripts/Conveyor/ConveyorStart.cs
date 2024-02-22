@@ -18,6 +18,7 @@ public class ConveyorStart : MonoBehaviour
     [SerializeField] private GameObject _belt;
 
     public bool IsRunning { get; private set; }
+    public float Speed => _speed;
 
     private Transform _transform;
     private Coroutine _spawningCoroutine;
@@ -32,6 +33,7 @@ public class ConveyorStart : MonoBehaviour
         _pool = new List<ConveyorItem>();
         // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base et au scale du tapis ( la BASE_SPEED est la vitesse de base de l'animation pour un scale de 1)
         _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;
+        Debug.Log($"<color=red> TEST:  start _beltAnimator.speed { _beltAnimator.speed} </color>");
     }
 
     public void StartConveyor(WareCollection wareCollection)
@@ -122,14 +124,14 @@ public class ConveyorStart : MonoBehaviour
         _pool.Add(conveyorItem);
     }
 
-    public void ChangeSpeed(float speed)
+    public void ChangeSpeed(float speed, float ratio)
     {
         _speed = speed;
-        _beltAnimator.speed = _speed / BASE_SPEED;
-
+        _beltAnimator.speed = _beltAnimator.speed * ratio;
         foreach (ConveyorItem conveyorItem in _tracked)
         {
             conveyorItem.ChangeSpeed(_speed);
         }
+        Debug.Log($" Speed : From {speed} to {_speed} ");
     }
 }

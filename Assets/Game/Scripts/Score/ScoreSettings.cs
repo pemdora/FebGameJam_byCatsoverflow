@@ -10,6 +10,8 @@ public class ScoreSettings : ScriptableObject
     public int frustrationPerDiscardedWare = 10;
     [Tooltip("Max amount of frustration before getting a game over")]
     public int maxFrustrationAllowed = 100;
+
+    
     [Header("Frustration Threshold/Cargo 3")]
     [Range(0, 100)]
     [Tooltip("Frustration penalty is applied for each empty slot past the given percentage.")]

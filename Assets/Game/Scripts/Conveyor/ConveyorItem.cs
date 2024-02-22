@@ -9,7 +9,6 @@ public class ConveyorItem : MonoBehaviour
 
     private void Update()
     {
-        // TODO: change to make it follow a spline instead
         _transform.position += transform.forward * (_speed * Time.deltaTime);
     }
 
