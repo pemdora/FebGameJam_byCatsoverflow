@@ -294,7 +294,10 @@ MonoBehaviour:
   _percentageText: {fileID: 1000844394015196315}
   _objectiveSlider: {fileID: 8709156045891112844}
   _filler: {fileID: 3235538932784335165}
-  _animationDuration: 5
+  _handleImage: {fileID: 6854011902485059379}
+  _animationDuration: 0.4
+  _handleNormalColor: {r: 1, g: 0.8, b: 0, a: 1}
+  _handleCompleteColor: {r: 0.065871, g: 1, b: 0, a: 0}
 --- !u!1 &4203763274621118841
 GameObject:
   m_ObjectHideFlags: 0
