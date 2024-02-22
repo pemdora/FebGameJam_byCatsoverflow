@@ -52,7 +52,9 @@ public class CursorManager : MonoBehaviour
         RenderTexture rt = new RenderTexture(targetX, targetY, 24);
         RenderTexture.active = rt;
         Graphics.Blit(texture2D, rt);
-        Texture2D result = new Texture2D(targetX, targetY);
+        Texture2D result = new Texture2D(targetX, targetY, TextureFormat.RGBA32, false);
+      
+
         result.ReadPixels(new Rect(0, 0, targetX, targetY), 0, 0);
         result.Apply();
         return result;
