@@ -104,14 +104,14 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4670998411181046744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -167.6, y: 6}
   m_SizeDelta: {x: 140.812, y: 104.54}
+  m_AnchoredPosition: {x: -167, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7006821250935068226
 CanvasRenderer:
@@ -225,6 +225,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spaceshipManager: {fileID: 0}
   _timeText: {fileID: 3008256297876347012}
+  _rectTransform: {fileID: 3533457817610049143}
+  _prewarnColor: {r: 0.9811321, g: 0.5976404, b: 0, a: 1}
+  _warningColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &2642743256286981121
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,11 @@ using UnityEngine;
 public class TimerUI : MonoBehaviour
 {
     [SerializeField] private SpaceshipManager _spaceshipManager;
+    //[SerializeField] private GameManager _gameManager;
     [SerializeField] private TMP_Text _timeText;
+    [SerializeField] private RectTransform _rectTransform;
+    [SerializeField] private Color _prewarnColor;
+    [SerializeField] private Color _warningColor;
     private int _previousTime;
     // Start is called before the first frame update
     void Start()
@@ -27,17 +31,30 @@ public class TimerUI : MonoBehaviour
     {
         if (_spaceshipManager.HasSpaceship && _spaceshipManager.TimeRemaining > 0)
         {
+            if (_previousTime + 1 == 0) {
+                _timeText.color = Color.white;
+                _rectTransform.localScale = new Vector3(1,1,1);
+                _rectTransform.anchoredPosition = new Vector3(-167,6,0);
+            }
+
             _previousTime = Mathf.FloorToInt(_spaceshipManager.TimeRemaining);
             _timeText.text = (_previousTime + 1).ToString();
 
             if (_previousTime + 1 == 8)
             {
                 AudioManager.Instance.PlaySoundEffect(SoundEffectType.TIC_TAC);
+                _timeText.color = _prewarnColor;
+            }
+
+            if (_previousTime +1 == 3) { //_gameManager.TimeBeforeWarning) {
+                _timeText.color = _warningColor;
+                _rectTransform.localScale = new Vector3(1.5f,1.5f,1.5f);
+                _rectTransform.anchoredPosition = new Vector3(-211,6,0);
             }
         }
         else
         {
-            _previousTime = 0;
+            _previousTime = -1;
             _timeText.text = "0";
         }
     }
