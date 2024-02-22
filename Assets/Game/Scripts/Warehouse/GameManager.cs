@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TimerUI timerUI;
 
-    UnityEvent OnGameOverEvent;
+    public UnityEvent OnGameOverEvent;
 
     private void Start()
     {

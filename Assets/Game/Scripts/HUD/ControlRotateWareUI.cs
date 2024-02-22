@@ -12,6 +12,7 @@ public class ControlRotateWareUI : MonoBehaviour
         pickManager.OnDropWare.AddListener(OnDropCargo);
         pickManager.OnPlaceWare.AddListener(OnDropCargo);
         gameObject.SetActive(false);
+        FindObjectOfType<GameManager>().OnGameOverEvent.AddListener(OnGameOver);
     }
     public void Update()
     { 
@@ -23,7 +24,10 @@ public class ControlRotateWareUI : MonoBehaviour
         pos.x += refWidth * 0.06f;
         GetComponent<RectTransform>().localPosition = pos;
     }
-
+    public void OnGameOver()
+    {
+        gameObject.SetActive(false);
+    }
     public void OnGrabCargo(WareEventData data)
     {
         gameObject.SetActive(true);
