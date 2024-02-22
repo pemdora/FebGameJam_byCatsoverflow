@@ -141,7 +141,7 @@ public class ConveyorStart : MonoBehaviour
 
     public void ResetSpeed()
     {
-        _speed = _startSpeed
+        _speed = _startSpeed;
         _beltAnimator.speed = _startbeltAnimatorSpeed;
     }
 }
