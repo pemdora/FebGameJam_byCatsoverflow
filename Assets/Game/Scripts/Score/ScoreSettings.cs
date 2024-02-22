@@ -10,30 +10,71 @@ public class ScoreSettings : ScriptableObject
     public int frustrationPerDiscardedWare = 10;
     [Tooltip("Max amount of frustration before getting a game over")]
     public int maxFrustrationAllowed = 100;
+    [Tooltip("Relief amount of frustration when a threshold is reached")]
+    public int frustrationRelief = 2;
 
     
     [Header("Frustration Threshold/Cargo 3")]
     [Range(0, 100)]
-    [Tooltip("Frustration penalty is applied for each empty slot past the given percentage.")]
+    [Tooltip("Threshold to reach before frustration is applied.")]
     public int frustrationThresholdCargo3Min = 25; // Eg : no more than 25% of empty slots allowed
     [Range(0, 100)]
     public int frustrationThresholdCargo3Max = 50; 
     [Header("Frustration Threshold/Cargo 4")]
     [Range(0, 100)]
-    [Tooltip("Frustration penalty is applied for each empty slot past the given percentage.")]
+    [Tooltip("Threshold to reach before frustration is applied.")]
     public int frustrationThresholdCargo4Min = 25; 
     [Range(0, 100)]
     public int frustrationThresholdCargo4Max = 50; 
     [Header("Frustration Threshold/Cargo 4")]
     [Range(0, 100)]
-    [Tooltip("Frustration Threshold step added to each cargo.")]
+    [Tooltip("Threshold to reach before frustration is applied.")]
     public int frustrationThresholdStep = 10; 
 
     [Header("Score")]
-    [Tooltip("Amount of points for sending out a spaceship before his timer reach zero.")]
+    [Tooltip("Threshold to reach before frustration is applied.")]
     public int pointsForEachSecondBeforeEndTimer = 1;
-    [Tooltip("How many points are rewarded for each slot filled under the threshold.")]
+    [Tooltip("Threshold to reach before frustration is applied.")]
     public int pointsPerSlotFilled = 1;
-    [Tooltip("How many points are rewarded for each slot filled above the threshold.")]
+    [Tooltip("Threshold to reach before frustration is applied.")]
     public int pointsPerExtraSlotFilled = 2;
+    
+    [Header("Score Tresholds Colors")]
+    [SerializeField] public int scorelow;
+    [SerializeField] public Color colorScorelow;
+    [SerializeField] public int scoremedium;
+    [SerializeField] public Color colorScoremedium;
+    [SerializeField] public int scoreHigh;
+    [SerializeField] public Color colorScoreHigh;
+    [SerializeField] public int scoreExtrahigh;
+    [SerializeField] public Color colorScoreExtrahigh;
+
+    public enum ScoreTresholdType
+    {
+        Low,
+        Medium,
+        High,
+        ExtraHigh,
+        ExtraThresholdBonus,
+    }
+    
+    public ScoreTresholdType GetScoreTreshold(int score)
+    {
+        if (score <= scorelow)
+        {
+            return ScoreTresholdType.Low;
+        }
+        else if (score <= scoremedium)
+        {
+            return ScoreTresholdType.Medium;
+        }
+        else if (score <= scoreHigh)
+        {
+            return ScoreTresholdType.High;
+        }
+        else
+        {
+            return ScoreTresholdType.ExtraHigh;
+        }
+    }
 }

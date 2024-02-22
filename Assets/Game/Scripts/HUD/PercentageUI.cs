@@ -19,7 +19,7 @@ public class PercentageUI : MonoBehaviour
 
     public void SetObjectiveSlider(int frustrationThreshold)
     {
-        _objectiveSlider.value = (100 - frustrationThreshold) / 100f;
+        _objectiveSlider.value = (frustrationThreshold / 100f);
     }
 
     void Update()
