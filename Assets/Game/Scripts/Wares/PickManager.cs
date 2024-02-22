@@ -1,5 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UIElements;
 
+public struct WareEventData
+{
+    public Ware ware;
+}
 public class PickManager : MonoBehaviour
 {
     [Header("Settings")]
@@ -20,6 +26,13 @@ public class PickManager : MonoBehaviour
     private Vector3 _selectedWareOffset;
 
     private IWareSupport support;
+
+    //Ware events
+    public UnityEvent<WareEventData> OnGrabWare;
+    public UnityEvent<WareEventData> OnHoverWare;
+    public UnityEvent<WareEventData> OnDropWare;
+    public UnityEvent<WareEventData> OnUnHoverWare;
+    public UnityEvent<WareEventData> OnPlaceWare;
 
     void Update()
     {
@@ -51,16 +64,32 @@ public class PickManager : MonoBehaviour
                         // We drop the ware at the location
                         _selectedWare.Place(support.GetAssociatedCargo());
                         _scoreManager.PlaceWare(_selectedWare); // Calculate the score of the placed  ware
+
+                        //Prepare event data payload
+                        WareEventData eventData = new();
+                        eventData.ware = _selectedWare;
+
+                        //Update state
                         _selectedWare = null;
+
+                        //Dispatch event after state is updated
+                        OnPlaceWare.Invoke(eventData);
+
                     }
                 }
             }
             // drop the ware if we can't place it
             if (!isWareSnapped && Input.GetMouseButtonUp(0))
             {
+                WareEventData eventData = new();
+                eventData.ware = _selectedWare;
+
                 _selectedWare.Drop();
                 _selectedWare = null;
                 _scoreManager.DiscardWare();
+
+                OnDropWare.Invoke(eventData);
+
                 return;
             }
 
@@ -102,6 +131,10 @@ public class PickManager : MonoBehaviour
                     if (_hoveredWare != ware)
                     {
                         ActiveHighlight(ware);
+
+                        WareEventData eventData = new();
+                        eventData.ware = _hoveredWare;
+                        OnHoverWare.Invoke(eventData);
                         AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
                     }
 
@@ -113,6 +146,10 @@ public class PickManager : MonoBehaviour
                         _selectedWare.Pick(this);
 
                         ClearPreviousHighlight();
+
+                        WareEventData eventData = new();
+                        eventData.ware = _selectedWare;
+                        OnGrabWare.Invoke(eventData);
                     }
                 }
             }
@@ -122,6 +159,9 @@ public class PickManager : MonoBehaviour
                 // If a ware was previously highlighted, we disable the highlight
                 if (_hoveredWare != null)
                 {
+                    WareEventData eventData = new();
+                    eventData.ware = _hoveredWare;
+                    OnUnHoverWare.Invoke(eventData);
                     ClearPreviousHighlight();
                 }
             }

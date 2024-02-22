@@ -36,7 +36,11 @@ public class MainMenuManager : MonoBehaviour
         _exitScreen.SetActive(false);
 
         _playerSave = SaveManager.Load();
+    }
 
+    public void Start()
+    {
+        //Moved into start for initialization order
         UpdateSliderDisplay(_masterVolumeSlider, _masterVolumeText, _playerSave.masterVolume);
         UpdateSliderDisplay(_musicVolumeSlider, _musicVolumeText, _playerSave.musicVolume);
         UpdateSliderDisplay(_soundVolumeSlider, _soundVolumeText, _playerSave.soundVolume);
