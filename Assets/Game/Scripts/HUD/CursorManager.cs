@@ -23,6 +23,7 @@ public class CursorManager : MonoBehaviour
         pickManager.OnGrabWare.AddListener(OnGrabCargo);
         pickManager.OnHoverWare.AddListener(OnHoverCargo);
         pickManager.OnUnHoverWare.AddListener(OnUnHoverCargo);
+        FindObjectOfType<GameManager>().OnGameOverEvent.AddListener(OnGameOver);
         OnScreenSize();
     }
     public void FixedUpdate()
@@ -60,7 +61,12 @@ public class CursorManager : MonoBehaviour
         return result;
     }
 
-
+    public void OnGameOver()
+    {
+        hovering = false;
+        grabbing = false;
+        ComputeCursorTexture();
+    }
     public void OnHoverCargo(WareEventData data)
     {
         hovering = true;
