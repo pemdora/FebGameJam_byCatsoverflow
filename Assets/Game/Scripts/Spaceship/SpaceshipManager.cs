@@ -40,7 +40,7 @@ public class SpaceshipManager : MonoBehaviour
         }
 
         // Make the spaceship leave if its cargo is full
-        if (_currentSpaceship.Cargo.FillPercentage >= 100)
+        if (!_currentSpaceship.HasLeft && _currentSpaceship.Cargo.FillPercentage >= 100)
         {
             OnCurrentSpaceshipFull();
             return;
