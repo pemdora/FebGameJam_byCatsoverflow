@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MainMenuManager _mainMenuManager;
 
     [SerializeField] private TimerUI timerUI;
+
+    UnityEvent OnGameOverEvent;
 
     private void Start()
     {
@@ -70,5 +73,6 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
         AudioManager.Instance.PlayMusic(MusicType.DEFEAT);
         timerUI.StopTimer();
+        OnGameOverEvent.Invoke();
     }
 }
