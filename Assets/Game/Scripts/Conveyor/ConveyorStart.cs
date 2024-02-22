@@ -130,7 +130,7 @@ public class ConveyorStart : MonoBehaviour
 
     public void ChangeSpeed(float speed, float ratio)
     {
-        Debug.Log($" Speed : From {speed} to {_speed} ");
+        Debug.Log($" Speed : From {_speed} to {speed} ");
         _speed = speed;
         _beltAnimator.speed = _beltAnimator.speed * ratio;
         foreach (ConveyorItem conveyorItem in _tracked)
