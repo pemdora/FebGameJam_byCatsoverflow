@@ -89,10 +89,25 @@ public class SpaceshipManager : MonoBehaviour
         _currentSpaceship.StopLoading();
         _currentSpaceship.Cargo.DeactivateCargo();
         _conveyorStart.StopConveyor();
-        _conveyorStart.ChangeSpeed(_conveyorStart.Speed*1.2f,1.2f);
+        _conveyorStart.ChangeSpeed(_conveyorStart.Speed*1.1f,1.1f);
 
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.TRUCK_REPART);
+    }
+
+    public void Reset()
+    {
+        _currentSpaceship = null;
+        _conveyorStart.ResetSpeed();
+    }
+
+    public void ReturnSpaceship()
+    {
+        if (_currentSpaceship)
+        {
+            ReturnSpaceship(_currentSpaceship);
+            _currentSpaceship = null;
+        }
     }
 
     private void SpaceshipTakeoff()

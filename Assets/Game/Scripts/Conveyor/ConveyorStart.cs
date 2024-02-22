@@ -25,6 +25,8 @@ public class ConveyorStart : MonoBehaviour
     private List<ConveyorItem> _tracked;
     private List<ConveyorItem> _pool;
     private WareCollection _wareCollection;
+    private float _startSpeed;
+    private float _startbeltAnimatorSpeed;
 
     private void Awake()
     {
@@ -33,7 +35,9 @@ public class ConveyorStart : MonoBehaviour
         _pool = new List<ConveyorItem>();
         // on modifie la vitesse de l'animation pour qu'elle corresponde à la vitesse de base et au scale du tapis ( la BASE_SPEED est la vitesse de base de l'animation pour un scale de 1)
         _beltAnimator.speed = (_speed / BASE_SPEED) / _belt.transform.localScale.x;
-        Debug.Log($"<color=red> TEST:  start _beltAnimator.speed { _beltAnimator.speed} </color>");
+
+        _startSpeed = _speed;
+        _startbeltAnimatorSpeed = _beltAnimator.speed;
     }
 
     public void StartConveyor(WareCollection wareCollection)
@@ -126,12 +130,18 @@ public class ConveyorStart : MonoBehaviour
 
     public void ChangeSpeed(float speed, float ratio)
     {
+        Debug.Log($" Speed : From {speed} to {_speed} ");
         _speed = speed;
         _beltAnimator.speed = _beltAnimator.speed * ratio;
         foreach (ConveyorItem conveyorItem in _tracked)
         {
             conveyorItem.ChangeSpeed(_speed);
         }
-        Debug.Log($" Speed : From {speed} to {_speed} ");
+    }
+
+    public void ResetSpeed()
+    {
+        _speed = _startSpeed
+        _beltAnimator.speed = _startbeltAnimatorSpeed;
     }
 }

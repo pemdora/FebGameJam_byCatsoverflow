@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         {
             _spaceshipManager.SpaceshipDeparture();
         }
+        _spaceshipManager.Reset();
 
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
         AudioManager.Instance.PlayMusic(MusicType.DEFEAT);
