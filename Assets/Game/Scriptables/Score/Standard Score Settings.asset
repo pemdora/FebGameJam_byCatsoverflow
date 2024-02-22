@@ -15,11 +15,19 @@ MonoBehaviour:
   frustrationPerEmptySlots: 2
   frustrationPerDiscardedWare: 10
   maxFrustrationAllowed: 100
-  frustrationThresholdCargo3Min: 50
-  frustrationThresholdCargo3Max: 25
-  frustrationThresholdCargo4Min: 70
-  frustrationThresholdCargo4Max: 40
+  frustrationThresholdCargo3Min: 40
+  frustrationThresholdCargo3Max: 80
+  frustrationThresholdCargo4Min: 20
+  frustrationThresholdCargo4Max: 60
   frustrationThresholdStep: 10
   pointsForEachSecondBeforeEndTimer: 1
   pointsPerSlotFilled: 50
-  pointsPerExtraSlotFilled: 2
+  pointsPerExtraSlotFilled: 25
+  scorelow: 100
+  colorScorelow: {r: 1, g: 1, b: 1, a: 1}
+  scoremedium: 200
+  colorScoremedium: {r: 0.9895297, g: 1, b: 0.3537736, a: 1}
+  scoreHigh: 300
+  colorScoreHigh: {r: 1, g: 0.74113095, b: 0, a: 1}
+  scoreExtrahigh: 400
+  colorScoreExtrahigh: {r: 0.9716981, g: 0.16042183, b: 0.4293673, a: 1}
