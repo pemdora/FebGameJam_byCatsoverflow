@@ -17,6 +17,12 @@ public class CursorManager : MonoBehaviour
     public bool grabbing = false;
     public void Start()
     {
+        var pickManager = FindObjectOfType<PickManager>();
+        pickManager.OnDropWare.AddListener(OnDropCargo);
+        pickManager.OnPlaceWare.AddListener(OnDropCargo);
+        pickManager.OnGrabWare.AddListener(OnGrabCargo);
+        pickManager.OnHoverWare.AddListener(OnHoverCargo);
+        pickManager.OnUnHoverWare.AddListener(OnUnHoverCargo);
         OnScreenSize();
     }
     public void FixedUpdate()
@@ -52,7 +58,8 @@ public class CursorManager : MonoBehaviour
         return result;
     }
 
-    public void OnHoverCargo()
+
+    public void OnHoverCargo(WareEventData data)
     {
         hovering = true;
         if (!grabbing)
@@ -60,7 +67,7 @@ public class CursorManager : MonoBehaviour
             Cursor.SetCursor(_hoverResized, _offsetResized, CursorMode.ForceSoftware);
         }
     }
-    public void OnUnHoverCargo()
+    public void OnUnHoverCargo(WareEventData data)
     {
         hovering = false;
         if (!grabbing)
@@ -68,12 +75,12 @@ public class CursorManager : MonoBehaviour
             Cursor.SetCursor(_pointResized, _offsetResized, CursorMode.ForceSoftware);
         }
     }
-    public void OnGrabCargo()
+    public void OnGrabCargo(WareEventData data)
     {
         grabbing = true;
         Cursor.SetCursor(_grabResized, _offsetResized, CursorMode.ForceSoftware);
     }
-    public void OnDropCargo()
+    public void OnDropCargo(WareEventData data)
     {
         if (hovering)
         {
