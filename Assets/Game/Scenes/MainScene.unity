@@ -4639,6 +4639,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8150927782059506184}
     m_Modifications:
+    - target: {fileID: 2942467159182104127, guid: dbbfeefdcf25feb4d90e7639e058758b,
+        type: 3}
+      propertyPath: m_text
+      value: Zakku, Faith, Foxy WhiteTrack
+      objectReference: {fileID: 0}
     - target: {fileID: 6301577393208286665, guid: dbbfeefdcf25feb4d90e7639e058758b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
