@@ -143,5 +143,10 @@ public class ConveyorStart : MonoBehaviour
     {
         _speed = _startSpeed;
         _beltAnimator.speed = _startbeltAnimatorSpeed;
+        
+        foreach (ConveyorItem conveyorItem in _tracked)
+        {
+            conveyorItem.ChangeSpeed(_startSpeed);
+        }
     }
 }

@@ -48,6 +48,7 @@ MonoBehaviour:
   _frustration: 0
   _score: 0
   _settings: {fileID: 11400000, guid: 08fc73dbe09f9a84d98bed239e016dc2, type: 2}
+  _scoreDisplayUI: {fileID: 0}
   _spaceshipManager: {fileID: 0}
   _frustrationUI: {fileID: 0}
   OnGameOver:
@@ -59,6 +60,21 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
         m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnFrustrationThresholdChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PercentageUI, Assembly-CSharp
+        m_MethodName: SetObjectiveSlider
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

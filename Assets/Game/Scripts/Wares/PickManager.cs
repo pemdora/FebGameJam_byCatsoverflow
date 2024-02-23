@@ -128,6 +128,7 @@ public class PickManager : MonoBehaviour
                     }
 
                     // If the ware we're hovering over is different than the previous one, we change the highlighted one
+
                     if (_hoveredWare != ware)
                     {
                         ActiveHighlight(ware);
@@ -135,7 +136,8 @@ public class PickManager : MonoBehaviour
                         WareEventData eventData = new();
                         eventData.ware = _hoveredWare;
                         OnHoverWare.Invoke(eventData);
-                        AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
+
+                        //AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
                     }
 
                     // If we clicked the left button, we grab the ware
