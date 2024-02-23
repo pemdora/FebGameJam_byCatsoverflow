@@ -15,6 +15,7 @@ MonoBehaviour:
   frustrationPerEmptySlots: 2
   frustrationPerDiscardedWare: 10
   maxFrustrationAllowed: 100
+  frustrationRelief: 2
   frustrationThresholdCargo3Min: 40
   frustrationThresholdCargo3Max: 80
   frustrationThresholdCargo4Min: 20
@@ -31,3 +32,5 @@ MonoBehaviour:
   colorScoreHigh: {r: 1, g: 0.74113095, b: 0, a: 1}
   scoreExtrahigh: 400
   colorScoreExtrahigh: {r: 0.9716981, g: 0.16042183, b: 0.4293673, a: 1}
+  conveyorBeltSpeedIncrease: 10
+  spaceshipLoadingTimeDecrease: 25

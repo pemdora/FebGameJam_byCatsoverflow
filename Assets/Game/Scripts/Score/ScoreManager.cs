@@ -32,6 +32,7 @@ public class ScoreManager : MonoBehaviour
     public int DeliveryCount => _deliveryCount;
     public int Frustration => _frustration;
     public int Score => _score;
+    public ScoreSettings Settings => _settings;
 
     private int frustrationThreshold; // dynamic treshold based on cargo
     public int FrustrationThreshold

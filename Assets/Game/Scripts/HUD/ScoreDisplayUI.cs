@@ -36,7 +36,7 @@ public class ScoreDisplayUI : MonoBehaviour
         scoreTxt.transform.localScale = Vector3.one;
 
         scoreTxt.rectTransform.position = new Vector3(screenPos.x, screenPos.y);
-        ScoreTresholdType scoreTresholdType = scoreSettings.GetScoreTreshold(score);
+        ScoreTresholdType scoreTresholdType = scoreSettings.GetScoreThreshold(score);
 
         switch (scoreTresholdType)
         {
