@@ -451,7 +451,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  _loadingDuration: 20
+  _loadingDuration: 30
+  _minLoadingDuration: 15
   _cargo: {fileID: 5016268329506125278}
 --- !u!1 &5036550031569223449
 GameObject:
