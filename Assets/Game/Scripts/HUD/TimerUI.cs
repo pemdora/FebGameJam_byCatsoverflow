@@ -4,7 +4,7 @@ using UnityEngine;
 public class TimerUI : MonoBehaviour
 {
     [SerializeField] private SpaceshipManager _spaceshipManager;
-    //[SerializeField] private GameManager _gameManager;
+    [SerializeField] private GameManager _gameManager;
     [SerializeField] private TMP_Text _timeText;
     [SerializeField] private RectTransform _rectTransform;
     [SerializeField] private Color _prewarnColor;
@@ -46,7 +46,7 @@ public class TimerUI : MonoBehaviour
                 _timeText.color = _prewarnColor;
             }
 
-            if (_previousTime +1 == 3) { //_gameManager.TimeBeforeWarning) {
+            if (_previousTime +1 == _gameManager.TimeBeforeWarning) {
                 _timeText.color = _warningColor;
                 _animation.Play();
             }
