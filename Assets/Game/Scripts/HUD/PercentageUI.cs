@@ -5,27 +5,40 @@ using UnityEngine.UI;
 
 public class PercentageUI : MonoBehaviour
 {
+
+    [Header("Settings")]
+    [SerializeField] private float _animationDuration = 1.0f;
+    [SerializeField] private float _handleAnimationMaxDuration = 1.0f;
+    [SerializeField] private float _warningFlickeringSpeed = 0.4f;
+    [SerializeField] private Color _handleNormalColor;
+    [SerializeField] private Color _handleCompleteColor;
+    [SerializeField] private Color _handleWarningColor;
+
+    [Header("References")]
     [SerializeField] private SpaceshipManager _spaceshipManager;
+    [SerializeField] private GameManager _gameManager;
     [SerializeField] private TMP_Text _percentageText;
     [SerializeField] private Slider _objectiveSlider;
     [SerializeField] private Image _filler;
     [SerializeField] private Image _handleImage;
-    [SerializeField] private float _animationDuration = 1.0f;
-    [SerializeField] private float _handleAnimationMaxDuration = 1.0f;
-    [SerializeField] private Color _handleNormalColor;
-    [SerializeField] private Color _handleCompleteColor;
+
 
 
 
     private float _previousPercentage;
     private float _animationPercentage;
     private Coroutine _fillCoroutine;
+    private Coroutine _warningCoroutine;
+    bool _warningFlickeringColor = true;
+    bool _objectiveReached = false;
+
 
     void Start()
     {
         _percentageText.text = "??";
         _previousPercentage = 0;
         _filler.fillAmount = 0;
+
     }
 
     public void SetObjectiveSlider(int frustrationThreshold)
@@ -41,6 +54,11 @@ public class PercentageUI : MonoBehaviour
         if (_spaceshipManager == null)
         {
             return;
+        }
+        if (!_objectiveReached && _warningCoroutine == null && _spaceshipManager.HasSpaceship && _spaceshipManager.TimeRemaining < _gameManager.TimeBeforeWarning)
+        {
+            _warningFlickeringColor = true;
+            _warningCoroutine = StartCoroutine(WarningHandleCoroutine(_warningFlickeringSpeed));
         }
 
         if (_spaceshipManager.HasSpaceship && _spaceshipManager.Percentage <= 100)
@@ -68,6 +86,17 @@ public class PercentageUI : MonoBehaviour
         }
     }
 
+    void ObjectiveReached()
+    {
+        if (_warningCoroutine != null)
+        {
+            StopCoroutine(_warningCoroutine);
+        }
+        _warningCoroutine = null;
+        _objectiveReached = true;
+        _handleImage.CrossFadeColor(_handleCompleteColor, 0.25f, false, false);
+    }
+
     private IEnumerator FillCoroutine(float previousValue, float NextValue, float duration)
     {
         float percent = 0;
@@ -79,7 +108,7 @@ public class PercentageUI : MonoBehaviour
             _filler.fillAmount = _animationPercentage / 100f;
             if (_filler.fillAmount >= _objectiveSlider.value)
             {
-                _handleImage.CrossFadeColor(_handleCompleteColor, 0.25f, false, false);
+                ObjectiveReached();
             }
             yield return null;
         }
@@ -98,10 +127,17 @@ public class PercentageUI : MonoBehaviour
             StopCoroutine(_fillCoroutine);
         }
         _fillCoroutine = null;
+        if (_warningCoroutine != null)
+        {
+            StopCoroutine(_warningCoroutine);
+        }
+        _warningCoroutine = null;
+
         _previousPercentage = 0;
         _percentageText.text = "0";
         _animationPercentage = 0;
         _filler.fillAmount = 0;
+        _objectiveReached = false;
         _handleImage.CrossFadeColor(_handleNormalColor, 0.25f, false, false);
 
     }
@@ -109,7 +145,7 @@ public class PercentageUI : MonoBehaviour
     private IEnumerator ObjectiveSliderCoroutine(float previousValue, float NextValue, float duration)
     {
         float percent = 0;
-        
+
         while (percent < 1)
         {
             percent += Time.deltaTime / duration;
@@ -118,4 +154,23 @@ public class PercentageUI : MonoBehaviour
             yield return null;
         }
     }
+
+    private IEnumerator WarningHandleCoroutine(float flickeringTime)
+    {
+        while (_spaceshipManager.HasSpaceship)
+        {
+            Color color = _handleNormalColor;
+            if (_warningFlickeringColor)
+            {
+                color = _handleWarningColor;
+            }
+            _warningFlickeringColor = !_warningFlickeringColor;
+            _handleImage.CrossFadeColor(color, flickeringTime, false, false);
+            yield return new WaitForSeconds(flickeringTime);
+        }
+    }
+
+
+
+
 }

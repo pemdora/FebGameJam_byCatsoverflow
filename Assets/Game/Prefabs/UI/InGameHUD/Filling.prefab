@@ -296,8 +296,10 @@ MonoBehaviour:
   _filler: {fileID: 3235538932784335165}
   _handleImage: {fileID: 6854011902485059379}
   _animationDuration: 0.4
+  _handleAnimationMaxDuration: 1
   _handleNormalColor: {r: 1, g: 0.8, b: 0, a: 1}
   _handleCompleteColor: {r: 0.065871, g: 1, b: 0, a: 0}
+  _handleWarningColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!1 &4203763274621118841
 GameObject:
   m_ObjectHideFlags: 0
