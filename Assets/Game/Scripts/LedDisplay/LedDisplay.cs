@@ -1,6 +1,6 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class LedDisplay : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class LedDisplay : MonoBehaviour
 
     private bool _isDisplaying;
     private float _maxPos;
-    private int _sentenceIndex;
+    private int _previousCommonSentenceIndex;
     
     private bool _displayGlitch;
     private float _glitchDuration;
@@ -28,10 +28,10 @@ public class LedDisplay : MonoBehaviour
         switch (_settings.order)
         {
             case LedDisplayOrder.Sequenced:
-                DisplaySentence(0);
+                DisplaySentence(LedDisplayMessageType.Common, 0);
                 break;
             case LedDisplayOrder.Randomized:
-                DisplaySentence(Random.Range(0, _settings.sentences.Length));
+                DisplaySentence(LedDisplayMessageType.Common, Random.Range(0, _settings.commonSentences.Length));
                 break;
         }
     }
@@ -40,7 +40,17 @@ public class LedDisplay : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.U))
         {
-            DisplaySentence(2);
+            DisplaySentence(LedDisplayMessageType.Failure, 0);
+        }
+        
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            DisplaySentence(LedDisplayMessageType.Success, 0);
+        }
+        
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+            DisplaySentence(LedDisplayMessageType.Discard, 0);
         }
         
         if (_displayGlitch)
@@ -56,7 +66,6 @@ public class LedDisplay : MonoBehaviour
                 _displayGlitch = false;
                 _glitch1.SetActive(false);
                 _glitch2.SetActive(false);
-                //DisplaySentence(_sentenceIndex);
             }
 
             _glitchDuration += Time.deltaTime;
@@ -75,37 +84,48 @@ public class LedDisplay : MonoBehaviour
                 switch (_settings.order)
                 {
                     case LedDisplayOrder.Sequenced:
-                        _sentenceIndex++;
-                        if (_sentenceIndex >= _settings.sentences.Length)
+                        _previousCommonSentenceIndex++;
+                        if (_previousCommonSentenceIndex >= _settings.commonSentences.Length)
                         {
-                            _sentenceIndex = 0;
+                            _previousCommonSentenceIndex = 0;
                         }
                         break;
                     case LedDisplayOrder.Randomized:
-                        int nextSentence = _sentenceIndex;
-                        while (nextSentence == _sentenceIndex)
+                        int nextSentence = _previousCommonSentenceIndex;
+                        while (nextSentence == _previousCommonSentenceIndex)
                         {
-                            nextSentence = Random.Range(0, _settings.sentences.Length);
+                            nextSentence = Random.Range(0, _settings.commonSentences.Length);
                         }
-                        _sentenceIndex = nextSentence;
+                        _previousCommonSentenceIndex = nextSentence;
                         break;
                 }
                 
-                DisplaySentence(_sentenceIndex);
+                DisplaySentence(LedDisplayMessageType.Common, _previousCommonSentenceIndex);
             }
         }
     }
 
-    public void DisplaySentence(int sentenceID)
+    public void DisplaySentence(LedDisplayMessageType type, int sentenceID = -1)
     {
         if (_isDisplaying)
         {
             DisplayGlitch();
         }
 
-        _sentenceIndex = sentenceID;
+        if (type == LedDisplayMessageType.Common)
+        {
+            _previousCommonSentenceIndex = sentenceID;
+        }
+
+        if (sentenceID == -1)
+        {
+            sentenceID = _settings.GetRandomSentenceIndex(type);
+        }
+
         _isDisplaying = true;
-        _text.text = _settings.sentences[sentenceID];
+        
+        _text.text = _settings.GetSentence(type, sentenceID);
+        _text.color = _settings.GetColor(type);
         _maxPos = _text.text.Length * _spaceByLetters + _offset + _canvas.sizeDelta.x;
         Move(0);
     }
