@@ -4508,6 +4508,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5467133582469441815, guid: 2ccf50b4c9625db43a7825a6cf519dda,
         type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 630130084}
+    - target: {fileID: 5467133582469441815, guid: 2ccf50b4c9625db43a7825a6cf519dda,
+        type: 3}
       propertyPath: _spaceshipManager
       value: 
       objectReference: {fileID: 1932589794}
