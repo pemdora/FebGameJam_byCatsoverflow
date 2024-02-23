@@ -280,11 +280,86 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8143710011712545758, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8143710011712545758, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50f5a433ce1b3fc4eb58f75b2cea35f3, type: 2}
+    - target: {fileID: -8143710011712545758, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9a7e7218e04b5344bd888e20d4d848a, type: 2}
+    - target: {fileID: -7664728788398519507, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7664728788398519507, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50f5a433ce1b3fc4eb58f75b2cea35f3, type: 2}
+    - target: {fileID: -7664728788398519507, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9a7e7218e04b5344bd888e20d4d848a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50f5a433ce1b3fc4eb58f75b2cea35f3, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9a7e7218e04b5344bd888e20d4d848a, type: 2}
     - target: {fileID: -5795389099754807442, guid: 6a1872293e2a53447a372089cc4cd78d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 80ea6f226b1ebc44a8c9eeb8a8925e21, type: 2}
+    - target: {fileID: -1806680513116206669, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1806680513116206669, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50f5a433ce1b3fc4eb58f75b2cea35f3, type: 2}
+    - target: {fileID: -1806680513116206669, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9a7e7218e04b5344bd888e20d4d848a, type: 2}
+    - target: {fileID: -678588488315902003, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -678588488315902003, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50f5a433ce1b3fc4eb58f75b2cea35f3, type: 2}
+    - target: {fileID: -678588488315902003, guid: 6a1872293e2a53447a372089cc4cd78d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9a7e7218e04b5344bd888e20d4d848a, type: 2}
     - target: {fileID: -261608302246036548, guid: 6a1872293e2a53447a372089cc4cd78d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
