@@ -11,5 +11,6 @@ public class LedDisplaySettings : ScriptableObject
 {
     public LedDisplayOrder order;
     public float speed = 750;
+    public float glitchDuration = 0.4f;
     public string[] sentences;
 }

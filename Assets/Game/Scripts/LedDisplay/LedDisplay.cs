@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,10 +13,15 @@ public class LedDisplay : MonoBehaviour
     [SerializeField] private TMP_Text _text;
     [SerializeField] private RectTransform _rect;
     [SerializeField] private RectTransform _canvas;
+    [SerializeField] private GameObject _glitch1;
+    [SerializeField] private GameObject _glitch2;
 
     private bool _isDisplaying;
     private float _maxPos;
     private int _sentenceIndex;
+    
+    private bool _displayGlitch;
+    private float _glitchDuration;
 
     private void Start()
     {
@@ -35,6 +38,31 @@ public class LedDisplay : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyUp(KeyCode.U))
+        {
+            DisplaySentence(2);
+        }
+        
+        if (_displayGlitch)
+        {
+            if (_glitch1.activeSelf && _glitchDuration > _settings.glitchDuration / 2)
+            {
+                _glitch1.SetActive(false);
+                _glitch2.SetActive(true);
+            }
+            
+            if (_glitchDuration >= _settings.glitchDuration)
+            {
+                _displayGlitch = false;
+                _glitch1.SetActive(false);
+                _glitch2.SetActive(false);
+                //DisplaySentence(_sentenceIndex);
+            }
+
+            _glitchDuration += Time.deltaTime;
+            return;
+        }
+        
         if (_isDisplaying)
         {
             _rect.anchoredPosition += Vector2.left * Time.deltaTime * _settings.speed;
@@ -72,8 +100,7 @@ public class LedDisplay : MonoBehaviour
     {
         if (_isDisplaying)
         {
-            Debug.LogWarning("Cannot display sentence as the previous one has not finish yet.");
-            return;
+            DisplayGlitch();
         }
 
         _sentenceIndex = sentenceID;
@@ -81,6 +108,13 @@ public class LedDisplay : MonoBehaviour
         _text.text = _settings.sentences[sentenceID];
         _maxPos = _text.text.Length * _spaceByLetters + _offset + _canvas.sizeDelta.x;
         Move(0);
+    }
+
+    private void DisplayGlitch()
+    {
+        _displayGlitch = true;
+        _glitchDuration = 0;
+        _glitch1.SetActive(true);
     }
 
     private void Move(float position)
