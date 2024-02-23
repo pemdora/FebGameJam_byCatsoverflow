@@ -121,6 +121,8 @@ MonoBehaviour:
     type: 3}
   _extraThresholdScoreTxt: {fileID: 8779111772274439890}
   _extraTimerScoreTxt: {fileID: 9172695396176321368}
+  _angryIcon: {fileID: 2972824213217393646, guid: 257ae5621fce993488d1532fa13a27ed,
+    type: 3}
   _lowScoreCurveY:
     serializedVersion: 2
     m_Curve:
@@ -293,22 +295,40 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0026168823
+      time: -0.0017776489
       value: 0
-      inSlope: 44.79218
-      outSlope: 44.79218
+      inSlope: 10.614661
+      outSlope: 10.614661
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.10060013
+      outWeight: 0.16824238
     - serializedVersion: 3
-      time: 1
-      value: 10
-      inSlope: 12.332478
-      outSlope: 12.332478
+      time: 1.2843926
+      value: 8.173327
+      inSlope: -4.318766
+      outSlope: -4.318766
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.058612417
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.6407459
+      value: 6.012482
+      inSlope: -0.9339602
+      outSlope: -0.9339602
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2
+      value: 8
+      inSlope: 4.6097584
+      outSlope: 4.6097584
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06937802
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -317,22 +337,88 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1.0090942
-      inSlope: 4.1422386
-      outSlope: 4.1422386
+      time: 0.002822876
+      value: 1
+      inSlope: 2.0753243
+      outSlope: 2.0753243
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.093893886
+      outWeight: 0.27780706
+    - serializedVersion: 3
+      time: 0.5649549
+      value: 1.8718271
+      inSlope: -0.41773495
+      outSlope: -0.41773495
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.93192315
+    - serializedVersion: 3
+      time: 0.7434229
+      value: 1.4601417
+      inSlope: -0.06834088
+      outSlope: -0.06834088
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1.0035546
-      value: 1.5
+      value: 2
       inSlope: 0.9816033
       outSlope: 0.9816033
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.10781535
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _angryIconCurveY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -20
+      inSlope: 13.115097
+      outSlope: 13.115097
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.113707386
+    - serializedVersion: 3
+      time: 2
+      value: 50
+      inSlope: -102.64726
+      outSlope: -102.64726
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.068564296
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _angryIconScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.95861
+      outSlope: 1.95861
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06784877
+    - serializedVersion: 3
+      time: 2
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -370,12 +456,12 @@ PrefabInstance:
     - target: {fileID: 4664226069869493171, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
       propertyPath: m_fontColor.b
-      value: 0.957058
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4664226069869493171, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
       propertyPath: m_fontColor.g
-      value: 0.28773582
+      value: 0.74682754
       objectReference: {fileID: 0}
     - target: {fileID: 4664226069869493171, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
@@ -470,12 +556,12 @@ PrefabInstance:
     - target: {fileID: 6221481608670242849, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 224
+      value: 314.8
       objectReference: {fileID: 0}
     - target: {fileID: 6221481608670242849, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 432
+      value: 438.7
       objectReference: {fileID: 0}
     - target: {fileID: 6221481608670242849, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
@@ -663,12 +749,12 @@ PrefabInstance:
     - target: {fileID: 6221481608670242849, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -489
+      value: -391
       objectReference: {fileID: 0}
     - target: {fileID: 6221481608670242849, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 319
+      value: 259
       objectReference: {fileID: 0}
     - target: {fileID: 6221481608670242849, guid: 1079f78b41cfebc499f1e60e3653c129,
         type: 3}

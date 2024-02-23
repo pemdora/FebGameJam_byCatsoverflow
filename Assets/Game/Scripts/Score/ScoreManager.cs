@@ -138,8 +138,9 @@ public class ScoreManager : MonoBehaviour
     }
     
 
-    public void DiscardWare()
+    public void DiscardWare(Ware ware)
     {
+        _scoreDisplayUI.DisplayAngryIcon(ware.transform.position);
         _frustration += _settings.frustrationPerDiscardedWare;
 
         // We call the UI dedicated to display the frustration and we update the Filler Image

@@ -12,6 +12,7 @@ public class ScoreDisplayUI : MonoBehaviour
     [SerializeField] TMP_Text _scoreTxt;
     [SerializeField] TMP_Text _extraThresholdScoreTxt;
     [SerializeField] TMP_Text _extraTimerScoreTxt;
+    [SerializeField] Image _angryIcon;
 
     [Header("LowScore")]
     [SerializeField] private AnimationCurve _lowScoreCurveY;
@@ -27,6 +28,10 @@ public class ScoreDisplayUI : MonoBehaviour
     [Header("Special Bonus")]
     [SerializeField] private AnimationCurve _specialThresholdScoreCurveY; // lazy ass reuse the same for bonus timer
     [SerializeField] private AnimationCurve _specialThresholdScoreScaleCurve;
+    [Header("Malus")]
+    [SerializeField] private AnimationCurve _angryIconCurveY;
+    [SerializeField] private AnimationCurve _angryIconScaleCurve;
+
 
     public void DisplayWareScore(int score, Vector3 uiPosition, ScoreSettings scoreSettings)
     {
@@ -55,6 +60,33 @@ public class ScoreDisplayUI : MonoBehaviour
         }
         StartCoroutine(AnimateScore(scoreTxt, scoreTresholdType));
     }
+
+    public void DisplayAngryIcon(Vector3 uiPosition)
+    {
+        Image angryIcon = Instantiate(_angryIcon, _mainCanvas.transform);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(uiPosition);
+        angryIcon.rectTransform.position = new Vector3(screenPos.x, screenPos.y);
+        StartCoroutine(AnimateAngryIcon(angryIcon));
+    }
+
+    private IEnumerator AnimateAngryIcon(Image angryIcon)
+    {
+        float time = 0;
+        float duration = _angryIconCurveY.keys[_angryIconCurveY.length - 1].time;
+        Vector3 startPos = angryIcon.rectTransform.position;
+        while (time < duration)
+        {
+            float ratio = time / duration;
+            angryIcon.rectTransform.position = startPos + new Vector3(0, _angryIconCurveY.Evaluate(ratio), 0);
+            angryIcon.rectTransform.localScale = Vector3.one * _angryIconScaleCurve.Evaluate(ratio);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        
+        Destroy(angryIcon.gameObject);
+    }
+
+
 
     public void DisplayExtraThresholdBonus(int score)
     {
