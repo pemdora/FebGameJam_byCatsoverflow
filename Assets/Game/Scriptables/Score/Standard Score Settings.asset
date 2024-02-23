@@ -21,7 +21,7 @@ MonoBehaviour:
   frustrationThresholdCargo4Min: 20
   frustrationThresholdCargo4Max: 60
   frustrationThresholdStep: 10
-  pointsForEachSecondBeforeEndTimer: 1
+  pointsForEachSecondBeforeEndTimer: 100
   pointsPerSlotFilled: 50
   pointsPerExtraSlotFilled: 25
   scorelow: 100
