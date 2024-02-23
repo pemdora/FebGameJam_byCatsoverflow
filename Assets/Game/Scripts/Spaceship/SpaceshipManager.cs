@@ -56,7 +56,6 @@ public class SpaceshipManager : MonoBehaviour
     internal void BringNewSpaceship()
     {
         Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
-        //_scoreManager.
         _scoreManager.SetObjectiveTreshold(spaceship.Cargo.CargoSize); // Set score objective based on the cargo size
         spaceship.gameObject.SetActive(false);
         spaceship.Initialize( _scoreManager.DeliveryCount * _scoreManager.Settings.spaceshipLoadingTimeDecrease / 100 * spaceship.LoadingDuration);
