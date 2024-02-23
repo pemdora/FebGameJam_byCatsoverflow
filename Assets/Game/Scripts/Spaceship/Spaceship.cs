@@ -4,7 +4,8 @@ public class Spaceship : MonoBehaviour
 {
     [Header("Settings")]
     public int id;
-    [SerializeField] private float _loadingDuration = 10;
+    [SerializeField] private float _loadingDuration = 20;
+    [SerializeField] private float _minLoadingDuration = 10;
 
     [Header("References")]
     [SerializeField] private Cargo _cargo;
@@ -22,9 +23,9 @@ public class Spaceship : MonoBehaviour
 
     private bool _hasLeft;
 
-    public void Initialize()
+    public void Initialize(float timerPenalty)
     {
-        LoadingTimer = 0;
+        LoadingTimer = Mathf.Min(timerPenalty, _loadingDuration - _minLoadingDuration);
         _cargo.ResetWares();
         _hasLeft = false;
     }

@@ -59,7 +59,7 @@ public class SpaceshipManager : MonoBehaviour
         //_scoreManager.
         _scoreManager.SetObjectiveTreshold(spaceship.Cargo.CargoSize); // Set score objective based on the cargo size
         spaceship.gameObject.SetActive(false);
-        spaceship.Initialize();
+        spaceship.Initialize( _scoreManager.DeliveryCount * _scoreManager.Settings.spaceshipLoadingTimeDecrease / 100 * spaceship.LoadingDuration);
         _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded, true);
         spaceship.gameObject.SetActive(true);
         spaceship.Cargo.DeactivateCargo();
@@ -86,11 +86,12 @@ public class SpaceshipManager : MonoBehaviour
             return;
         }
         _currentSpaceship.HasLeft = true;
-        
         _currentSpaceship.StopLoading();
         _currentSpaceship.Cargo.DeactivateCargo();
+
+        float speedIncrease = _scoreManager.Settings.GetConveyorBeltSpeedIncrease();
         _conveyorStart.StopConveyor();
-        _conveyorStart.ChangeSpeed(_conveyorStart.Speed*1.1f,1.1f);
+        _conveyorStart.ChangeSpeed(_conveyorStart.Speed * speedIncrease, speedIncrease);
 
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.TRUCK_REPART);

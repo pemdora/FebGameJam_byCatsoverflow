@@ -16,9 +16,9 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int _frustration;
     [SerializeField] private int _score;
     
-
     [Header("Settings")]
     [SerializeField] private ScoreSettings _settings;
+    [SerializeField] private ScoreDisplayUI _scoreDisplayUI; // Display Score for ware
 
     [Header("References")]
     [SerializeField] private SpaceshipManager _spaceshipManager;
@@ -32,6 +32,7 @@ public class ScoreManager : MonoBehaviour
     public int DeliveryCount => _deliveryCount;
     public int Frustration => _frustration;
     public int Score => _score;
+    public ScoreSettings Settings => _settings;
 
     private int frustrationThreshold; // dynamic treshold based on cargo
     public int FrustrationThreshold
@@ -54,13 +55,13 @@ public class ScoreManager : MonoBehaviour
     {
         if (cargoSize == 3)
         {
-            int frustration = _settings.frustrationThresholdCargo3Min - _deliveryCount*_settings.frustrationThresholdStep;
-            frustrationThreshold = Mathf.Max(frustration,_settings.frustrationThresholdCargo3Max);
+            int frustration = _settings.frustrationThresholdCargo3Min + _deliveryCount*_settings.frustrationThresholdStep;
+            frustrationThreshold = Mathf.Min(frustration,_settings.frustrationThresholdCargo3Max);
         }
         else if (cargoSize == 4)
         {
-            int frustration = _settings.frustrationThresholdCargo4Min - _deliveryCount*_settings.frustrationThresholdStep;
-            frustrationThreshold = Mathf.Max(frustration,_settings.frustrationThresholdCargo4Max) ;
+            int frustration = _settings.frustrationThresholdCargo4Min + _deliveryCount*_settings.frustrationThresholdStep;
+            frustrationThreshold = Mathf.Min(frustration,_settings.frustrationThresholdCargo4Max) ;
         }
         else
         {
@@ -80,12 +81,16 @@ public class ScoreManager : MonoBehaviour
 
         Cargo cargo = spaceship.Cargo;
         int minimumOccupiedSlotsNeeded = Mathf.CeilToInt(cargo.SlotCount * (frustrationThreshold / 100f));
-        bool minimumOccupiedSlotsReached = 100f - cargo.FillPercentage < frustrationThreshold;
-        // int numberOfOccupiedSlotsUnderThreshold = Mathf.Min(cargo.OccupiedSlotCount, minimumOccupiedSlotsNeeded);  // cargo.OccupiedSlotCount* _settings.pointsPerSlotFilled;
+        bool minimumOccupiedSlotsReached = cargo.FillPercentage > frustrationThreshold;
         int numberOfOccupiedSlotsAboveThreshold = Mathf.Max(0, cargo.OccupiedSlotCount - minimumOccupiedSlotsNeeded);
 
         // TODO BONUS SCORE
-        // _score += numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
+        int extraTresholdBonusPoint = numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
+        if(extraTresholdBonusPoint > 0)
+        {
+            _scoreDisplayUI.DisplayExtraThresholdBonus(extraTresholdBonusPoint);
+            _score += extraTresholdBonusPoint;
+        }
 
         // If the number of empty slots are above the allowed threshold
         if (!minimumOccupiedSlotsReached)
@@ -106,11 +111,16 @@ public class ScoreManager : MonoBehaviour
         // else, the spaceship has enough ware in his cargo
         else
         {
+            _frustration -= _settings.frustrationRelief;
+            _frustration = Mathf.Max(0, _frustration);
+
             // Check if the player manually send the spaceship
-            // if (spaceship.LoadingLeft > 0)
-            // {
-            //     _score += Mathf.CeilToInt(spaceship.LoadingLeft) * _settings.pointsForEachSecondBeforeEndTimer;
-            // }
+            if (spaceship.LoadingLeft > 0)
+            {
+                int timerBonus = Mathf.CeilToInt(spaceship.LoadingLeft) * _settings.pointsForEachSecondBeforeEndTimer;
+                _scoreDisplayUI.DisplayTimerBonus(timerBonus);
+                _score += timerBonus;
+            }
         }
 
         OnScoreChanged?.Invoke(_score.ToString());
@@ -121,10 +131,12 @@ public class ScoreManager : MonoBehaviour
     public void PlaceWare(Ware ware)
     {
         int wareScore = ware.Size * _settings.pointsPerSlotFilled;
-        ware.DisplayWareScore(wareScore, ware.BonusScore);
+        // ware.DisplayWareScore(wareScore, ware.BonusScore);
+        _scoreDisplayUI.DisplayWareScore(wareScore, ware.transform.position, _settings);
         _score += wareScore + ware.BonusScore;
         OnScoreChanged?.Invoke(_score.ToString());
     }
+    
 
     public void DiscardWare()
     {

@@ -87,7 +87,7 @@ public class FlyLightArray : MonoBehaviour
             for (int i = 0; i < lights.Count; i++)
             {
                 turnLightOn(i);
-                _realLight.transform.position = lights[i].transform.position; //displace real light to the position of the light
+                _realLight.transform.position = lights[i].transform.position + Vector3.up * 0.4f; //displace real light to the position of the light
 
                 //variation du temps entre chaque lumière en fonction de la courbe
                 float timer = _lightDuration * _lightAnimationCurve.Evaluate((float)i / (float)lights.Count);
@@ -116,7 +116,7 @@ public class FlyLightArray : MonoBehaviour
     {
         for (int i = 0; i < numberOfItems; i++)
         {
-            Vector3 position = this.gameObject.transform.position + i * _spacing * axis.normalized;
+            Vector3 position = this.gameObject.transform.position - i * _spacing * axis.normalized;
             GameObject lightObject = Instantiate(_objet, position, Quaternion.identity);
             lightObject.transform.parent = _objectContainer.transform;
             lightObject.transform.Rotate(_rotation); //correction de la rotation,  surement du à un problème de pivot sur le prefab

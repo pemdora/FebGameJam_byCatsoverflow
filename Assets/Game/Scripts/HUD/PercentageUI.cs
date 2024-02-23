@@ -44,7 +44,7 @@ public class PercentageUI : MonoBehaviour
     public void SetObjectiveSlider(int frustrationThreshold)
     {
         float oldvalue = _objectiveSlider.value;
-        _objectiveSlider.value = (100 - frustrationThreshold) / 100f;
+        _objectiveSlider.value = (frustrationThreshold / 100f);
         float duration = Mathf.Abs(oldvalue - _objectiveSlider.value) / _handleAnimationMaxDuration;
         StartCoroutine(ObjectiveSliderCoroutine(oldvalue, _objectiveSlider.value, duration));
     }

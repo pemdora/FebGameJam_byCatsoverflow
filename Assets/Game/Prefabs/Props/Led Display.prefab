@@ -97,13 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb81b2ee52fb4914971668a44a34a934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 11bba2f2bd264294bb8ffecb31966b07, type: 2}
   _spaceByLetters: 120
   _offset: 45
-  _speed: 750
-  _sentences:
-  - BREAKING NEWS - NEW SPACESHIP AVAILABLE TO BUY
-  - DON'T FORGET - YOU'RE HERE TO BE PRODUCTIVE
-  - WANT TO CHANGE THE WORLD? START WITH YOURSEFL!
   _text: {fileID: 232228104765708200}
   _rect: {fileID: 8399313774460825764}
   _canvas: {fileID: 6353330929120632735}
@@ -308,7 +304,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -381,7 +377,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -20}
+  m_SizeDelta: {x: -30, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1298078035295180988
 CanvasRenderer:

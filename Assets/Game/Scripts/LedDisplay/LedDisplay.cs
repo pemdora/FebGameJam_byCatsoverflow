@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LedDisplay : MonoBehaviour
 {
     [Header("Settings")] 
+    [SerializeField] private LedDisplaySettings _settings;
     [SerializeField] private float _spaceByLetters = 120;
     [SerializeField] private float _offset = 45;
-    [SerializeField] private float _speed = 10;
-    [SerializeField] private List<string> _sentences;
     
     [Header("References")] 
     [SerializeField] private TMP_Text _text;
@@ -22,25 +22,47 @@ public class LedDisplay : MonoBehaviour
 
     private void Start()
     {
-        DisplaySentence(0);
+        switch (_settings.order)
+        {
+            case LedDisplayOrder.Sequenced:
+                DisplaySentence(0);
+                break;
+            case LedDisplayOrder.Randomized:
+                DisplaySentence(Random.Range(0, _settings.sentences.Length));
+                break;
+        }
     }
 
     private void Update()
     {
         if (_isDisplaying)
         {
-            _rect.anchoredPosition += Vector2.left * Time.deltaTime * _speed;
+            _rect.anchoredPosition += Vector2.left * Time.deltaTime * _settings.speed;
 
             if (_rect.anchoredPosition.x <= -_maxPos)
             {
                 // Reached end
                 _isDisplaying = false;
 
-                _sentenceIndex++;
-                if (_sentenceIndex >= _sentences.Count)
+                switch (_settings.order)
                 {
-                    _sentenceIndex = 0;
+                    case LedDisplayOrder.Sequenced:
+                        _sentenceIndex++;
+                        if (_sentenceIndex >= _settings.sentences.Length)
+                        {
+                            _sentenceIndex = 0;
+                        }
+                        break;
+                    case LedDisplayOrder.Randomized:
+                        int nextSentence = _sentenceIndex;
+                        while (nextSentence == _sentenceIndex)
+                        {
+                            nextSentence = Random.Range(0, _settings.sentences.Length);
+                        }
+                        _sentenceIndex = nextSentence;
+                        break;
                 }
+                
                 DisplaySentence(_sentenceIndex);
             }
         }
@@ -53,9 +75,10 @@ public class LedDisplay : MonoBehaviour
             Debug.LogWarning("Cannot display sentence as the previous one has not finish yet.");
             return;
         }
-        
+
+        _sentenceIndex = sentenceID;
         _isDisplaying = true;
-        _text.text = _sentences[sentenceID];
+        _text.text = _settings.sentences[sentenceID];
         _maxPos = _text.text.Length * _spaceByLetters + _offset + _canvas.sizeDelta.x;
         Move(0);
     }
