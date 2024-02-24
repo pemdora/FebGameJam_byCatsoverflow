@@ -6,6 +6,7 @@ public class SpaceshipManager : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private List<Spaceship> _spaceshipsPrefab;
+    [SerializeField] private float _durationBeforeDeparture = 0.75f;
 
     [Header("References")]
     [SerializeField] private ScoreManager _scoreManager;
@@ -94,6 +95,11 @@ public class SpaceshipManager : MonoBehaviour
         _conveyorStart.StopConveyor();
         _conveyorStart.ChangeSpeed(_conveyorStart.Speed * speedIncrease, speedIncrease);
 
+        Invoke(nameof(DelayBeforeDeparture), _durationBeforeDeparture);
+    }
+
+    private void DelayBeforeDeparture()
+    {
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.TRUCK_REPART);
     }
