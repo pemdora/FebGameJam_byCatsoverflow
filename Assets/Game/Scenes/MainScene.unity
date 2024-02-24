@@ -6620,6 +6620,17 @@ PrefabInstance:
       propertyPath: _landingPlatform
       value: 
       objectReference: {fileID: 2144418431}
+    - target: {fileID: 5541763757415042733, guid: 32ca4d649d5ba314cb10787d46ecf1ae,
+        type: 3}
+      propertyPath: _spaceshipsPrefab.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5541763757415042733, guid: 32ca4d649d5ba314cb10787d46ecf1ae,
+        type: 3}
+      propertyPath: _spaceshipsPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 2156597250780880063, guid: 93efa7f011b044b4e802a78e2f9aa979,
+        type: 3}
     - target: {fileID: 8003573543724700127, guid: 32ca4d649d5ba314cb10787d46ecf1ae,
         type: 3}
       propertyPath: m_Name
