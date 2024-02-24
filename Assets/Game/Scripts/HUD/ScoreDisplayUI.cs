@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class ScoreDisplayUI : MonoBehaviour
     [SerializeField] TMP_Text _scoreTxt;
     [SerializeField] TMP_Text _extraThresholdScoreTxt;
     [SerializeField] TMP_Text _extraTimerScoreTxt;
+    [SerializeField] TMP_Text _perfectScoreTxt;
     [SerializeField] Image _angryIcon;
     [SerializeField] Image _angryThresholdIcon;
 
@@ -29,6 +31,7 @@ public class ScoreDisplayUI : MonoBehaviour
     [Header("Special Bonus")]
     [SerializeField] private AnimationCurve _specialThresholdScoreCurveY; // lazy ass reuse the same for bonus timer
     [SerializeField] private AnimationCurve _specialThresholdScoreScaleCurve;
+    [SerializeField] private AnimationCurve _perfectScoreScaleCurve;
     [Header("Malus")]
     [SerializeField] private AnimationCurve _angryIconCurveY;
     [SerializeField] private AnimationCurve _angryIconScaleCurve;
@@ -101,6 +104,14 @@ public class ScoreDisplayUI : MonoBehaviour
         StartCoroutine(AnimateScore(_extraThresholdScoreTxt, ScoreTresholdType.ExtraThresholdBonus));
     }
 
+    public void DisplayPerfectBonus(int score)
+    {
+        _perfectScoreTxt.gameObject.SetActive(true);
+        _perfectScoreTxt.text = "Perfect!\n+" + score.ToString();
+        _perfectScoreTxt.color = Color.white;
+        StartCoroutine(AnimateScore(_perfectScoreTxt, ScoreTresholdType.PerfectBonus));
+    }
+
     public void DisplayTimerBonus(int score)
     {
         _extraTimerScoreTxt.gameObject.SetActive(true);
@@ -129,6 +140,9 @@ public class ScoreDisplayUI : MonoBehaviour
                 break;
             case ScoreTresholdType.ExtraThresholdBonus:
                 duration = _specialThresholdScoreCurveY.keys[_specialThresholdScoreCurveY.length - 1].time;
+                break;
+            case ScoreTresholdType.PerfectBonus:
+                duration = _perfectScoreScaleCurve.keys[_perfectScoreScaleCurve.length - 1].time;
                 break;
         }
 
@@ -159,15 +173,22 @@ public class ScoreDisplayUI : MonoBehaviour
                     score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
                     score.rectTransform.localScale = Vector3.one * _specialThresholdScoreScaleCurve.Evaluate(ratio);
                     break;
+                case ScoreTresholdType.PerfectBonus:
+                    score.rectTransform.localScale = Vector3.one * _perfectScoreScaleCurve.Evaluate(ratio);
+                    score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
+                    score.color = Color.HSVToRGB(Mathf.PingPong(Time.time * 0.5f, 1), 1, 1);
+                    break;
             }
             time += Time.deltaTime;
             yield return null;
         }
 
-        if(scoreTreshold != ScoreTresholdType.ExtraThresholdBonus)
+        if(scoreTreshold != ScoreTresholdType.ExtraThresholdBonus && scoreTreshold != ScoreTresholdType.PerfectBonus)
             Destroy(score.gameObject);
         else
+        {
             score.gameObject.SetActive(false);
+        }
     }
 
     public void DisplayFrustrationMalus(float malusDuration, float step = 0.2f)
