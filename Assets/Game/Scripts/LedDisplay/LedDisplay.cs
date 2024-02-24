@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LedDisplay : MonoBehaviour
 {
@@ -15,13 +17,28 @@ public class LedDisplay : MonoBehaviour
     [SerializeField] private RectTransform _canvas;
     [SerializeField] private GameObject _glitch1;
     [SerializeField] private GameObject _glitch2;
+    [SerializeField] private PickManager _pickManager;
+    [SerializeField] private ScoreManager _scoreManager;
 
     private bool _isDisplaying;
     private float _maxPos;
     private int _previousCommonSentenceIndex;
+    private LedDisplayMessageType _previousType;
     
     private bool _displayGlitch;
     private float _glitchDuration;
+
+    private void OnEnable()
+    {
+        _pickManager.OnDropWare.AddListener(DisplayDiscardSentence);
+        _scoreManager.OnCargoReachedMinimumRequirement.AddListener(DisplayCargoSentence);
+    }
+
+    private void OnDisable()
+    {
+        _pickManager.OnDropWare.RemoveListener(DisplayDiscardSentence);
+        _scoreManager.OnCargoReachedMinimumRequirement.RemoveListener(DisplayCargoSentence);
+    }
 
     private void Start()
     {
@@ -38,21 +55,6 @@ public class LedDisplay : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.U))
-        {
-            DisplaySentence(LedDisplayMessageType.Failure, 0);
-        }
-        
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            DisplaySentence(LedDisplayMessageType.Success, 0);
-        }
-        
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            DisplaySentence(LedDisplayMessageType.Discard, 0);
-        }
-        
         if (_displayGlitch)
         {
             if (_glitch1.activeSelf && _glitchDuration > _settings.glitchDuration / 2)
@@ -107,11 +109,17 @@ public class LedDisplay : MonoBehaviour
 
     public void DisplaySentence(LedDisplayMessageType type, int sentenceID = -1)
     {
+        if (type != LedDisplayMessageType.Common && type == _previousType)
+        {
+            return;
+        }
+        
         if (_isDisplaying)
         {
             DisplayGlitch();
         }
 
+        _previousType = type;
         if (type == LedDisplayMessageType.Common)
         {
             _previousCommonSentenceIndex = sentenceID;
@@ -128,6 +136,16 @@ public class LedDisplay : MonoBehaviour
         _text.color = _settings.GetColor(type);
         _maxPos = _text.text.Length * _spaceByLetters + _offset + _canvas.sizeDelta.x;
         Move(0);
+    }
+
+    private void DisplayCargoSentence(bool success)
+    {
+        DisplaySentence(success ? LedDisplayMessageType.Success : LedDisplayMessageType.Failure);
+    }
+    
+    private void DisplayDiscardSentence(WareEventData ware)
+    {
+        DisplaySentence(LedDisplayMessageType.Discard);
     }
 
     private void DisplayGlitch()
