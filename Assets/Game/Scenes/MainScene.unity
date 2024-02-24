@@ -1760,7 +1760,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8150927782059506184}
+    m_TransformParent: {fileID: 5060771723137106247}
     m_Modifications:
     - target: {fileID: 2188284203578027560, guid: 9457a83741f255549a153ddc0a1d7628,
         type: 3}
@@ -1866,6 +1866,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ScorePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8014199303530325312, guid: 9457a83741f255549a153ddc0a1d7628,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 230
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779111772274439890, guid: 9457a83741f255549a153ddc0a1d7628,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779111772274439890, guid: 9457a83741f255549a153ddc0a1d7628,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.2756764
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779111772274439890, guid: 9457a83741f255549a153ddc0a1d7628,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8771914
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6149,6 +6169,7 @@ RectTransform:
   - {fileID: 1171627949119537533}
   - {fileID: 114390700}
   - {fileID: 316795169}
+  - {fileID: 1324494281}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6914,7 +6935,6 @@ RectTransform:
   - {fileID: 2258289032414136736}
   - {fileID: 7319410563543229962}
   - {fileID: 1444300757599939520}
-  - {fileID: 1324494281}
   - {fileID: 2506543775244911259}
   - {fileID: 1328867412426570131}
   m_Father: {fileID: 0}

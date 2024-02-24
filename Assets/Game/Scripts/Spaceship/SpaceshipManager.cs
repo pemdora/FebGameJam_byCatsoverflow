@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -35,7 +36,7 @@ public class SpaceshipManager : MonoBehaviour
 
         // Make the spaceship leave if there is no time left on the counter
         if (!_currentSpaceship.HasLeft && _currentSpaceship.LoadingLeft <= 0)
-        {   
+        {
             OnCurrentSpaceshipTimerReachedZero();
             return;
         }
@@ -43,6 +44,7 @@ public class SpaceshipManager : MonoBehaviour
         // Make the spaceship leave if its cargo is full
         if (!_currentSpaceship.HasLeft && _currentSpaceship.Cargo.FillPercentage >= 100)
         {
+            _landingPlatform.CanRotate = false;
             OnCurrentSpaceshipFull();
             return;
         }
@@ -59,7 +61,7 @@ public class SpaceshipManager : MonoBehaviour
         Spaceship spaceship = GetSpaceship(_spaceshipsPrefab[Random.Range(0, _spaceshipsPrefab.Count)]);
         _scoreManager.SetObjectiveTreshold(spaceship.Cargo.CargoSize); // Set score objective based on the cargo size
         spaceship.gameObject.SetActive(false);
-        spaceship.Initialize( _scoreManager.DeliveryCount * _scoreManager.Settings.spaceshipLoadingTimeDecrease / 100 * spaceship.LoadingDuration);
+        spaceship.Initialize(_scoreManager.DeliveryCount * _scoreManager.Settings.spaceshipLoadingTimeDecrease / 100 * spaceship.LoadingDuration);
         _arrivalConductor.AttachSpaceship(spaceship, NewSpaceshipLanded, true);
         spaceship.gameObject.SetActive(true);
         spaceship.Cargo.DeactivateCargo();
@@ -79,7 +81,7 @@ public class SpaceshipManager : MonoBehaviour
         OnSpaceshipLanded?.Invoke(spaceship);
     }
 
-    internal void SpaceshipDeparture()
+    internal void SpaceshipDeparture(bool isCargoFull = false)
     {
         if (!_currentSpaceship)
         {
@@ -93,11 +95,21 @@ public class SpaceshipManager : MonoBehaviour
         _conveyorStart.StopConveyor();
         _conveyorStart.ChangeSpeed(_conveyorStart.Speed * speedIncrease, speedIncrease);
 
-        Invoke(nameof(DelayBeforeDeparture), _durationBeforeDeparture);
+        StartCoroutine(DelayBeforeDeparture(isCargoFull, _durationBeforeDeparture));
     }
 
-    private void DelayBeforeDeparture()
+    private IEnumerator DelayBeforeDeparture(bool isCargoFull, float delay)
     {
+        if (isCargoFull)
+        {
+            if (_currentSpaceship.Cargo.CargoCompletedParticles != null)
+                _currentSpaceship.Cargo.CargoCompletedParticles.Play();
+            _scoreManager.DisplayPerfectBonus(_currentSpaceship.Cargo.CargoSize);
+            yield return new WaitForSeconds(_durationBeforeDeparture);
+        }
+        else
+            yield return null;
+
         _landingPlatform.ResetRotation(SpaceshipTakeoff);
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.TRUCK_REPART);
     }
@@ -147,7 +159,7 @@ public class SpaceshipManager : MonoBehaviour
 
     private void OnCurrentSpaceshipFull()
     {
-        SpaceshipDeparture();
+        SpaceshipDeparture(true);
     }
 
     private Spaceship GetSpaceship(Spaceship spaceship)
