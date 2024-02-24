@@ -24,7 +24,7 @@ MonoBehaviour:
   pointsForEachSecondBeforeEndTimer: 50
   pointsPerSlotFilled: 25
   pointsPerExtraSlotFilled: 50
-  extraPointsPerSlotFilledPerfect: 100
+  extraPointsPerSlotFilledPerfect: 200
   scorelow: 100
   colorScorelow: {r: 1, g: 1, b: 1, a: 1}
   scoremedium: 200
