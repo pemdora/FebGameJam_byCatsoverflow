@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LED Display Setting
   m_EditorClassIdentifier: 
   order: 1
-  speed: 750
+  speed: 1100
   glitchDuration: 0.2
   commonTextColor: {r: 1, g: 1, b: 1, a: 1}
   commonSentences:
