@@ -4,7 +4,9 @@ using UnityEngine;
 public class Cargo : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private int _cargoSize = 3;
+    [SerializeField] private int _cargoMaxLenght = 3;
+    [SerializeField] private int _cargoMaxWidth = 3;
+    [SerializeField] private int _cargoHeight = 3;
     [SerializeField] private WareCollection _allowedCollection;
 
     [Header("References")]
@@ -17,7 +19,7 @@ public class Cargo : MonoBehaviour
     public int SlotCount => _slotCount;
     public int OccupiedSlotCount => _occupiedSlotCount;
     public int EmptySlotCount => _emptySlotCount;
-    public int CargoSize => _cargoSize;
+    public int CargoSize => _cargoHeight;
     public ParticleSystem CargoCompletedParticles => _cargoCompletedParticles;
 
     private List<Ware> _placedWare;
@@ -36,7 +38,7 @@ public class Cargo : MonoBehaviour
             cargoSlot.Initialize(this);
         }
 
-        _slotCount = Mathf.FloorToInt(Mathf.Pow(_cargoSize, 3));
+        _slotCount = _slots.Length * _cargoHeight;
         _emptySlotCount = _slotCount;
         _occupiedSlotCount = 0;
 
@@ -126,7 +128,8 @@ public class Cargo : MonoBehaviour
 
     public void DeactivateCargo()
     {
-        Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoSize * 0.5f, 0), new Vector3(_cargoSize, _cargoSize, _cargoSize) * 0.5f, Quaternion.identity, _wareLayerMask);
+        Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoHeight * 0.5f, 0), new Vector3(_cargoMaxLenght, _cargoMaxWidth, _cargoHeight) * 0.5f, Quaternion.identity, _wareLayerMask);
+        Debug.Log(hitWares.Length);
         for (int i = 0; i < hitWares.Length; i++)
         {
             hitWares[i].enabled = false;

@@ -47,7 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a390c161b7134976b54d78a6e6b2619c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cargoSize: 4
+  _cargoMaxLenght: 4
+  _cargoMaxWidth: 4
+  _cargoHeight: 4
   _allowedCollection: {fileID: 11400000, guid: 0fc47f18bdd22074b9e0c5f5079cea3e, type: 2}
   _slots:
   - {fileID: 2082582827203306252}

@@ -158,7 +158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8003573543724700127}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -182,10 +182,19 @@ MonoBehaviour:
   _spaceshipsPrefab:
   - {fileID: 8925642590390673760, guid: 952237e00794f5b4ea136916fef532ee, type: 3}
   - {fileID: 8681111708297996933, guid: e3a26f797068a5e43a6aa577eb20fc0c, type: 3}
+  - {fileID: 2156597250780880063, guid: 93efa7f011b044b4e802a78e2f9aa979, type: 3}
+  _durationBeforeDeparture: 0.75
+  _scoreManager: {fileID: 0}
   _landingPlatform: {fileID: 0}
   _conveyorStart: {fileID: 0}
   _arrivalConductor: {fileID: 5662446986890539028}
   _departureConductor: {fileID: 8108149723970703196}
+  OnSpaceshipLanded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSpaceshipTakeOff:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8305950478626151830
 GameObject:
   m_ObjectHideFlags: 0
