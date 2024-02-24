@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,28 @@ public class FaceAnimation
 
 //emission const
 
+public enum ManagerEmotions
+{
+    Neutral,
+    Pleased,
+    Happy,
+    Unhappy,
+    Livid
+}
+[System.Serializable]
+struct EmotionValues
+{
+    public int _eyes;
+    public int _mouth;
+}
+
+[System.Serializable]
+struct EmotionDictionaryEntry
+{
+    public ManagerEmotions _emotion;
+    public EmotionValues _values;
+}
+
 
 
 public class ManagerFaceAnimation : MonoBehaviour
@@ -28,7 +51,10 @@ public class ManagerFaceAnimation : MonoBehaviour
     [SerializeField] private Color _color = Color.white;
     //hdr color emission
     [ColorUsageAttribute(true, true)]
-    [SerializeField] private Color _emissionColor = Color.white;    
+    [SerializeField] private Color _emissionColor = Color.white;
+    // List of the emotions that can make the manager, associed to the mouth and eyes index
+    [SerializeField] private List<EmotionDictionaryEntry> _emotionDictionary= new List<EmotionDictionaryEntry>();
+    [SerializeField] ManagerEmotions _currentEmotion = ManagerEmotions.Neutral;
 
     // [Range(0f, 10f)]
     // [SerializeField] private float _mouthAnimationSpeed = 1f; //polish
@@ -50,7 +76,7 @@ public class ManagerFaceAnimation : MonoBehaviour
         //selection of the first eyes and mouth
         changeEyes(eyesAnimations[0].name);
         changeMouth(mouthAnimations[0].name);
-        changeSpriteColor(_color);        
+        changeSpriteColor(_color);
     }
 
     public void changeSpriteColor(Color color)
@@ -94,5 +120,22 @@ public class ManagerFaceAnimation : MonoBehaviour
         eyesDecalProjector.transform.LookAt(face.transform.position);
         mouthDecalProjector.transform.LookAt(face.transform.position);
 
+        changeSpriteColor(_color);
+        ChangeEmotion(_currentEmotion);
+
+    }
+
+    public void ChangeEmotion(ManagerEmotions emotions)
+    {
+        foreach(EmotionDictionaryEntry emotionEntry in _emotionDictionary)
+        {
+            if (emotionEntry._emotion == emotions)
+            {
+                EmotionValues values = emotionEntry._values;
+                changeEyes(eyesAnimations[values._eyes].name);
+                changeMouth(mouthAnimations[values._mouth].name);
+                return;
+            }
+        }
     }
 }

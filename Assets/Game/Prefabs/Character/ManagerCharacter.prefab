@@ -162,6 +162,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _color: {r: 1, g: 1, b: 1, a: 1}
   _emissionColor: {r: 17.148375, g: 0, b: 0, a: 1}
+  _emotionDictionary:
+  - _emotion: 0
+    _values:
+      _eyes: 0
+      _mouth: 0
+  - _emotion: 1
+    _values:
+      _eyes: 0
+      _mouth: 4
+  - _emotion: 2
+    _values:
+      _eyes: 4
+      _mouth: 4
+  - _emotion: 3
+    _values:
+      _eyes: 5
+      _mouth: 1
+  - _emotion: 4
+    _values:
+      _eyes: 2
+      _mouth: 2
+  _currentEmotion: 0
   eyesAnimations:
   - name: normal
     texture: {fileID: 21300000, guid: 6622cbabdfc578149ba0336851f19ab2, type: 3}
