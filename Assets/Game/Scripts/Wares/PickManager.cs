@@ -81,15 +81,7 @@ public class PickManager : MonoBehaviour
             // drop the ware if we can't place it
             if (!isWareSnapped && Input.GetMouseButtonUp(0))
             {
-                WareEventData eventData = new();
-                eventData.ware = _selectedWare;
-
-                _selectedWare.Drop();
-                _selectedWare = null;
-                _scoreManager.DiscardWare();
-
-                OnDropWare.Invoke(eventData);
-
+                DropWare();
                 return;
             }
 
@@ -168,6 +160,37 @@ public class PickManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void DropWare()
+    {
+        if (!_selectedWare)
+        {
+            return;
+        }
+        WareEventData eventData = new();
+        eventData.ware = _selectedWare;
+
+        _selectedWare.Drop();
+        _selectedWare = null;
+        _scoreManager.DiscardWare();
+
+        OnDropWare.Invoke(eventData);
+
+    }
+
+    public void ResetPickManager()
+    {
+        if (!_selectedWare)
+        {
+            return;
+        }
+        WareEventData eventData = new();
+        eventData.ware = _selectedWare;
+        _selectedWare.Drop();
+        _selectedWare = null;
+        OnDropWare.Invoke(eventData);
+
     }
 
     private void ActiveHighlight(Ware ware)
