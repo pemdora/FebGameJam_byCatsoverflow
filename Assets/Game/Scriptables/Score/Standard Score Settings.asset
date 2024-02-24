@@ -21,7 +21,7 @@ MonoBehaviour:
   frustrationThresholdCargo4Min: 20
   frustrationThresholdCargo4Max: 60
   frustrationThresholdStep: 10
-  pointsForEachSecondBeforeEndTimer: 1
+  pointsForEachSecondBeforeEndTimer: 100
   pointsPerSlotFilled: 50
   pointsPerExtraSlotFilled: 25
   scorelow: 100
@@ -33,4 +33,4 @@ MonoBehaviour:
   scoreExtrahigh: 400
   colorScoreExtrahigh: {r: 0.9716981, g: 0.16042183, b: 0.4293673, a: 1}
   conveyorBeltSpeedIncrease: 10
-  spaceshipLoadingTimeDecrease: 25
+  spaceshipLoadingTimeDecrease: 10

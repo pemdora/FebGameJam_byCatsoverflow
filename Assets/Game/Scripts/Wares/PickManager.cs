@@ -173,7 +173,7 @@ public class PickManager : MonoBehaviour
 
         _selectedWare.Drop();
         _selectedWare = null;
-        _scoreManager.DiscardWare();
+        _scoreManager.DiscardWare(eventData.ware);
 
         OnDropWare.Invoke(eventData);
 
