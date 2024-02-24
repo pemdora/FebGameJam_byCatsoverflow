@@ -101,6 +101,10 @@ public class ScoreManager : MonoBehaviour
             // We call the UI dedicated to display the frustration and we update the Filler Image
             _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
 
+            // UI feedback
+            float duration=1f;
+            _scoreDisplayUI.DisplayFrustrationMalus(duration);
+
             // If the frustration reach the maximum value, trigger game over
             if (_frustration >= _settings.maxFrustrationAllowed)
             {
