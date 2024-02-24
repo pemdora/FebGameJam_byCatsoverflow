@@ -13,6 +13,7 @@ public class ScoreDisplayUI : MonoBehaviour
     [SerializeField] TMP_Text _extraThresholdScoreTxt;
     [SerializeField] TMP_Text _extraTimerScoreTxt;
     [SerializeField] Image _angryIcon;
+    [SerializeField] Image _angryThresholdIcon;
 
     [Header("LowScore")]
     [SerializeField] private AnimationCurve _lowScoreCurveY;
@@ -31,6 +32,11 @@ public class ScoreDisplayUI : MonoBehaviour
     [Header("Malus")]
     [SerializeField] private AnimationCurve _angryIconCurveY;
     [SerializeField] private AnimationCurve _angryIconScaleCurve;
+    [SerializeField] private Transform _thresholdMalusStartPos;
+    [SerializeField] private Transform _thresholdMalusEndPos;
+    [SerializeField] private AnimationCurve _thresholdDurationTrajectory;
+    [SerializeField] private AnimationCurve _thresholdMalusCurveY;
+    [SerializeField] private AnimationCurve _thresholdMalusScaleCurve;
 
 
     public void DisplayWareScore(int score, Vector3 uiPosition, ScoreSettings scoreSettings)
@@ -164,16 +170,41 @@ public class ScoreDisplayUI : MonoBehaviour
             score.gameObject.SetActive(false);
     }
 
+    public void DisplayFrustrationMalus(float malusDuration, float step = 0.2f)
+    {
+        Vector2 screenStartPos = _thresholdMalusStartPos.position;
+        Vector2 screenEndPos = _thresholdMalusEndPos.position;
+        StartCoroutine(AnimateThresholdMalus(screenStartPos, screenEndPos , malusDuration, step));
+    }
 
-    // private IEnumerator MoveUIToTarget(Image coinIcon)
-    // {
-    //     yield return null;
-    //     // while (Vector3.Distance(coinIcon.rectTransform.position, target.position) > 1.5f)
-    //     // {
-    //     //     //coinIcon.rectTransform.position = Vector3.Lerp(coinIcon.rectTransform.position, moneyUI.rectTransform.position, 2 * Time.deltaTime);
-    //     //     coinIcon.rectTransform.position = Vector3.MoveTowards(coinIcon.rectTransform.position, target.rectTransform.position, 10f);
-    //     //     yield return null;
-    //     // }
-    //     // Destroy(coinIcon);
-    // }
+    private IEnumerator AnimateThresholdMalus(Vector2 screenStartPos, Vector2 screenEndPos, float malusDuration, float step)
+    {
+        // Instanciate the malus icon during the malus duration with a step second
+        float time = 0;
+        while (time < malusDuration)
+        {
+            Image malusIcon = Instantiate(_angryThresholdIcon, _mainCanvas.transform);
+            StartCoroutine(MoveUIToTarget(malusIcon, screenStartPos, screenEndPos));
+            time += step;
+            yield return new WaitForSeconds(step);
+        }
+    }
+
+    private IEnumerator MoveUIToTarget(Image iconToMove, Vector2 screenStartPos, Vector2 screenEndPos)
+    {
+        float time = 0;
+        float duration = _thresholdDurationTrajectory.keys[_thresholdDurationTrajectory.length - 1].time;
+        while (time < duration)
+        {
+            Vector3 newPos = Vector3.Lerp(screenStartPos, screenEndPos, _thresholdDurationTrajectory.Evaluate(time));
+            newPos.y += _thresholdMalusCurveY.Evaluate(time);
+            iconToMove.rectTransform.position = newPos;
+            iconToMove.rectTransform.localScale = Vector3.one * _thresholdMalusScaleCurve.Evaluate(time);
+            // iconToMove.rectTransform.position = Vector3.MoveTowards(iconToMove.rectTransform.position, iconToMove.rectTransform.position, 10f);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(iconToMove);
+    }
 }
