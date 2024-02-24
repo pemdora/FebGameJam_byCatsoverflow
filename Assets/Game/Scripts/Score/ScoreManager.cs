@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int _deliveryCount;
     [SerializeField] private int _frustration;
     [SerializeField] private int _score;
-    
+
     [Header("Settings")]
     [SerializeField] private ScoreSettings _settings;
     [SerializeField] private ScoreDisplayUI _scoreDisplayUI; // Display Score for ware
@@ -56,13 +56,13 @@ public class ScoreManager : MonoBehaviour
     {
         if (cargoSize == 3)
         {
-            int frustration = _settings.frustrationThresholdCargo3Min + _deliveryCount*_settings.frustrationThresholdStep;
-            frustrationThreshold = Mathf.Min(frustration,_settings.frustrationThresholdCargo3Max);
+            int frustration = _settings.frustrationThresholdCargo3Min + _deliveryCount * _settings.frustrationThresholdStep;
+            frustrationThreshold = Mathf.Min(frustration, _settings.frustrationThresholdCargo3Max);
         }
         else if (cargoSize == 4)
         {
-            int frustration = _settings.frustrationThresholdCargo4Min + _deliveryCount*_settings.frustrationThresholdStep;
-            frustrationThreshold = Mathf.Min(frustration,_settings.frustrationThresholdCargo4Max) ;
+            int frustration = _settings.frustrationThresholdCargo4Min + _deliveryCount * _settings.frustrationThresholdStep;
+            frustrationThreshold = Mathf.Min(frustration, _settings.frustrationThresholdCargo4Max);
         }
         else
         {
@@ -84,11 +84,11 @@ public class ScoreManager : MonoBehaviour
         int minimumOccupiedSlotsNeeded = Mathf.CeilToInt(cargo.SlotCount * (frustrationThreshold / 100f));
         bool minimumOccupiedSlotsReached = cargo.FillPercentage > frustrationThreshold;
         int numberOfOccupiedSlotsAboveThreshold = Mathf.Max(0, cargo.OccupiedSlotCount - minimumOccupiedSlotsNeeded);
-        int numberOfOccupiedSlotsBelowThreshold = Mathf.Max(0,  minimumOccupiedSlotsNeeded - cargo.OccupiedSlotCount);
+        int numberOfOccupiedSlotsBelowThreshold = Mathf.Max(0, minimumOccupiedSlotsNeeded - cargo.OccupiedSlotCount);
 
         // TODO BONUS SCORE
         int extraTresholdBonusPoint = numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
-        if(extraTresholdBonusPoint > 0)
+        if (extraTresholdBonusPoint > 0)
         {
             _scoreDisplayUI.DisplayExtraThresholdBonus(extraTresholdBonusPoint);
             _score += extraTresholdBonusPoint;
@@ -104,7 +104,7 @@ public class ScoreManager : MonoBehaviour
             _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
 
             // UI feedback
-            float duration=1f;
+            float duration = 1f;
             _scoreDisplayUI.DisplayFrustrationMalus(duration);
 
             // If the frustration reach the maximum value, trigger game over
@@ -120,6 +120,13 @@ public class ScoreManager : MonoBehaviour
             _frustration -= _settings.frustrationRelief;
             _frustration = Mathf.Max(0, _frustration);
 
+            if (numberOfOccupiedSlotsBelowThreshold == 0)
+            {
+                // DisplayPerfectBonus is called BEFORE when the cargo is filled perfectly
+                int perfectBonus = cargo.OccupiedSlotCount * _settings.extraPointsPerSlotFilledPerfect;
+                _score += perfectBonus;
+            }
+
             // Check if the player manually send the spaceship
             if (spaceship.LoadingLeft > 0)
             {
@@ -134,6 +141,12 @@ public class ScoreManager : MonoBehaviour
         _deliveryCount++;
     }
 
+    public void DisplayPerfectBonus(int occupiedSlotCount)
+    {
+        int bonus = occupiedSlotCount * _settings.extraPointsPerSlotFilledPerfect;
+        _scoreDisplayUI.DisplayPerfectBonus(bonus);
+    }
+
 
     public void PlaceWare(Ware ware)
     {
@@ -143,7 +156,7 @@ public class ScoreManager : MonoBehaviour
         _score += wareScore + ware.BonusScore;
         OnScoreChanged?.Invoke(_score.ToString());
     }
-    
+
 
     public void DiscardWare(Ware ware)
     {

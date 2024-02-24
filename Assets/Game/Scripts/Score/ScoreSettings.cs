@@ -39,6 +39,8 @@ public class ScoreSettings : ScriptableObject
     public int pointsPerSlotFilled = 1;
     [Tooltip("Threshold to reach before frustration is applied.")]
     public int pointsPerExtraSlotFilled = 2;
+    [Tooltip("Perfect loaded spaceship bonus")]
+    public int extraPointsPerSlotFilledPerfect = 2;
     
     [Header("Score Thresholds Colors")]
     public int scorelow;
@@ -65,6 +67,7 @@ public class ScoreSettings : ScriptableObject
         High,
         ExtraHigh,
         ExtraThresholdBonus,
+        PerfectBonus
     }
     
     public ScoreTresholdType GetScoreThreshold(int score)
