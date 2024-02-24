@@ -147,7 +147,9 @@ PrefabInstance:
       value: Shark
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6572683484597976625, guid: 7c48a7dca071b174e8675c29c04d47d5, type: 3}
+    - {fileID: -8207357047758871489, guid: 7c48a7dca071b174e8675c29c04d47d5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c48a7dca071b174e8675c29c04d47d5, type: 3}
