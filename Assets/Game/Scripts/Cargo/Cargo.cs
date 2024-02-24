@@ -10,6 +10,7 @@ public class Cargo : MonoBehaviour
     [Header("References")]
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
+    [SerializeField] private ParticleSystem _cargoCompletedParticles;
 
     public WareCollection AllowedCollection => _allowedCollection;
     public float FillPercentage => _fillPercentage;
@@ -17,6 +18,7 @@ public class Cargo : MonoBehaviour
     public int OccupiedSlotCount => _occupiedSlotCount;
     public int EmptySlotCount => _emptySlotCount;
     public int CargoSize => _cargoSize;
+    public ParticleSystem CargoCompletedParticles => _cargoCompletedParticles;
 
     private List<Ware> _placedWare;
     private Dictionary<Ware.WareTypes, int> _typesCounter;
@@ -37,6 +39,11 @@ public class Cargo : MonoBehaviour
         _slotCount = Mathf.FloorToInt(Mathf.Pow(_cargoSize, 3));
         _emptySlotCount = _slotCount;
         _occupiedSlotCount = 0;
+
+        if(_cargoCompletedParticles == null)
+        {
+            Debug.LogError("Cargo completed particles not set in inspector!");
+        }
     }
 
     public void AddWare(Ware ware)

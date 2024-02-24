@@ -87,6 +87,8 @@ public class SpaceshipManager : MonoBehaviour
         _currentSpaceship.HasLeft = true;
         _currentSpaceship.StopLoading();
         _currentSpaceship.Cargo.DeactivateCargo();
+        if(_currentSpaceship.Cargo.CargoCompletedParticles != null)
+            _currentSpaceship.Cargo.CargoCompletedParticles.Play();
 
         float speedIncrease = _scoreManager.Settings.GetConveyorBeltSpeedIncrease();
         _conveyorStart.StopConveyor();
