@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     public UnityEvent OnGameOver;
     public UnityEvent<string> OnScoreChanged;
     public UnityEvent<int> OnFrustrationThresholdChanged;
+    public UnityEvent<bool> OnCargoReachedMinimumRequirement;
 
     public int DeliveryCount => _deliveryCount;
     public int Frustration => _frustration;
@@ -83,6 +84,7 @@ public class ScoreManager : MonoBehaviour
         int minimumOccupiedSlotsNeeded = Mathf.CeilToInt(cargo.SlotCount * (frustrationThreshold / 100f));
         bool minimumOccupiedSlotsReached = cargo.FillPercentage > frustrationThreshold;
         int numberOfOccupiedSlotsAboveThreshold = Mathf.Max(0, cargo.OccupiedSlotCount - minimumOccupiedSlotsNeeded);
+        int numberOfOccupiedSlotsBelowThreshold = Mathf.Max(0,  minimumOccupiedSlotsNeeded - cargo.OccupiedSlotCount);
 
         // TODO BONUS SCORE
         int extraTresholdBonusPoint = numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
@@ -96,7 +98,7 @@ public class ScoreManager : MonoBehaviour
         if (!minimumOccupiedSlotsReached)
         {
             // We add frustration for each empty slots
-            _frustration += cargo.EmptySlotCount * _settings.frustrationPerEmptySlots;
+            _frustration += numberOfOccupiedSlotsBelowThreshold * _settings.frustrationPerEmptySlots;
 
             // We call the UI dedicated to display the frustration and we update the Filler Image
             _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
@@ -127,6 +129,7 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
+        OnCargoReachedMinimumRequirement?.Invoke(minimumOccupiedSlotsReached);
         OnScoreChanged?.Invoke(_score.ToString());
         _deliveryCount++;
     }

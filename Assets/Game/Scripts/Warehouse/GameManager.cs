@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         _scoreManager.enabled = true;
+        _pickManager.enabled = true;
         _pickManager.CanPick = true;
         _spaceshipManager.CanSpawnSpaceship = true;
         
@@ -61,7 +62,9 @@ public class GameManager : MonoBehaviour
         _mainMenuManager.ShowGameOver(_scoreManager.Score, _scoreManager.DeliveryCount);
         _scoreManager.ResetData();
         _scoreManager.enabled = false;
+        _pickManager.enabled = false;
         _pickManager.CanPick = false;
+        _pickManager.ResetPickManager();
 
         _spaceshipManager.CanSpawnSpaceship = false;
         if (_spaceshipManager.HasSpaceship)
