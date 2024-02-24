@@ -14,9 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 1
   speed: 750
-  sentences:
+  glitchDuration: 0.2
+  commonTextColor: {r: 1, g: 1, b: 1, a: 1}
+  commonSentences:
   - BREAKING NEWS /// NEW ALIEN SPIECES DISCOVERED
   - WANT TO CHANGE THE WORLD ? START WITH YOURSELF !
   - DON'T FORGET - YOU'RE HERE TO BE PRODUCTIVE
   - STUCK IN A DEAD END JOB ? BECOME A STEVEDORE NOW !
   - WAIT, ARE YOU GUYS RLY READING THIS ?
+  - NOW WITH FULL <color=red>R</color><color=green>G</color><color=blue>B</color>
+    SETTINGS !
+  - DOUBLE <color=red>R</color><color=orange>A</color><color=yellow>I</color><color=green>N</color><color=#00FFFF>B</color><color=#0096FF>O</color><color=purple>W</color>
+    ALL THE WAY 'CROSS THE SKY !
+  successTextColor: {r: 0, g: 0.79607844, b: 0, a: 1}
+  successSentences:
+  - SUCCESS !!!
+  failureTextColor: {r: 1, g: 0, b: 0, a: 1}
+  failureSentences:
+  - FAILURE !!!
+  discardTextColor: {r: 1, g: 1, b: 0, a: 1}
+  discardSentences:
+  - DISCARD !!!

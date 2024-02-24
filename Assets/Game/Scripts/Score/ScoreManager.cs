@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     public UnityEvent OnGameOver;
     public UnityEvent<string> OnScoreChanged;
     public UnityEvent<int> OnFrustrationThresholdChanged;
+    public UnityEvent<bool> OnCargoReachedMinimumRequirement;
 
     public int DeliveryCount => _deliveryCount;
     public int Frustration => _frustration;
@@ -124,6 +125,7 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
+        OnCargoReachedMinimumRequirement?.Invoke(minimumOccupiedSlotsReached);
         OnScoreChanged?.Invoke(_score.ToString());
         _deliveryCount++;
     }
