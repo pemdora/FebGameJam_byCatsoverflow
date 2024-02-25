@@ -116,7 +116,15 @@ public class SpaceshipManager : MonoBehaviour
 
     public void Reset()
     {
-        _currentSpaceship = null;
+        _currentSpaceship.HasLeft = true;
+        _currentSpaceship.StopLoading();
+        _currentSpaceship.Cargo.DeactivateCargo();
+        
+        _landingPlatform.ResetRotation(() =>
+        {
+            _departureConductor.AttachSpaceship(_currentSpaceship, _ => _currentSpaceship = null, false);
+        });
+        
         _conveyorStart.ResetSpeed();
     }
 

@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void OnGameOver()
     {
-        _landingPlatform.CanRotate = false;
+        //_landingPlatform.CanRotate = false;
         _mainMenuManager.ShowGameOver(_scoreManager.Score, _scoreManager.DeliveryCount);
         _scoreManager.ResetData();
         _scoreManager.enabled = false;
@@ -67,10 +67,10 @@ public class GameManager : MonoBehaviour
         _pickManager.ResetPickManager();
 
         _spaceshipManager.CanSpawnSpaceship = false;
-        if (_spaceshipManager.HasSpaceship)
-        {
-            _spaceshipManager.SpaceshipDeparture();
-        }
+        // if (_spaceshipManager.HasSpaceship)
+        // {
+        //     _spaceshipManager.SpaceshipDeparture();
+        // }
         _spaceshipManager.Reset();
 
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);

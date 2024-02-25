@@ -22,8 +22,6 @@ public class SpaceshipConductor : MonoBehaviour
             return;
         }
 
-        ClearChildren();
-        
         _spaceship = spaceship;
         _endRotation = _spaceship.transform.rotation;
         _spaceship.transform.SetParent(_conductor, forcePosition);
@@ -45,6 +43,8 @@ public class SpaceshipConductor : MonoBehaviour
         _onArrivalCallback?.Invoke(_spaceship);
         _spaceship = null;
         _onArrivalCallback = null;
+        
+        ClearChildren();
     }
 
     public void ClearChildren()
