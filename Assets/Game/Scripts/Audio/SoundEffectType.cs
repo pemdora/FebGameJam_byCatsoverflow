@@ -13,5 +13,7 @@ public enum SoundEffectType
     TRUCK_STEP_LOADING,
     OUTCH,
     CLIC,
-    OVER
+    OVER,
+    PLANESCORE,
+    PERFECTSCORE,
 }

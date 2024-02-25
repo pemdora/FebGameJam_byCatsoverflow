@@ -51,6 +51,11 @@ public class AudioManager : MonoBehaviour
     {
         _sfxAudioSource.PlayOneShot(audioScriptableObject.soundsEffectsBySoundType[soundEffectType]);
     }
+    
+    public void PlaySoundEffect(AudioClip audioClip)
+    {
+        _sfxAudioSource.PlayOneShot(audioClip);
+    }
 
     public void SetMasterVolume(float volume)
     {

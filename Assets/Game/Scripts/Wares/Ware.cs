@@ -20,6 +20,7 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private WareTypes _wareType;
     [SerializeField] private AnimationCurve _scaleAnimationCurve; // scale when an object is placed
     [SerializeField] private GameObject _UIpointsprefab;
+    [SerializeField] private AudioClip _sfxPlacedAudioClip;
 
     [Header("References")]
     [SerializeField] private GameObject _graphicsParents;
@@ -113,6 +114,7 @@ public class Ware : MonoBehaviour, IWareSupport
         ClearBoundsIndicators();
         _associatedCargo.AddWare(this);
         transform.parent = destination.transform;
+        AudioManager.Instance.PlaySoundEffect(_sfxPlacedAudioClip);
         StartPlaceAnimation();
     }
 

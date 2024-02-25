@@ -109,6 +109,7 @@ public class ScoreDisplayUI : MonoBehaviour
         _perfectScoreTxt.gameObject.SetActive(true);
         _perfectScoreTxt.text = "Perfect!\n+" + score.ToString();
         _perfectScoreTxt.color = Color.white;
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.PERFECTSCORE);
         StartCoroutine(AnimateScore(_perfectScoreTxt, ScoreTresholdType.PerfectBonus));
     }
 
