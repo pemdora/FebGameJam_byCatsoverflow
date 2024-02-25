@@ -13,6 +13,7 @@ public class Cargo : MonoBehaviour
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
     [SerializeField] private ParticleSystem _cargoCompletedParticles;
+    [SerializeField] private ParticleSystem _lineWinParticles;
 
     public WareCollection AllowedCollection => _allowedCollection;
     public float FillPercentage => _fillPercentage;
@@ -21,6 +22,7 @@ public class Cargo : MonoBehaviour
     public int EmptySlotCount => _emptySlotCount;
     public int CargoSize => _cargoHeight;
     public ParticleSystem CargoCompletedParticles => _cargoCompletedParticles;
+    public ParticleSystem LineWinParticles => _lineWinParticles;
 
     private List<Ware> _placedWare;
     private Dictionary<Ware.WareTypes, int> _typesCounter;

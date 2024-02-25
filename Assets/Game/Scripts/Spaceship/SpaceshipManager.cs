@@ -122,6 +122,8 @@ public class SpaceshipManager : MonoBehaviour
         {
             if (_currentSpaceship.Cargo.CargoCompletedParticles != null)
                 _currentSpaceship.Cargo.CargoCompletedParticles.Play();
+            if (_currentSpaceship.Cargo.LineWinParticles != null)
+                _currentSpaceship.Cargo.LineWinParticles.Play();
             _scoreManager.DisplayPerfectBonus(_currentSpaceship.Cargo.CargoSize);
             yield return new WaitForSeconds(_durationBeforeDeparture);
         }
