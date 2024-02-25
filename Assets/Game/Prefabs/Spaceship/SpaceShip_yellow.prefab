@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  _loadingDuration: 45
+  _loadingDuration: 50
   _minLoadingDuration: 15
   _cargo: {fileID: 889955318395922503}
 --- !u!1 &7405402047736460670
