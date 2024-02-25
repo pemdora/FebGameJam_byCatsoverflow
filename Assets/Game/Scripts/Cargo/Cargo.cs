@@ -28,10 +28,12 @@ public class Cargo : MonoBehaviour
     private float _fillPercentage;
     private int _occupiedSlotCount;
     private int _emptySlotCount;
+    private List<int> _fullLines;
 
     private void Start()
     {
         _typesCounter = new Dictionary<Ware.WareTypes, int>();
+        _fullLines = new List<int>();
         _placedWare = new List<Ware>();
         foreach (CargoSlot cargoSlot in _slots)
         {
@@ -53,6 +55,7 @@ public class Cargo : MonoBehaviour
         _placedWare.Add(ware);
         AddWareTypes(ware.GetWareType());
         UpdateCargoContent();
+        CheckForFullLines();
 
         // TODO: add ware interaction trigger here
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.POSE_BLOCK);
@@ -126,10 +129,32 @@ public class Cargo : MonoBehaviour
         }
     }
 
+    private void CheckForFullLines()
+    {
+        for (int height = 0; height < _cargoHeight; height++)
+        {
+            if (!_fullLines.Contains(height))
+            {
+                if (IsLineFull(height))
+                {
+                    _fullLines.Add(height);
+                    //TODO: play VFX
+                    Debug.Log($"Line {height} is now full!");
+                }
+            }
+        }
+    } 
+    
+    public bool IsLineFull(int height)
+    {
+        Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, height + 0.5f, 0), new Vector3(_cargoMaxLenght, 1, _cargoMaxWidth) * 0.49f, Quaternion.identity, _wareLayerMask);
+        Debug.Log($"Line {height} has {hitWares.Length} col");
+        return hitWares.Length >= _slots.Length;
+    }
+
     public void DeactivateCargo()
     {
-        Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoHeight * 0.5f, 0), new Vector3(_cargoMaxLenght, _cargoMaxWidth, _cargoHeight) * 0.5f, Quaternion.identity, _wareLayerMask);
-        Debug.Log(hitWares.Length);
+        Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, _cargoHeight * 0.5f, 0), new Vector3(_cargoMaxLenght, _cargoHeight, _cargoMaxWidth) * 0.5f, Quaternion.identity, _wareLayerMask);
         for (int i = 0; i < hitWares.Length; i++)
         {
             hitWares[i].enabled = false;
