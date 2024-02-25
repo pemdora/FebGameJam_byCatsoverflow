@@ -54,4 +54,12 @@ public class SpaceshipConductor : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
+    public void DoReset()
+    {
+        if (_spaceship)
+        {
+            Destroy(_spaceship.gameObject);
+        }
+    }
 }
