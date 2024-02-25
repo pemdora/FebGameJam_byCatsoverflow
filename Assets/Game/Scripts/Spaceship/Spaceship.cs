@@ -24,6 +24,7 @@ public class Spaceship : MonoBehaviour
     public Cargo Cargo => _cargo;
 
     private bool _hasLeft;
+    private static readonly int ColorShaderProperty = Shader.PropertyToID("Color");
 
     public void Initialize(float timerPenalty)
     {
@@ -62,7 +63,7 @@ public class Spaceship : MonoBehaviour
         Color color = _colorScheme.GetRandomColor();
         foreach (Renderer renderer in _renderers)
         {
-            renderer.material.color = color;
+            renderer.material.SetColor(ColorShaderProperty, color);
         }
     }
 }
