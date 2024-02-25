@@ -20,6 +20,9 @@ public class PercentageUI : MonoBehaviour
     [SerializeField] private TMP_Text _percentageText;
     [SerializeField] private Slider _objectiveSlider;
     [SerializeField] private Image _filler;
+    [SerializeField] private RectTransform _fillerTransform;
+    [SerializeField] private Image _tresholdGap;
+    [SerializeField] private RectTransform _tresholdGapTransform;
     [SerializeField] private Image _handleImage;
 
 
@@ -35,12 +38,27 @@ public class PercentageUI : MonoBehaviour
 
     void Start()
     {
+        FindObjectOfType<ScoreManager>().OnScoreChanged.AddListener(OnScoreChanged);
         _percentageText.text = "??";
         _previousPercentage = 0;
         _filler.fillAmount = 0;
-
+        _tresholdGap.fillAmount = 0;
+    }
+    public void OnScoreChanged(string lolpourquoiunstring)
+    {
+        SetGapPositionAndDimensions();
+    }
+    public void SetGapPositionAndDimensions()
+    {
+        var pos = new Vector2(-225, _tresholdGapTransform.position.y);
+        float maxWidth = _fillerTransform.sizeDelta.x;
+        pos.x += maxWidth * _spaceshipManager.Percentage;
+        
+        float width = _objectiveSlider.value * maxWidth - _spaceshipManager.Percentage * maxWidth;
+        _fillerTransform.sizeDelta = new Vector2(width, _fillerTransform.sizeDelta.y);
     }
 
+    //Not used anywhere ?
     public void SetObjectiveSlider(int frustrationThreshold)
     {
         float oldvalue = _objectiveSlider.value;
