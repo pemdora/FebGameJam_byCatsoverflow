@@ -26,6 +26,12 @@ public class PercentageUI : MonoBehaviour
     [SerializeField] private RectTransform _tresholdGapTransform;
     [SerializeField] private Image _handleImage;
 
+    [SerializeField] private RectTransform _angryStart;
+    [SerializeField] private Image _frustrationFill;
+    [SerializeField] private RectTransform _frustrationFillTransform;
+    [SerializeField] private RectTransform _frustrationBottom;
+
+
     private float _previousPercentage;
     private float _animationPercentage;
     private Coroutine _fillCoroutine;
@@ -42,13 +48,20 @@ public class PercentageUI : MonoBehaviour
         _tresholdGap.fillAmount = 0;
         _fillerJuice.fillAmount = 0;
         _spaceshipManager.OnSpaceshipTakeOff.AddListener(OnSpaceshipLeft);
+        SetGapPositionAndDimensions();
     }
     public void OnSpaceshipLeft(Spaceship spaceship)
     {
         _tresholdGap.fillAmount = 1;
         _fillerJuice.fillAmount = 0;
+        SetGapPositionAndDimensions();
         if (_gapCoroutine == null)
             _gapCoroutine = StartCoroutine(GapCoroutine());
+
+        //Set angry emote position start and end
+
+
+
     }
     public void SetGapPositionAndDimensions()
     {
@@ -56,10 +69,10 @@ public class PercentageUI : MonoBehaviour
         float maxWidth = _fillerTransform.sizeDelta.x;
         pos.x += maxWidth * _spaceshipManager.Percentage / 100;
 
-
         float width = Mathf.Clamp(_objectiveSlider.value * maxWidth - _spaceshipManager.Percentage / 100 * maxWidth, 0, maxWidth);
         _tresholdGapTransform.sizeDelta = new Vector2(width, _fillerTransform.sizeDelta.y);
         _tresholdGapTransform.localPosition = pos;
+        _angryStart.position = _tresholdGapTransform.position;
     }
 
     public void SetObjectiveSlider(int frustrationThreshold)
@@ -83,9 +96,11 @@ public class PercentageUI : MonoBehaviour
             _warningCoroutine = StartCoroutine(WarningHandleCoroutine(_warningFlickeringSpeed));
         }
 
-        if (_spaceshipManager.HasSpaceship && _spaceshipManager.Percentage <= 100)
+        /*if (_spaceshipManager.Percentage <= 100)
+        {*/
+        //Each time the loading percentage changes
+        if (_spaceshipManager.HasSpaceship)
         {
-            //Each time the loading percentage changes
             if (Mathf.Abs(_spaceshipManager.Percentage - _previousPercentage) > 0.001f)
             {
                 SetGapPositionAndDimensions();
@@ -104,6 +119,7 @@ public class PercentageUI : MonoBehaviour
                 _previousPercentage = _spaceshipManager.Percentage;
             }
         }
+        // }
     }
 
     void ObjectiveReached()
@@ -167,7 +183,6 @@ public class PercentageUI : MonoBehaviour
         _filler.fillAmount = 0;
         _objectiveReached = false;
         _handleImage.CrossFadeColor(_handleNormalColor, 0.25f, false, false);
-
     }
 
     private IEnumerator ObjectiveSliderCoroutine(float previousValue, float NextValue, float duration)
