@@ -32,6 +32,9 @@ public class Cargo : MonoBehaviour
     private int _emptySlotCount;
     private List<int> _fullLines;
 
+    public delegate void PlaneFull(int size);
+    public static event PlaneFull OnPlanedFilled;
+
     private void Start()
     {
         _typesCounter = new Dictionary<Ware.WareTypes, int>();
@@ -62,7 +65,10 @@ public class Cargo : MonoBehaviour
             {
                 ParticleSystem lineWinParticles = Instantiate(_lineWinParticles, transform);
                 lineWinParticles.transform.localPosition = new Vector3(0, 0.5f + i * 1, 0);
-                lineWinParticles.transform.localScale = new Vector3(_cargoMaxWidth * lineWinParticles.transform.localScale.x, lineWinParticles.transform.localScale.y, _cargoMaxLenght * lineWinParticles.transform.localScale.z);
+                var modifiedPart = lineWinParticles.main;
+                modifiedPart.startSizeX = _cargoMaxLenght * 4f; // caca mais josef
+                modifiedPart.startSizeY = 4f;
+                modifiedPart.startSizeZ = _cargoMaxLenght * 4f;
                 _lineListParticleSystems.Add(lineWinParticles);
             }
         }
@@ -148,8 +154,8 @@ public class Cargo : MonoBehaviour
                     if (_lineListParticleSystems != null)
                     {
                         _lineListParticleSystems[height].Play();
+                        OnPlanedFilled?.Invoke(_cargoMaxLenght* _cargoMaxWidth);
                     }
-                    AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLANESCORE);
                 }
             }
         }

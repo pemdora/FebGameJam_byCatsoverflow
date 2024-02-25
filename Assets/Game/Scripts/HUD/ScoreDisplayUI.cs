@@ -14,6 +14,7 @@ public class ScoreDisplayUI : MonoBehaviour
     [SerializeField] TMP_Text _extraThresholdScoreTxt;
     [SerializeField] TMP_Text _extraTimerScoreTxt;
     [SerializeField] TMP_Text _perfectScoreTxt;
+    [SerializeField] TMP_Text _planeScoreTxt;
     [SerializeField] Image _angryIcon;
     [SerializeField] Image _angryThresholdIcon;
 
@@ -32,6 +33,7 @@ public class ScoreDisplayUI : MonoBehaviour
     [SerializeField] private AnimationCurve _specialThresholdScoreCurveY; // lazy ass reuse the same for bonus timer
     [SerializeField] private AnimationCurve _specialThresholdScoreScaleCurve;
     [SerializeField] private AnimationCurve _perfectScoreScaleCurve;
+    [SerializeField] private AnimationCurve _planeScoreScaleCurve;
     [Header("Malus")]
     [SerializeField] private AnimationCurve _angryIconCurveY;
     [SerializeField] private AnimationCurve _angryIconScaleCurve;
@@ -40,7 +42,6 @@ public class ScoreDisplayUI : MonoBehaviour
     [SerializeField] private AnimationCurve _thresholdDurationTrajectory;
     [SerializeField] private AnimationCurve _thresholdMalusCurveY;
     [SerializeField] private AnimationCurve _thresholdMalusScaleCurve;
-
 
     public void DisplayWareScore(int score, Vector3 uiPosition, ScoreSettings scoreSettings)
     {
@@ -110,7 +111,15 @@ public class ScoreDisplayUI : MonoBehaviour
         _perfectScoreTxt.text = "Perfect!\n+" + score.ToString();
         _perfectScoreTxt.color = Color.white;
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.PERFECTSCORE);
-        StartCoroutine(AnimateScore(_perfectScoreTxt, ScoreTresholdType.PerfectBonus));
+        StartCoroutine(AnimateScore(_perfectScoreTxt, ScoreTresholdType.Perfect));
+    }
+
+    public void DisplayPlaneScore(int score)
+    {
+        _planeScoreTxt.gameObject.SetActive(true);
+        _planeScoreTxt.text = "+" + score.ToString();
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLANESCORE);
+        StartCoroutine(AnimateScore(_planeScoreTxt, ScoreTresholdType.Perfect));
     }
 
     public void DisplayTimerBonus(int score)
@@ -142,7 +151,10 @@ public class ScoreDisplayUI : MonoBehaviour
             case ScoreTresholdType.ExtraThresholdBonus:
                 duration = _specialThresholdScoreCurveY.keys[_specialThresholdScoreCurveY.length - 1].time;
                 break;
-            case ScoreTresholdType.PerfectBonus:
+            case ScoreTresholdType.PlaneBonus:
+                duration = _planeScoreScaleCurve.keys[_planeScoreScaleCurve.length - 1].time;
+                break;
+            case ScoreTresholdType.Perfect:
                 duration = _perfectScoreScaleCurve.keys[_perfectScoreScaleCurve.length - 1].time;
                 break;
         }
@@ -174,7 +186,12 @@ public class ScoreDisplayUI : MonoBehaviour
                     score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
                     score.rectTransform.localScale = Vector3.one * _specialThresholdScoreScaleCurve.Evaluate(ratio);
                     break;
-                case ScoreTresholdType.PerfectBonus:
+                case ScoreTresholdType.PlaneBonus:
+                    score.rectTransform.localScale = Vector3.one * _planeScoreScaleCurve.Evaluate(ratio);
+                    score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
+                    score.color = Color.HSVToRGB(Mathf.PingPong(Time.time * 0.5f, 1), 1, 1);
+                    break;
+                case ScoreTresholdType.Perfect:
                     score.rectTransform.localScale = Vector3.one * _perfectScoreScaleCurve.Evaluate(ratio);
                     score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
                     score.color = Color.HSVToRGB(Mathf.PingPong(Time.time * 0.5f, 1), 1, 1);
@@ -184,7 +201,7 @@ public class ScoreDisplayUI : MonoBehaviour
             yield return null;
         }
 
-        if(scoreTreshold != ScoreTresholdType.ExtraThresholdBonus && scoreTreshold != ScoreTresholdType.PerfectBonus)
+        if(scoreTreshold != ScoreTresholdType.ExtraThresholdBonus && scoreTreshold != ScoreTresholdType.Perfect)
             Destroy(score.gameObject);
         else
         {

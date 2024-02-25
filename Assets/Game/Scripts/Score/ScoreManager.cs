@@ -45,11 +45,14 @@ public class ScoreManager : MonoBehaviour
     private void OnEnable()
     {
         _spaceshipManager.OnSpaceshipTakeOff.AddListener(OnSpaceshipLeft);
+        Cargo.OnPlanedFilled += OnPlanedFilled;
+
     }
 
     private void OnDisable()
     {
         _spaceshipManager.OnSpaceshipTakeOff.RemoveListener(OnSpaceshipLeft);
+        Cargo.OnPlanedFilled -= OnPlanedFilled;
     }
 
     public void SetObjectiveTreshold(int cargoSize)
@@ -145,6 +148,14 @@ public class ScoreManager : MonoBehaviour
     {
         int bonus = occupiedSlotCount * _settings.extraPointsPerSlotFilledPerfect;
         _scoreDisplayUI.DisplayPerfectBonus(bonus);
+    }
+
+    private void OnPlanedFilled(int size)
+    {
+        int bonus = size * _settings.extraPointsPerSlotFilledPlane;
+        _scoreDisplayUI.DisplayPlaneScore(bonus);
+        _score += bonus;
+        OnScoreChanged?.Invoke(_score.ToString());
     }
 
 
