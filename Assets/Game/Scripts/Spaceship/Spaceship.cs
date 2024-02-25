@@ -11,6 +11,7 @@ public class Spaceship : MonoBehaviour
     [Header("References")]
     [SerializeField] private Cargo _cargo;
     [SerializeField] private Renderer[] _renderers;
+   
 
     public float LoadingDuration => _loadingDuration;
     public float LoadingTimer { get; private set; }
@@ -63,7 +64,9 @@ public class Spaceship : MonoBehaviour
         Color color = _colorScheme.GetRandomColor();
         foreach (Renderer renderer in _renderers)
         {
-            renderer.material.SetColor(ColorShaderProperty, color);
+            renderer.material.SetColor("Color", color);
+            Debug.Log("Color: " + color);
+                
         }
     }
 }
