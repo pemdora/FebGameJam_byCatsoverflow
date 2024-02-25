@@ -13,7 +13,7 @@ public class Cargo : MonoBehaviour
     [SerializeField] private CargoSlot[] _slots;
     [SerializeField] private LayerMask _wareLayerMask;
     [SerializeField] private ParticleSystem _cargoCompletedParticles;
-    [SerializeField] private ParticleSystem _lineWinParticles;
+    [SerializeField] private ParticleSystem _lineWinParticles; //prefab
 
     public WareCollection AllowedCollection => _allowedCollection;
     public float FillPercentage => _fillPercentage;
@@ -22,8 +22,8 @@ public class Cargo : MonoBehaviour
     public int EmptySlotCount => _emptySlotCount;
     public int CargoSize => _cargoHeight;
     public ParticleSystem CargoCompletedParticles => _cargoCompletedParticles;
-    public ParticleSystem LineWinParticles => _lineWinParticles;
 
+    private List<ParticleSystem> _lineListParticleSystems;
     private List<Ware> _placedWare;
     private Dictionary<Ware.WareTypes, int> _typesCounter;
     private int _slotCount;
@@ -46,9 +46,25 @@ public class Cargo : MonoBehaviour
         _emptySlotCount = _slotCount;
         _occupiedSlotCount = 0;
 
-        if(_cargoCompletedParticles == null)
+        if (_cargoCompletedParticles == null)
         {
             Debug.LogError("Cargo completed particles not set in inspector!");
+        }
+
+        if (_lineWinParticles == null)
+        {
+            Debug.LogError("Line win particles not set in inspector!");
+        }
+        else
+        {
+            _lineListParticleSystems = new List<ParticleSystem>(_cargoHeight);
+            for (int i = 0; i < _cargoHeight; i++)
+            {
+                ParticleSystem lineWinParticles = Instantiate(_lineWinParticles, transform);
+                lineWinParticles.transform.localPosition = new Vector3(0, 0.5f + i * 1, 0);
+                lineWinParticles.transform.localScale = new Vector3(_cargoMaxWidth * lineWinParticles.transform.localScale.x, lineWinParticles.transform.localScale.y, _cargoMaxLenght * lineWinParticles.transform.localScale.z);
+                _lineListParticleSystems.Add(lineWinParticles);
+            }
         }
     }
 
@@ -107,17 +123,6 @@ public class Cargo : MonoBehaviour
         _typesCounter[wareType]--;
     }
 
-    void DebugPrintTypesCounter()
-    {
-        string debugString = "Types counter: ";
-        Debug.Log(debugString);
-        foreach (KeyValuePair<Ware.WareTypes, int> pair in _typesCounter)
-        {
-            debugString = "[" + pair.Key + "] : " + pair.Value + " ";
-            Debug.Log(debugString);
-        }
-    }
-
     public void ActivateCargo()
     {
         for (int i = 0; i < _slots.Length; i++)
@@ -140,17 +145,19 @@ public class Cargo : MonoBehaviour
                 if (IsLineFull(height))
                 {
                     _fullLines.Add(height);
-                    //TODO: play VFX
-                    Debug.Log($"Line {height} is now full!");
+                    if (_lineListParticleSystems != null)
+                    {
+                        _lineListParticleSystems[height].Play();
+                    }
+                    AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLANESCORE);
                 }
             }
         }
-    } 
-    
+    }
+
     public bool IsLineFull(int height)
     {
         Collider[] hitWares = Physics.OverlapBox(transform.position + new Vector3(0, height + 0.5f, 0), new Vector3(_cargoMaxLenght, 1, _cargoMaxWidth) * 0.49f, Quaternion.identity, _wareLayerMask);
-        Debug.Log($"Line {height} has {hitWares.Length} col");
         return hitWares.Length >= _slots.Length;
     }
 

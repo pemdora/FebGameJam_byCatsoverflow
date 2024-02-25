@@ -211,7 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a390c161b7134976b54d78a6e6b2619c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cargoSize: 3
+  _cargoMaxLenght: 3
+  _cargoMaxWidth: 3
+  _cargoHeight: 3
   _allowedCollection: {fileID: 11400000, guid: 0fc47f18bdd22074b9e0c5f5079cea3e, type: 2}
   _slots:
   - {fileID: 1398204699444926055}
@@ -227,6 +229,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _cargoCompletedParticles: {fileID: 8928219611840271754}
+  _lineWinParticles: {fileID: 7723372932495984131, guid: e4726e521d5a701428949e321a30b806,
+    type: 3}
 --- !u!1 &5142966214350617819
 GameObject:
   m_ObjectHideFlags: 0
