@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering.LookDev;
 using UnityEngine.Rendering.Universal;
@@ -81,6 +82,8 @@ public class ManagerFaceAnimation : MonoBehaviour
     bool _shouldUpdate = false;
     float _changeSpeed = 5f;
 
+    Coroutine _currentCoroutine;
+
 
 
     public void Awake()
@@ -99,13 +102,13 @@ public class ManagerFaceAnimation : MonoBehaviour
             scoreManager.OnCargoReachedMinimumRequirement.AddListener(CargoLeavingHandler);
         }
         PickManager pickManager = FindObjectOfType<PickManager>();
-        if(pickManager)
+        if (pickManager)
         {
             pickManager.OnDropWare.AddListener(WareDropHandler);
             pickManager.OnPlaceWare.AddListener(WarePlaceHandler);
         }
         GameManager gameManager = FindObjectOfType<GameManager>();
-        if(gameManager)
+        if (gameManager)
         {
             gameManager.OnGameOverEvent.AddListener(ResetManagerAnimations);
         }
@@ -177,8 +180,6 @@ public class ManagerFaceAnimation : MonoBehaviour
         }
     }
 
-    
-    
 
     public void ChangeEmotion(ManagerEmotions emotions)
     {
@@ -193,6 +194,46 @@ public class ManagerFaceAnimation : MonoBehaviour
             }
         }
     }
+
+    IEnumerator NodCoroutine(bool approval, float feelingValue)
+    {
+        Quaternion baseRotation = transform.rotation;
+        float totalTime = 0.5f;
+        int nodNumber = 1;
+        if (approval)
+        {
+            nodNumber += +Mathf.Max(Mathf.FloorToInt(feelingValue / 4 - 1), 0);
+        }
+        else
+        {
+            nodNumber += +Mathf.Max(Mathf.FloorToInt(feelingValue / 4 - 1), 0);
+        }
+
+        float nodTime = totalTime / nodNumber;
+        for (int i = 0; i < nodNumber; i++)
+        {
+            float percent = 0;
+            while (percent < 1)
+            {
+                percent += Time.deltaTime / nodTime;
+                Quaternion movement;
+                if (approval)
+                {
+                    movement = (Quaternion.Euler(50 * Mathf.Sin(percent * Mathf.PI), 0, 0));
+                }
+                else
+                {
+                    movement = (Quaternion.Euler(0, 30 * Mathf.Sin(percent * Mathf.PI), 0));
+                }
+                transform.rotation = baseRotation * movement;
+                yield return null;
+            }
+            transform.rotation = baseRotation;
+        }
+        _currentCoroutine = null;
+    }
+
+
 
     void ComputeCurrentEmotion()
     {
@@ -220,15 +261,26 @@ public class ManagerFaceAnimation : MonoBehaviour
 
     void ComputeColors()
     {
-        float lerpIndex = _feelingBar  * 0.1f;
+        float lerpIndex = _feelingBar * 0.1f;
         _emissionColor = _gradient.Evaluate(lerpIndex);
     }
 
     void AddFeeling(float feelingValue)
     {
         _nextFeeling += feelingValue;
-        //_feelingBar += feelingValue;
+        _nextFeeling = Mathf.Clamp(_nextFeeling, 0f, 10f);
         _shouldUpdate = true;
+        if (_currentCoroutine == null)
+        {
+            if (feelingValue > 0)
+            {
+                _currentCoroutine = StartCoroutine(NodCoroutine(true, _nextFeeling));
+            }
+            else
+            {
+                _currentCoroutine = StartCoroutine(NodCoroutine(false, _nextFeeling));
+            }
+        }
     }
 
     void ResetManagerAnimations()
