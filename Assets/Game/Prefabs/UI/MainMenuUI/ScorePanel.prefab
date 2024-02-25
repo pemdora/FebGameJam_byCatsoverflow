@@ -434,6 +434,48 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _planeScoreScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.002822876
+      value: 1
+      inSlope: 2.0753243
+      outSlope: 2.0753243
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.27780706
+    - serializedVersion: 3
+      time: 0.4765585
+      value: 1.531036
+      inSlope: -0.41773495
+      outSlope: -0.41773495
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.93192315
+    - serializedVersion: 3
+      time: 0.65502656
+      value: 1.1193506
+      inSlope: -0.06834088
+      outSlope: -0.06834088
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.294071
+      value: 1.792416
+      inSlope: -0.024475079
+      outSlope: -0.024475079
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23364414
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _angryIconCurveY:
     serializedVersion: 2
     m_Curve:
