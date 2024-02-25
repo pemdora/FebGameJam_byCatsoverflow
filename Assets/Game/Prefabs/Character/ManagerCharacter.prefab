@@ -247,9 +247,10 @@ MonoBehaviour:
   mouthDecalMaterial: {fileID: 2100000, guid: b842fb95c16748748b366a66f230c3ef, type: 2}
   face: {fileID: 5051084308512239816}
   _feelingBar: 5
-  _cargoValue: 3
-  _dropValue: 2
-  _placeValue: 0.75
+  _cargoCompleteValue: 2
+  _cargoEmptyValue: 3
+  _dropValue: 1
+  _placeValue: 0.5
 --- !u!95 &7581584164879490013
 Animator:
   serializedVersion: 5
