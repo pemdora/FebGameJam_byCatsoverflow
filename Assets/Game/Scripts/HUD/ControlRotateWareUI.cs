@@ -4,14 +4,16 @@ using UnityEngine.UI;
 public class ControlRotateWareUI : MonoBehaviour
 {
     Vector2 _refRes;
+    Image _image;
     public void Start()
     {
+        _image = GetComponent<Image>();
         _refRes = GetComponentInParent<CanvasScaler>().referenceResolution;
         var pickManager = FindObjectOfType<PickManager>();
         pickManager.OnGrabWare.AddListener(OnGrabCargo);
         pickManager.OnDropWare.AddListener(OnDropCargo);
         pickManager.OnPlaceWare.AddListener(OnDropCargo);
-        gameObject.SetActive(false);
+        _image.color = new Color(1, 1, 1, 0);
         FindObjectOfType<GameManager>().OnGameOverEvent.AddListener(OnGameOver);
     }
     public void Update()
@@ -26,14 +28,14 @@ public class ControlRotateWareUI : MonoBehaviour
     }
     public void OnGameOver()
     {
-        gameObject.SetActive(false);
+        _image.color = new Color(1, 1, 1, 0);
     }
     public void OnGrabCargo(WareEventData data)
     {
-        gameObject.SetActive(true);
+        _image.color = new Color(1, 1, 1, 1);
     }
     public void OnDropCargo(WareEventData data)
     {
-        gameObject.SetActive(false);
+        _image.color = new Color(1, 1, 1, 0);
     }
 }

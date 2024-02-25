@@ -7,15 +7,20 @@ public class FrustrationUI : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float _updateDelay = 0.6f;
     [SerializeField] private float _fillSpeed = 1;
-    
+
     [Header("References")]
     [SerializeField] private Image _filler;
     [SerializeField] private Image _fillerBackground;
 
+    [SerializeField] private RectTransform _angryEnd;
+    [SerializeField] private RectTransform _bottom;
+    [SerializeField] private RectTransform _top;
+    [SerializeField] private RectTransform _fillTransform;
+
     private bool _shouldUpdate;
     private float _updateDelayLeft;
     private float _fillAcceleration;
-    
+
     private void Awake()
     {
         _filler.fillAmount = 0f;
@@ -52,5 +57,6 @@ public class FrustrationUI : MonoBehaviour
         }
 
         _fillerBackground.fillAmount = Mathf.Clamp01(value);
+        _angryEnd.position = Vector3.Lerp(_bottom.position, _top.position, _filler.fillAmount);
     }
 }

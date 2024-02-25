@@ -23,7 +23,25 @@ public class SpaceshipManager : MonoBehaviour
     public bool CanSpawnSpaceship { get; set; }
     public bool HasSpaceship => _currentSpaceship != null;
     public float TimeRemaining => _currentSpaceship.LoadingLeft;
-    public float Percentage => _currentSpaceship.Cargo.FillPercentage;
+    public float Percentage
+    {
+        get
+        {
+            if (_currentSpaceship != null)
+            {
+                return _currentSpaceship.Cargo.FillPercentage;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        private set
+        {
+
+        }
+
+    }
 
     private Spaceship _currentSpaceship;
 

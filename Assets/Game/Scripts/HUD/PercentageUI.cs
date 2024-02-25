@@ -20,25 +20,59 @@ public class PercentageUI : MonoBehaviour
     [SerializeField] private TMP_Text _percentageText;
     [SerializeField] private Slider _objectiveSlider;
     [SerializeField] private Image _filler;
+    [SerializeField] private Image _fillerJuice;
+    [SerializeField] private RectTransform _fillerTransform;
+    [SerializeField] private Image _tresholdGap;
+    [SerializeField] private RectTransform _tresholdGapTransform;
     [SerializeField] private Image _handleImage;
 
-
+    [SerializeField] private RectTransform _angryStart;
+    [SerializeField] private Image _frustrationFill;
+    [SerializeField] private RectTransform _frustrationFillTransform;
+    [SerializeField] private RectTransform _frustrationBottom;
 
 
     private float _previousPercentage;
     private float _animationPercentage;
     private Coroutine _fillCoroutine;
     private Coroutine _warningCoroutine;
+    private Coroutine _gapCoroutine = null;
     bool _warningFlickeringColor = true;
     bool _objectiveReached = false;
 
-
     void Start()
     {
-        _percentageText.text = "??";
+        _percentageText.text = "0";
         _previousPercentage = 0;
         _filler.fillAmount = 0;
+        _tresholdGap.fillAmount = 0;
+        _fillerJuice.fillAmount = 0;
+        _spaceshipManager.OnSpaceshipTakeOff.AddListener(OnSpaceshipLeft);
+        SetGapPositionAndDimensions();
+    }
+    public void OnSpaceshipLeft(Spaceship spaceship)
+    {
+        _tresholdGap.fillAmount = 1;
+        _fillerJuice.fillAmount = 0;
+        SetGapPositionAndDimensions();
+        if (_gapCoroutine == null)
+            _gapCoroutine = StartCoroutine(GapCoroutine());
 
+        //Set angry emote position start and end
+
+
+
+    }
+    public void SetGapPositionAndDimensions()
+    {
+        var pos = new Vector2(-225, _tresholdGapTransform.localPosition.y);
+        float maxWidth = _fillerTransform.sizeDelta.x;
+        pos.x += maxWidth * _spaceshipManager.Percentage / 100;
+
+        float width = Mathf.Clamp(_objectiveSlider.value * maxWidth - _spaceshipManager.Percentage / 100 * maxWidth, 0, maxWidth);
+        _tresholdGapTransform.sizeDelta = new Vector2(width, _fillerTransform.sizeDelta.y);
+        _tresholdGapTransform.localPosition = pos;
+        _angryStart.position = _tresholdGapTransform.position;
     }
 
     public void SetObjectiveSlider(int frustrationThreshold)
@@ -47,6 +81,7 @@ public class PercentageUI : MonoBehaviour
         _objectiveSlider.value = (frustrationThreshold / 100f);
         float duration = Mathf.Abs(oldvalue - _objectiveSlider.value) / _handleAnimationMaxDuration;
         StartCoroutine(ObjectiveSliderCoroutine(oldvalue, _objectiveSlider.value, duration));
+        ResetFilling();
     }
 
     void Update()
@@ -61,29 +96,30 @@ public class PercentageUI : MonoBehaviour
             _warningCoroutine = StartCoroutine(WarningHandleCoroutine(_warningFlickeringSpeed));
         }
 
-        if (_spaceshipManager.HasSpaceship && _spaceshipManager.Percentage <= 100)
+        /*if (_spaceshipManager.Percentage <= 100)
+        {*/
+        //Each time the loading percentage changes
+        if (_spaceshipManager.HasSpaceship)
         {
-            int nextPercentage = Mathf.FloorToInt(_spaceshipManager.Percentage);
-            if (nextPercentage != _previousPercentage)
+            if (Mathf.Abs(_spaceshipManager.Percentage - _previousPercentage) > 0.001f)
             {
-                int percentageDifference = Mathf.FloorToInt(nextPercentage - _previousPercentage);
-                float animationTime = (percentageDifference > 3) ? _animationDuration : 0;
+                SetGapPositionAndDimensions();
+
+                _fillerJuice.fillAmount = _spaceshipManager.Percentage / 100;
+
                 if (_fillCoroutine == null)
                 {
-                    _fillCoroutine = StartCoroutine(FillCoroutine(_previousPercentage, nextPercentage, animationTime));
+                    _fillCoroutine = StartCoroutine(FillCoroutine(_previousPercentage, _spaceshipManager.Percentage, _animationDuration));
                 }
                 else
                 {
                     StopCoroutine(_fillCoroutine);
-                    _fillCoroutine = StartCoroutine(FillCoroutine(_animationPercentage, nextPercentage, animationTime));
+                    _fillCoroutine = StartCoroutine(FillCoroutine(_animationPercentage, _spaceshipManager.Percentage, _animationDuration));
                 }
-                _previousPercentage = nextPercentage;
+                _previousPercentage = _spaceshipManager.Percentage;
             }
         }
-        else
-        {
-            ResetFilling();
-        }
+        // }
     }
 
     void ObjectiveReached()
@@ -96,15 +132,23 @@ public class PercentageUI : MonoBehaviour
         _objectiveReached = true;
         _handleImage.CrossFadeColor(_handleCompleteColor, 0.25f, false, false);
     }
-
+    private IEnumerator GapCoroutine()
+    {
+        while (_tresholdGap.fillAmount > 0)
+        {
+            _tresholdGap.fillAmount -= Time.deltaTime * 1f;
+            yield return null;
+        }
+        _gapCoroutine = null;
+    }
     private IEnumerator FillCoroutine(float previousValue, float NextValue, float duration)
     {
         float percent = 0;
         while (percent < 1)
         {
             percent += Time.deltaTime / duration;
-            _animationPercentage = Mathf.FloorToInt(Mathf.Lerp(previousValue, NextValue, percent));
-            _percentageText.text = _animationPercentage.ToString();
+            _animationPercentage = Mathf.Lerp(previousValue, NextValue, percent);
+            _percentageText.text = _animationPercentage.ToString("0");
             _filler.fillAmount = _animationPercentage / 100f;
             if (_filler.fillAmount >= _objectiveSlider.value)
             {
@@ -139,7 +183,6 @@ public class PercentageUI : MonoBehaviour
         _filler.fillAmount = 0;
         _objectiveReached = false;
         _handleImage.CrossFadeColor(_handleNormalColor, 0.25f, false, false);
-
     }
 
     private IEnumerator ObjectiveSliderCoroutine(float previousValue, float NextValue, float duration)
