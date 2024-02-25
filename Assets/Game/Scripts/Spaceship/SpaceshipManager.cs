@@ -23,7 +23,25 @@ public class SpaceshipManager : MonoBehaviour
     public bool CanSpawnSpaceship { get; set; }
     public bool HasSpaceship => _currentSpaceship != null;
     public float TimeRemaining => _currentSpaceship.LoadingLeft;
-    public float Percentage => _currentSpaceship.Cargo.FillPercentage;
+    public float Percentage
+    {
+        get
+        {
+            if (_currentSpaceship != null)
+            {
+                return _currentSpaceship.Cargo.FillPercentage;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        private set
+        {
+
+        }
+
+    }
 
     private Spaceship _currentSpaceship;
 
@@ -116,7 +134,15 @@ public class SpaceshipManager : MonoBehaviour
 
     public void Reset()
     {
-        _currentSpaceship = null;
+        _currentSpaceship.HasLeft = true;
+        _currentSpaceship.StopLoading();
+        _currentSpaceship.Cargo.DeactivateCargo();
+        
+        _landingPlatform.ResetRotation(() =>
+        {
+            _departureConductor.AttachSpaceship(_currentSpaceship, _ => _currentSpaceship = null, false);
+        });
+        
         _conveyorStart.ResetSpeed();
     }
 
