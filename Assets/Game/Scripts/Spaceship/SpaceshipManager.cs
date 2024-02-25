@@ -132,12 +132,16 @@ public class SpaceshipManager : MonoBehaviour
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.TRUCK_REPART);
     }
 
-    public void Reset()
+    public void DoReset()
     {
-        _currentSpaceship.HasLeft = true;
-        _currentSpaceship.StopLoading();
-        _currentSpaceship.Cargo.DeactivateCargo();
-        
+        if (_currentSpaceship)
+        {
+            _currentSpaceship.HasLeft = true;
+            _currentSpaceship.StopLoading();
+            _currentSpaceship.Cargo.DeactivateCargo();
+        }
+
+        _arrivalConductor.DoReset();
         _landingPlatform.ResetRotation(() =>
         {
             _departureConductor.AttachSpaceship(_currentSpaceship, _ => _currentSpaceship = null, false);

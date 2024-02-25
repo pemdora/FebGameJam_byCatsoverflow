@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class Spaceship : MonoBehaviour
 {
+    private static readonly int ColorShaderProperty = Shader.PropertyToID("_Color");
+    
     [Header("Settings")]
     public int id;
     [SerializeField] private float _loadingDuration = 20;
     [SerializeField] private float _minLoadingDuration = 10;
+    [SerializeField] private SpaceshipColorScheme _colorScheme;
 
     [Header("References")]
     [SerializeField] private Cargo _cargo;
-
+    [SerializeField] private Renderer[] _renderers;
+    
     public float LoadingDuration => _loadingDuration;
     public float LoadingTimer { get; private set; }
     public float LoadingLeft => LoadingDuration - LoadingTimer;
@@ -28,6 +32,8 @@ public class Spaceship : MonoBehaviour
         LoadingTimer = Mathf.Min(timerPenalty, _loadingDuration - _minLoadingDuration);
         _cargo.ResetWares();
         _hasLeft = false;
+        
+        RandomiseColor();
     }
 
     private void Update()
@@ -46,5 +52,19 @@ public class Spaceship : MonoBehaviour
     public void StopLoading()
     {
         IsLoading = false;
+    }
+
+    private void RandomiseColor()
+    {
+        if (_colorScheme == null)
+        {
+            return;
+        }
+        
+        Color color = _colorScheme.GetRandomColor();
+        foreach (Renderer r in _renderers)
+        {
+            r.material.SetColor(ColorShaderProperty, color);
+        }
     }
 }
