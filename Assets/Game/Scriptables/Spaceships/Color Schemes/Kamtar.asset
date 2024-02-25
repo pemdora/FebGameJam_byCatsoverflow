@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062326c8ad214ef99a2f9370b64c335b, type: 3}
+  m_Name: Kamtar
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.6272063, b: 0.1745283, a: 1}
+  - {r: 0.74509805, g: 0.40392157, b: 1, a: 1}
+  - {r: 0.2627451, g: 0.5764706, b: 1, a: 1}
+  - {r: 0.34117648, g: 0.75686276, b: 0.7764706, a: 1}
+  - {r: 1, g: 0.5372549, b: 0.8745098, a: 1}
+  - {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}
+  - {r: 0.7075472, g: 0.2236116, b: 0.2236116, a: 1}
+  - {r: 1, g: 0.84313726, b: 0.65882355, a: 1}
+  - {r: 0.29803923, g: 0.5294118, b: 0.25490198, a: 1}
+  - {r: 0.6792453, g: 0.38953644, b: 0.086507656, a: 1}

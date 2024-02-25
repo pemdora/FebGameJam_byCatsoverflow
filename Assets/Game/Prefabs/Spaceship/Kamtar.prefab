@@ -453,7 +453,15 @@ MonoBehaviour:
   id: 0
   _loadingDuration: 60
   _minLoadingDuration: 15
+  _colorScheme: {fileID: 11400000, guid: 0580ab6d50d261140a7e9097d8194b1d, type: 2}
   _cargo: {fileID: 5016268329506125278}
+  _renderers:
+  - {fileID: 4086222191235076769}
+  - {fileID: 1490963393751153259}
+  - {fileID: 3702825520327592033}
+  - {fileID: 6300042969122688428}
+  - {fileID: 8174112703551712455}
+  - {fileID: 4580993760619027692}
 --- !u!1 &5036550031569223449
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +909,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kamtar
       objectReference: {fileID: 0}
+    - target: {fileID: 678581816617731238, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d83c28c407264af4891802b8b6354dc5, type: 2}
     - target: {fileID: 781959170060142017, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -951,14 +964,75 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2470449049662497313, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d83c28c407264af4891802b8b6354dc5, type: 2}
+    - target: {fileID: 2697397453984722028, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d83c28c407264af4891802b8b6354dc5, type: 2}
+    - target: {fileID: 3366772699871278764, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d83c28c407264af4891802b8b6354dc5, type: 2}
+    - target: {fileID: 5382934515799733089, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d83c28c407264af4891802b8b6354dc5, type: 2}
+    - target: {fileID: 7830196167309447690, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d83c28c407264af4891802b8b6354dc5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aa577bfc9d06004bb4b7a4c4dea152e, type: 3}
+--- !u!23 &1490963393751153259 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 678581816617731238, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2151095404164284109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1657371286409886476 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 781959170060142017, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2151095404164284109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3702825520327592033 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3366772699871278764, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2151095404164284109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4086222191235076769 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2697397453984722028, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2151095404164284109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4580993760619027692 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2470449049662497313, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2151095404164284109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6300042969122688428 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5382934515799733089, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2151095404164284109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8174112703551712455 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7830196167309447690, guid: 9aa577bfc9d06004bb4b7a4c4dea152e,
     type: 3}
   m_PrefabInstance: {fileID: 2151095404164284109}
   m_PrefabAsset: {fileID: 0}
