@@ -16,4 +16,6 @@ public enum SoundEffectType
     OVER,
     PLANESCORE,
     PERFECTSCORE,
+
+    PLACE_SCORE
 }
