@@ -6094,11 +6094,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ControlRotateWare
       objectReference: {fileID: 0}
-    - target: {fileID: 4131176687701666962, guid: 1fd9d70a12b95ea4894a48eeb1e7360a,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4886489623439054377, guid: 1fd9d70a12b95ea4894a48eeb1e7360a,
         type: 3}
       propertyPath: m_Pivot.x

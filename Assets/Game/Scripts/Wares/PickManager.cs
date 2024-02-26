@@ -33,6 +33,7 @@ public class PickManager : MonoBehaviour
     public UnityEvent<WareEventData> OnDropWare;
     public UnityEvent<WareEventData> OnUnHoverWare;
     public UnityEvent<WareEventData> OnPlaceWare;
+    public UnityEvent<WareEventData> OnRotateWare;
 
     void Update()
     {
@@ -100,6 +101,7 @@ public class PickManager : MonoBehaviour
                 if (_selectedWare.Rotate(90, newOffset - oldOffset))
                 {
                     _selectedWareOffset = newOffset;
+                    OnRotateWare?.Invoke(new WareEventData() {ware = _selectedWare});
                 }
             }
         }
