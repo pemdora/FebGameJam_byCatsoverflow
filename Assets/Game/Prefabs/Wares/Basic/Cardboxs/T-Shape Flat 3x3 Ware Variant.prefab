@@ -15,6 +15,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2462558869576861860, guid: b839e38e2f300df469fa66b388258942,
         type: 3}
+      propertyPath: _sfxPlacedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f081a3866479b24da7d03c8ae3cbb0a, type: 3}
+    - target: {fileID: 2462558869576861860, guid: b839e38e2f300df469fa66b388258942,
+        type: 3}
       propertyPath: _wareTypes.Array.size
       value: 1
       objectReference: {fileID: 0}
