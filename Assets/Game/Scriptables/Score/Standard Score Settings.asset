@@ -35,4 +35,4 @@ MonoBehaviour:
   scoreExtrahigh: 20
   colorScoreExtrahigh: {r: 0.9716981, g: 0.16042183, b: 0.4293673, a: 1}
   conveyorBeltSpeedIncrease: 10
-  spaceshipLoadingTimeDecrease: 10
+  spaceshipLoadingTimeDecrease: 5
