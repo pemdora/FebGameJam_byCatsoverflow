@@ -246,11 +246,8 @@ MonoBehaviour:
   eyeDecalMaterial: {fileID: 2100000, guid: afefc94c6ffbf53489fbc2d65110b7a9, type: 2}
   mouthDecalMaterial: {fileID: 2100000, guid: b842fb95c16748748b366a66f230c3ef, type: 2}
   face: {fileID: 5051084308512239816}
-  _feelingBar: 5
-  _cargoCompleteValue: 2
-  _cargoEmptyValue: 3
-  _dropValue: 1
-  _placeValue: 0.5
+  _scoreManager: {fileID: 0}
+  _feelingBar: 0
 --- !u!95 &7581584164879490013
 Animator:
   serializedVersion: 5

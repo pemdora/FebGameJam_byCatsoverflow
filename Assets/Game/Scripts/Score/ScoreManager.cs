@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     public UnityEvent OnGameOver;
     public UnityEvent<string> OnScoreChanged;
     public UnityEvent<int> OnFrustrationThresholdChanged;
+    public UnityEvent<int> OnFrustrationChanged;
     public UnityEvent<bool> OnCargoReachedMinimumRequirement;
 
     public int DeliveryCount => _deliveryCount;
@@ -76,6 +77,12 @@ public class ScoreManager : MonoBehaviour
         OnFrustrationThresholdChanged?.Invoke(frustrationThreshold);
     }
 
+    private void SetFrustration(int newFrustration)
+    {
+        _frustration = newFrustration;
+        OnFrustrationChanged?.Invoke(newFrustration);
+    }
+
     private void OnSpaceshipLeft(Spaceship spaceship)
     {
         if (spaceship == null)
@@ -102,7 +109,7 @@ public class ScoreManager : MonoBehaviour
         if (!minimumOccupiedSlotsReached)
         {
             // We add frustration for each empty slots
-            _frustration += numberOfOccupiedSlotsBelowThreshold * _settings.frustrationPerEmptySlots;
+            SetFrustration(_frustration + (numberOfOccupiedSlotsBelowThreshold * _settings.frustrationPerEmptySlots));
 
             // We call the UI dedicated to display the frustration and we update the Filler Image
             _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
@@ -121,8 +128,7 @@ public class ScoreManager : MonoBehaviour
         // else, the spaceship has enough ware in his cargo
         else
         {
-            _frustration -= _settings.frustrationRelief;
-            _frustration = Mathf.Max(0, _frustration);
+            SetFrustration(Mathf.Max(0, _frustration - _settings.frustrationRelief));
 
             if (numberOfOccupiedSlotsBelowThreshold == 0)
             {
@@ -173,7 +179,7 @@ public class ScoreManager : MonoBehaviour
     public void DiscardWare(Ware ware)
     {
         _scoreDisplayUI.DisplayAngryIcon(ware.transform.position);
-        _frustration += _settings.frustrationPerDiscardedWare;
+        SetFrustration(_frustration + _settings.frustrationPerDiscardedWare);
 
         // We call the UI dedicated to display the frustration and we update the Filler Image
         _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);

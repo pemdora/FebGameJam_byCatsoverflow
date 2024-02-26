@@ -72,15 +72,12 @@ public class ManagerFaceAnimation : MonoBehaviour
     [SerializeField] private Material eyeDecalMaterial;
     [SerializeField] private Material mouthDecalMaterial;
     [SerializeField] private GameObject face;
-     private Animator _animator;
+    [SerializeField] private ScoreManager _scoreManager;
+    private Animator _animator;
 
     [Header("Feelings Values")]
-    [Range(0, 10)]
+    [Range(0, 1)]
     [SerializeField] float _feelingBar;
-    [SerializeField] float _cargoCompleteValue = 3;
-    [SerializeField] float _cargoEmptyValue = 3;
-    [SerializeField] float _dropValue = 2;
-    [SerializeField] float _placeValue = 2;
     float _nextFeeling;
     bool _shouldUpdate = false;
     float _changeSpeed = 5f;
@@ -101,23 +98,18 @@ public class ManagerFaceAnimation : MonoBehaviour
 
     public void Start()
     {
-        ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
-        if (scoreManager)
+        if (_scoreManager)
         {
-            scoreManager.OnCargoReachedMinimumRequirement.AddListener(CargoLeavingHandler);
+            _scoreManager.OnCargoReachedMinimumRequirement.AddListener(CargoLeavingHandler);
+            _scoreManager.OnFrustrationChanged.AddListener(UpdateFeelingBar);
+            _feelingBar = _scoreManager.Frustration;
         }
-        PickManager pickManager = FindObjectOfType<PickManager>();
-        if (pickManager)
-        {
-            pickManager.OnDropWare.AddListener(WareDropHandler);
-            pickManager.OnPlaceWare.AddListener(WarePlaceHandler);
-        }
+
         GameManager gameManager = FindObjectOfType<GameManager>();
         if (gameManager)
         {
             gameManager.OnGameOverEvent.AddListener(ResetManagerAnimations);
         }
-        _nextFeeling = _feelingBar;
     }
 
     public void Update()
@@ -219,7 +211,7 @@ public class ManagerFaceAnimation : MonoBehaviour
         }
         _currentCoroutine = null;
     }
-
+     
     IEnumerator DenyCoroutine(float feelingValue)
     {
         Quaternion baseRotation = transform.rotation;
@@ -249,62 +241,34 @@ public class ManagerFaceAnimation : MonoBehaviour
 
     void ComputeCurrentEmotion()
     {
-        if (_feelingBar <= 2)
+        if (_feelingBar <= 0.2)
         {
-            _currentEmotion = ManagerEmotions.Livid;
+            _currentEmotion = ManagerEmotions.Happy;
         }
-        else if (_feelingBar < 4)
-        {
-            _currentEmotion = ManagerEmotions.Unhappy;
-        }
-        else if (_feelingBar < 6)
-        {
-            _currentEmotion = ManagerEmotions.Neutral;
-        }
-        else if (_feelingBar < 8)
+        else if (_feelingBar < 0.4)
         {
             _currentEmotion = ManagerEmotions.Pleased;
         }
+        else if (_feelingBar < 0.6)
+        {
+            _currentEmotion = ManagerEmotions.Neutral;
+        }
+        else if (_feelingBar < 0.8)
+        {
+            _currentEmotion = ManagerEmotions.Unhappy;
+        }
         else
         {
-            _currentEmotion = ManagerEmotions.Happy;
+            _currentEmotion = ManagerEmotions.Livid;
         }
     }
 
     void ComputeColors()
     {
-        float lerpIndex = _feelingBar * 0.1f;
+        float lerpIndex = _feelingBar ;
         _emissionColor = _gradient.Evaluate(lerpIndex);
     }
 
-    void AddFeeling(float feelingValue)
-    {
-        _nextFeeling += feelingValue;
-        _nextFeeling = Mathf.Clamp(_nextFeeling, 0f, 10f);
-        _shouldUpdate = true;
-        if (_currentCoroutine == null)
-        {
-            if (feelingValue > 0)
-            {
-            //    _animator.SetTrigger("NodTrigger");
-               _animator.Play("Nod", layer:1, normalizedTime:0f);
-                // _currentCoroutine = StartCoroutine(NodCoroutine(_nextFeeling));
-            }
-            else
-            {
-
-              
-                // _animator.SetTrigger("DenyTrigger");
-                _animator.Play("Deny", layer:1, normalizedTime:0f);
-                // _currentCoroutine = StartCoroutine(DenyCoroutine( _nextFeeling));
-
-                if (_currentEmotion == ManagerEmotions.Livid && _mouthCoroutine == null)
-                {
-                    _mouthCoroutine = StartCoroutine(MouthCoroutine());
-                }
-            }
-        }
-    }
 
     private IEnumerator MouthCoroutine()
     {
@@ -325,29 +289,45 @@ public class ManagerFaceAnimation : MonoBehaviour
         _mouthCoroutine = null;
     }
 
+    void UpdateFeelingBar(int feelingBar)
+    {
+        _shouldUpdate = true;
+        int maxFrustration = _scoreManager.Settings.maxFrustrationAllowed;
+        float oldNextFeeling = _nextFeeling;
+        _nextFeeling = (float) feelingBar / (float) maxFrustration;
+        if (_currentCoroutine == null)
+        {
+            if (_nextFeeling < oldNextFeeling)
+            {
+                _animator.Play("Nod", layer: 1, normalizedTime: 0f);
+            }
+            else
+            {
+                _animator.Play("Deny", layer: 1, normalizedTime: 0f);
+                if (_nextFeeling >= 0.7 && _mouthCoroutine == null)
+                {
+                    _mouthCoroutine = StartCoroutine(MouthCoroutine());
+                }
+            }
+        }
+        
+
+    }
+
     void ResetManagerAnimations()
     {
-        _feelingBar = 5;
-        _nextFeeling = 5;
+        UpdateFeelingBar(_scoreManager.Frustration);
         _shouldUpdate = false;
-        _currentEmotion = ManagerEmotions.Neutral;
     }
 
     void CargoLeavingHandler(bool isFilled)
     {
-        float feelingValue = (isFilled) ? _cargoCompleteValue : -_cargoEmptyValue;
-        AddFeeling(feelingValue);
+        if (_currentCoroutine == null && isFilled)
+        {
+            _animator.Play("Nod", layer: 1, normalizedTime: 0f);
+        }
     }
 
-    void WareDropHandler(WareEventData data)
-    {
-        AddFeeling(-_dropValue);
-    }
-
-    void WarePlaceHandler(WareEventData data)
-    {
-        AddFeeling(_placeValue);
-    }
 
 
 }
