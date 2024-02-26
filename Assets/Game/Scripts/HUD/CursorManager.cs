@@ -9,7 +9,7 @@ public class CursorManager : MonoBehaviour
     Texture2D _hoverResized;
     Texture2D _grabResized;
 
-    Vector2 _offsetBase = new(40, 21);
+    Vector2 _offsetBase = new(33, 9);
     Vector2 _offsetResized;
 
     int lastScreenheight = 0;

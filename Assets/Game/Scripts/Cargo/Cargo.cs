@@ -82,7 +82,7 @@ public class Cargo : MonoBehaviour
         CheckForFullLines();
 
         // TODO: add ware interaction trigger here
-        AudioManager.Instance.PlaySoundEffect(SoundEffectType.POSE_BLOCK);
+      //  AudioManager.Instance.PlaySoundEffect(SoundEffectType.POSE_BLOCK);
     }
 
     public void RemoveWare(Ware ware)
