@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
 
 public class TimerUI : MonoBehaviour
 {
@@ -11,11 +12,15 @@ public class TimerUI : MonoBehaviour
     [SerializeField] private Color _warningColor;
     [SerializeField] private Animation _animation;
     private int _previousTime;
+
+    private Coroutine _ticTacCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
         _timeText.text = "??";
         _previousTime = 0;
+        _ticTacCoroutine = null;
     }
 
     public void InitTimer()
@@ -25,6 +30,7 @@ public class TimerUI : MonoBehaviour
 
     public void StopTimer()
     {
+        StopCoroutine(_ticTacCoroutine);
         CancelInvoke(nameof(IncrementeTimer));
     }
 
@@ -32,21 +38,24 @@ public class TimerUI : MonoBehaviour
     {
         if (_spaceshipManager.HasSpaceship && _spaceshipManager.TimeRemaining > 0)
         {
-            if (_previousTime + 1 == 0) {
+            if (_previousTime + 1 == 0)
+            {
                 _timeText.color = Color.white;
-                _rectTransform.localScale = new Vector3(1,1,1);
+                _rectTransform.localScale = new Vector3(1, 1, 1);
+
             }
 
             _previousTime = Mathf.FloorToInt(_spaceshipManager.TimeRemaining);
             _timeText.text = (_previousTime + 1).ToString();
 
-            if (_previousTime + 1 == 8)
+            if (_previousTime + 1 == 10)
             {
-                AudioManager.Instance.PlaySoundEffect(SoundEffectType.TIC_TAC);
                 _timeText.color = _prewarnColor;
+                _ticTacCoroutine = StartCoroutine(PlayTicTacSound());
             }
 
-            if (_previousTime +1 == _gameManager.TimeBeforeWarning) {
+            if (_previousTime + 1 == _gameManager.TimeBeforeWarning)
+            {
                 _timeText.color = _warningColor;
                 _animation.Play();
             }
@@ -59,9 +68,15 @@ public class TimerUI : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator PlayTicTacSound()
     {
-
+        for (int i = 0; i < 10; i++)
+        {
+            AudioManager.Instance.PlaySoundEffect(SoundEffectType.TIC);
+            yield return new WaitForSeconds(0.5f);
+            AudioManager.Instance.PlaySoundEffect(SoundEffectType.TAC);
+            yield return new WaitForSeconds(0.5f);
+        }
+        _ticTacCoroutine = null;
     }
 }
