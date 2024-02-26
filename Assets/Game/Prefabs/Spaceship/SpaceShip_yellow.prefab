@@ -670,7 +670,9 @@ MonoBehaviour:
   id: 0
   _loadingDuration: 50
   _minLoadingDuration: 15
+  _colorScheme: {fileID: 0}
   _cargo: {fileID: 889955318395922503}
+  _renderers: []
 --- !u!1 &7405402047736460670
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +948,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -8058934364752068983, guid: c819c9965eb310e498e4ba266ef99e71, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c819c9965eb310e498e4ba266ef99e71, type: 3}
