@@ -73,6 +73,8 @@ public class ManagerFaceAnimation : MonoBehaviour
     [SerializeField] private Material mouthDecalMaterial;
     [SerializeField] private GameObject face;
     [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private PickManager _pickManager;
     private Animator _animator;
 
     [Header("Feelings Values")]
@@ -105,10 +107,14 @@ public class ManagerFaceAnimation : MonoBehaviour
             _feelingBar = _scoreManager.Frustration;
         }
 
-        GameManager gameManager = FindObjectOfType<GameManager>();
-        if (gameManager)
+        if (_gameManager)
         {
-            gameManager.OnGameOverEvent.AddListener(ResetManagerAnimations);
+            _gameManager.OnGameStartEvent.AddListener(ResetManagerAnimations);
+        }
+
+        if (_pickManager)
+        {
+            _pickManager.OnPlaceWare.AddListener(PlaceWareHandler);
         }
     }
 
@@ -121,6 +127,7 @@ public class ManagerFaceAnimation : MonoBehaviour
         ComputeColors();
         ChangeEmotion(_currentEmotion);
         changeSpriteColor(_color);
+
         if (_shouldUpdate)
         {
             if (_nextFeeling == _feelingBar)
@@ -211,7 +218,7 @@ public class ManagerFaceAnimation : MonoBehaviour
         }
         _currentCoroutine = null;
     }
-     
+
     IEnumerator DenyCoroutine(float feelingValue)
     {
         Quaternion baseRotation = transform.rotation;
@@ -224,7 +231,7 @@ public class ManagerFaceAnimation : MonoBehaviour
         float nodTime = totalTime / nodNumber;
         for (int i = 0; i < nodNumber; i++)
         {
-            transform.rotation = baseRotation * Quaternion.Euler(0, -15, 0) ;
+            transform.rotation = baseRotation * Quaternion.Euler(0, -15, 0);
             float percent = 0;
             while (percent < 1)
             {
@@ -265,28 +272,68 @@ public class ManagerFaceAnimation : MonoBehaviour
 
     void ComputeColors()
     {
-        float lerpIndex = _feelingBar ;
+        float lerpIndex = _feelingBar;
         _emissionColor = _gradient.Evaluate(lerpIndex);
+    }
+
+    void AngryAnimation()
+    {
+        if (_currentCoroutine == null)
+        {
+            _mouthCoroutine = StartCoroutine(MouthCoroutine());
+            StartCoroutine(AngerCoroutine());
+        }
     }
 
 
     private IEnumerator MouthCoroutine()
     {
-        int[] tab = {3,2};
+        int[] tab = { 3, 2 };
         int index = 0;
         changeEyes(eyesAnimations[2].name);
+
         float time = 0;
         float frameTime = 0.125f;
+
         while (time < 2)
         {
             time += frameTime;
             int i = tab[index];
             index++;
-            index%= tab.Length;
+            index %= tab.Length;
             changeMouth(mouthAnimations[i].name);
+            float sign = (time < 1) ? 1 : -1;
+
             yield return new WaitForSeconds(frameTime);
         }
         _mouthCoroutine = null;
+    }
+
+    private IEnumerator AngerCoroutine()
+    {
+        float percent = 0;
+        float animTime = 0.5f;
+        Vector3 cameraPosition = Camera.main.transform.position - new Vector3(15.0f, 0.0f, 0.0f);
+        Vector3 relativePos = cameraPosition - transform.position;
+        Quaternion lookAt = Quaternion.LookRotation(relativePos);
+        Quaternion oldRotation = transform.rotation;
+        while (percent < 1)
+        {
+            percent += Time.deltaTime / animTime;
+            Quaternion newRotation = Quaternion.Lerp(oldRotation, lookAt, percent);
+            transform.rotation = newRotation;
+            yield return null;
+        }
+        yield return new WaitForSeconds(1.5f);
+        percent = 0;
+        while (percent < 1)
+        {
+            percent += Time.deltaTime / animTime;
+            Quaternion newRotation = Quaternion.Lerp(lookAt, oldRotation, percent);
+            transform.rotation = newRotation;
+            yield return null;
+        }
+        transform.rotation = oldRotation;
     }
 
     void UpdateFeelingBar(int feelingBar)
@@ -294,7 +341,7 @@ public class ManagerFaceAnimation : MonoBehaviour
         _shouldUpdate = true;
         int maxFrustration = _scoreManager.Settings.maxFrustrationAllowed;
         float oldNextFeeling = _nextFeeling;
-        _nextFeeling = (float) feelingBar / (float) maxFrustration;
+        _nextFeeling = (float)feelingBar / (float)maxFrustration;
         if (_currentCoroutine == null)
         {
             if (_nextFeeling < oldNextFeeling)
@@ -303,26 +350,38 @@ public class ManagerFaceAnimation : MonoBehaviour
             }
             else
             {
-                _animator.Play("Deny", layer: 1, normalizedTime: 0f);
                 if (_nextFeeling >= 0.7 && _mouthCoroutine == null)
                 {
-                    _mouthCoroutine = StartCoroutine(MouthCoroutine());
+                    AngryAnimation();
+                }
+                else
+                {
+                    _animator.Play("Deny", layer: 1, normalizedTime: 0f);
                 }
             }
         }
-        
+
 
     }
 
     void ResetManagerAnimations()
     {
-        UpdateFeelingBar(_scoreManager.Frustration);
+        _feelingBar = 0;
+        _nextFeeling = _feelingBar;
         _shouldUpdate = false;
     }
 
     void CargoLeavingHandler(bool isFilled)
     {
         if (_currentCoroutine == null && isFilled)
+        {
+            _animator.Play("Nod", layer: 1, normalizedTime: 0f);
+        }
+    }
+
+    void PlaceWareHandler(WareEventData data)
+    {
+        if (_currentCoroutine == null && _feelingBar < 0.6f)
         {
             _animator.Play("Nod", layer: 1, normalizedTime: 0f);
         }

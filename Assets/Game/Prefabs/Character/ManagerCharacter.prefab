@@ -182,7 +182,7 @@ MonoBehaviour:
   - _emotion: 4
     _values:
       _eyes: 2
-      _mouth: 2
+      _mouth: 1
   _currentEmotion: 0
   _eyeOffset: {x: 0, y: 0, z: 0}
   _gradient:
