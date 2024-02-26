@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         // }
         _spaceshipManager.DoReset();
 
-        AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
+        //AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
         AudioManager.Instance.PlayMusic(MusicType.DEFEAT);
         timerUI.StopTimer();
         OnGameOverEvent.Invoke();
