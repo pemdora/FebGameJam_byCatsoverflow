@@ -152,6 +152,7 @@ public class Ware : MonoBehaviour, IWareSupport
             gameObject.AddComponent<Rigidbody>();
 
         }
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
         _dropCoroutine = StartCoroutine(FallCoroutine());
     }
 
@@ -163,7 +164,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
         yield return _waitDropTime;
 
-        AudioManager.Instance.PlaySoundEffect(SoundEffectType.OUTCH);
+        
         rb.isKinematic = true;
         transform.parent = _warePoolContainer;
         gameObject.SetActive(false);
