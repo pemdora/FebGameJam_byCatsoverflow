@@ -19,7 +19,7 @@ MonoBehaviour:
     - key: 1
       value: {fileID: 8300000, guid: c31c4cea915755b44ac621a80c160af6, type: 3}
     - key: 2
-      value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
+      value: {fileID: 8300000, guid: c31c4cea915755b44ac621a80c160af6, type: 3}
     - key: 3
       value: {fileID: 8300000, guid: 809321bd3edb12f4daaef69f7c9e5fef, type: 3}
     - key: 4
@@ -43,9 +43,15 @@ MonoBehaviour:
     - key: 13
       value: {fileID: 8300000, guid: 959a094a215223c49976ee7f9c82020e, type: 3}
     - key: 14
-      value: {fileID: 0}
+      value: {fileID: 8300000, guid: 7e7320f6cc1ad5146b5bbb37c126f484, type: 3}
     - key: 15
-      value: {fileID: 0}
+      value: {fileID: 8300000, guid: fe81cffafa3fccb4d92af5efed36b1a2, type: 3}
+    - key: 16
+      value: {fileID: 8300000, guid: d30ac30f6ee8cba448675d9eec573886, type: 3}
+    - key: 17
+      value: {fileID: 8300000, guid: a2c73e5694cd7264eba22ffc0d12caf0, type: 3}
+    - key: 18
+      value: {fileID: 8300000, guid: 533bf2bd152a3f2438f06fc0a5701232, type: 3}
     keyCollision: 0
   musicsBySoundType:
     list:
