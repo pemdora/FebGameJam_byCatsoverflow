@@ -197,6 +197,7 @@ public class ScoreManager : MonoBehaviour
         _deliveryCount = 0;
         _frustration = 0;
         _score = 0;
+        OnScoreChanged?.Invoke(_score.ToString());
         _frustrationUI.UpdateFiller(0);
     }
 }
