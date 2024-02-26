@@ -30,7 +30,8 @@ public class TimerUI : MonoBehaviour
 
     public void StopTimer()
     {
-        StopCoroutine(_ticTacCoroutine);
+        if(_ticTacCoroutine != null)
+            StopCoroutine(_ticTacCoroutine);
         CancelInvoke(nameof(IncrementeTimer));
     }
 
