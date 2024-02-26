@@ -72,6 +72,7 @@ public class ManagerFaceAnimation : MonoBehaviour
     [SerializeField] private Material eyeDecalMaterial;
     [SerializeField] private Material mouthDecalMaterial;
     [SerializeField] private GameObject face;
+     private Animator _animator;
 
     [Header("Feelings Values")]
     [Range(0, 10)]
@@ -95,6 +96,7 @@ public class ManagerFaceAnimation : MonoBehaviour
         changeEyes(eyesAnimations[0].name);
         changeMouth(mouthAnimations[0].name);
         changeSpriteColor(_color);
+        _animator = GetComponent<Animator>();
     }
 
     public void Start()
@@ -284,11 +286,17 @@ public class ManagerFaceAnimation : MonoBehaviour
         {
             if (feelingValue > 0)
             {
-                _currentCoroutine = StartCoroutine(NodCoroutine(_nextFeeling));
+            //    _animator.SetTrigger("NodTrigger");
+               _animator.Play("Nod", layer:1, normalizedTime:0f);
+                // _currentCoroutine = StartCoroutine(NodCoroutine(_nextFeeling));
             }
             else
             {
-                _currentCoroutine = StartCoroutine(DenyCoroutine( _nextFeeling));
+
+              
+                // _animator.SetTrigger("DenyTrigger");
+                _animator.Play("Deny", layer:1, normalizedTime:0f);
+                // _currentCoroutine = StartCoroutine(DenyCoroutine( _nextFeeling));
 
                 if (_currentEmotion == ManagerEmotions.Livid && _mouthCoroutine == null)
                 {
