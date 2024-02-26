@@ -63,11 +63,11 @@ public class TimerUI : MonoBehaviour
         }
         else
         {
+            if (_ticTacCoroutine != null)
+                StopCoroutine(_ticTacCoroutine);
             _animation.Stop();
             _previousTime = -1;
             _timeText.text = "0";
-            if (_ticTacCoroutine != null)
-                StopCoroutine(_ticTacCoroutine);
         }
     }
 
