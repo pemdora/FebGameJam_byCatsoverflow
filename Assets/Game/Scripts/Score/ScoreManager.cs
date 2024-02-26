@@ -93,6 +93,7 @@ public class ScoreManager : MonoBehaviour
         int extraTresholdBonusPoint = numberOfOccupiedSlotsAboveThreshold * _settings.pointsPerExtraSlotFilled;
         if (extraTresholdBonusPoint > 0)
         {
+            AudioManager.Instance.PlaySoundEffect(SoundEffectType.SCORE_OVER_THRESHOLD);
             _scoreDisplayUI.DisplayExtraThresholdBonus(extraTresholdBonusPoint);
             _score += extraTresholdBonusPoint;
         }
