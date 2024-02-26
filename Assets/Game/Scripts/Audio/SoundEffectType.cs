@@ -16,4 +16,7 @@ public enum SoundEffectType
     OVER,
     PLANESCORE,
     PERFECTSCORE,
+    PLACE_SCORE,
+    SCORE_OVER_THRESHOLD,
+    SCORE_ONREACH_THRESHOLD
 }

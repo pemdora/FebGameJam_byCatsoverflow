@@ -130,6 +130,7 @@ public class PercentageUI : MonoBehaviour
         }
         _warningCoroutine = null;
         _objectiveReached = true;
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.SCORE_ONREACH_THRESHOLD);
         _handleImage.CrossFadeColor(_handleCompleteColor, 0.25f, false, false);
     }
     private IEnumerator GapCoroutine()
@@ -150,7 +151,7 @@ public class PercentageUI : MonoBehaviour
             _animationPercentage = Mathf.Lerp(previousValue, NextValue, percent);
             _percentageText.text = _animationPercentage.ToString("0");
             _filler.fillAmount = _animationPercentage / 100f;
-            if (_filler.fillAmount >= _objectiveSlider.value)
+            if (_filler.fillAmount >= _objectiveSlider.value && !_objectiveReached)
             {
                 ObjectiveReached();
             }
