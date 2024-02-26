@@ -115,6 +115,7 @@ public class Ware : MonoBehaviour, IWareSupport
         _associatedCargo.AddWare(this);
         transform.parent = destination.transform;
         AudioManager.Instance.PlaySoundEffect(_sfxPlacedAudioClip);
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLACE_SCORE);
         StartPlaceAnimation();
     }
 
