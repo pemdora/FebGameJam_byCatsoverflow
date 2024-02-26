@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4131176687701666962}
   - component: {fileID: 4056275302215539404}
   - component: {fileID: 7921692587516854780}
+  - component: {fileID: 3385576474202596446}
   m_Layer: 5
   m_Name: ControlRotateWare
   m_TagString: Untagged
@@ -110,3 +111,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &3385576474202596446
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3620375821309954010}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

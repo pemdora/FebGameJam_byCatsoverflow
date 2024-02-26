@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-
 
 public class ControlRotateTruckUI : MonoBehaviour
 {
     SpaceshipManager _SpaceshipManager;
+    LandingPlatform _landingPlatform;
     float _transparency;
     bool _landed = false;
+    bool _hasRotate;
 
     [SerializeField] List<Image> _buttons;
     [SerializeField] float _fadeSpeed;
@@ -18,11 +18,14 @@ public class ControlRotateTruckUI : MonoBehaviour
         _SpaceshipManager = FindObjectOfType<SpaceshipManager>();
         _SpaceshipManager.OnSpaceshipLanded.AddListener(OnSpaceShipLand);
         _SpaceshipManager.OnSpaceshipTakeOff.AddListener(OnSpaceShipTakeoff);
+        _landingPlatform = FindObjectOfType<LandingPlatform>();
+        _landingPlatform.OnRotate.AddListener(OnLandingPlatformRotate);
+        FindObjectOfType<GameManager>().OnGameOverEvent.AddListener(OnGameOver);
     }
 
     public void Update()
     {
-        if (_landed)
+        if (_landed && !_hasRotate)
         {
             _transparency += Time.deltaTime * _fadeSpeed;
 
@@ -47,5 +50,15 @@ public class ControlRotateTruckUI : MonoBehaviour
     public void OnSpaceShipTakeoff(Spaceship ship)
     {
         _landed = false;
+    }
+
+    private void OnLandingPlatformRotate()
+    {
+        _hasRotate = true;
+    }
+    
+    private void OnGameOver()
+    {
+        _hasRotate = false;
     }
 }
