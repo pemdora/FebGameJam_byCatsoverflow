@@ -107,6 +107,11 @@ PrefabInstance:
       propertyPath: _wareType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3186800975678423667, guid: ffe8723a17f94244b8825632c3b5ec00,
+        type: 3}
+      propertyPath: _sfxPlacedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef62940ae3a9ba8438642b2bd8c5093c, type: 3}
     - target: {fileID: 3947119731127441763, guid: ffe8723a17f94244b8825632c3b5ec00,
         type: 3}
       propertyPath: m_LocalPosition.x

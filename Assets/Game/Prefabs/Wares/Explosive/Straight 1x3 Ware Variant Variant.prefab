@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: _wareType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1697406328889660420, guid: e423fcd4c4d29a84e873949ecf9764c8,
+        type: 3}
+      propertyPath: _sfxPlacedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e373daaf8b8729748b4f9fe6092ae676, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
