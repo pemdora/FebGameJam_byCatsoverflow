@@ -73,7 +73,7 @@ public class Ware : MonoBehaviour, IWareSupport
             Debug.LogWarning("No graphics parent set for " + name);
         }
     }
-    
+
     // Not the best option but it works
     void AddOutlineToAllMeshRenderers(Transform parent, Material matOutline)
     {
@@ -96,7 +96,7 @@ public class Ware : MonoBehaviour, IWareSupport
             AddOutlineToAllMeshRenderers(child, matOutline);
         }
     }
-    
+
     public void Initialize(Transform poolTransform)
     {
         _warePoolContainer = poolTransform;
@@ -116,7 +116,7 @@ public class Ware : MonoBehaviour, IWareSupport
         _associatedCargo.AddWare(this);
         transform.parent = destination.transform;
         AudioManager.Instance.PlaySoundEffect(_sfxPlacedAudioClip);
-        AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLACE_SCORE);
+        AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLACE_SCORE); // TODO (Pem) vérifier si on retire ce son ou pas
         StartPlaceAnimation();
     }
 
@@ -165,7 +165,7 @@ public class Ware : MonoBehaviour, IWareSupport
 
         yield return _waitDropTime;
 
-        
+
         rb.isKinematic = true;
         transform.parent = _warePoolContainer;
         gameObject.SetActive(false);
@@ -244,14 +244,14 @@ public class Ware : MonoBehaviour, IWareSupport
     {
         if (active)
         {
-            for(int i = 0; i < _graphicRenderers.Count; i++)
+            for (int i = 0; i < _graphicRenderers.Count; i++)
             {
                 _graphicRenderers[i].materials = _outlineMaterials[i];
             }
         }
         else
         {
-            for(int i = 0; i < _graphicRenderers.Count; i++)
+            for (int i = 0; i < _graphicRenderers.Count; i++)
             {
                 _graphicRenderers[i].materials = _originalMaterials[i];
             }
@@ -307,7 +307,7 @@ public class Ware : MonoBehaviour, IWareSupport
             warePointsUI.StartAnimation();
         }
 
-        if(bonusScore > 0)
+        if (bonusScore > 0)
         {
             // TODO (Pem) you can ping me if you need it right now
         }

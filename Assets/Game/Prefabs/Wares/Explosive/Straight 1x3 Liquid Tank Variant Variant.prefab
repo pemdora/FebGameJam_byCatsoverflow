@@ -77,7 +77,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _sfxPlacedAudioClip
       value: 
-      objectReference: {fileID: 8300000, guid: e373daaf8b8729748b4f9fe6092ae676, type: 3}
+      objectReference: {fileID: 8300000, guid: 9f712c98cebcd9b4186084b22940f00a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
