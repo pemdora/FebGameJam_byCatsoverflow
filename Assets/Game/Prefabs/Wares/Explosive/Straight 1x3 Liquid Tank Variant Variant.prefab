@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 1177759984123102683, guid: e423fcd4c4d29a84e873949ecf9764c8,
         type: 3}
       propertyPath: m_Name
-      value: Straight 1x3 Ware Variant Variant
+      value: Straight 1x3 Liquid Tank Variant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1697406328889660420, guid: e423fcd4c4d29a84e873949ecf9764c8,
         type: 3}
@@ -72,7 +72,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _sfxPlacedAudioClip
       value: 
-      objectReference: {fileID: 8300000, guid: e373daaf8b8729748b4f9fe6092ae676, type: 3}
+      objectReference: {fileID: 8300000, guid: fade9f8e7f633874f84751002f78cbe6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
