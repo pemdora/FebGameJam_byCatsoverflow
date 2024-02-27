@@ -401,7 +401,9 @@ public class Ware : MonoBehaviour, IWareSupport
                 correction = Vector3.left;
             }
 
-            if (HasBoundAtPosition(_bounds[touchedBoundIndex].transform.position + correction))
+            if (_associatedCargo.HasWareAtPosition(_bounds[touchedBoundIndex].transform.position + correction) || 
+                (!_associatedCargo.HasWareAtPosition(_bounds[touchedBoundIndex].transform.position + correction + Vector3.down) &&
+                 !_associatedCargo.HasSupportAtPosition(_bounds[touchedBoundIndex].transform.position + correction)))
             {
                 correction = Vector3.up;
             }
@@ -417,7 +419,9 @@ public class Ware : MonoBehaviour, IWareSupport
                 correction = Vector3.back;
             }
             
-            if (HasBoundAtPosition(_bounds[touchedBoundIndex].transform.position + correction))
+            if (_associatedCargo.HasWareAtPosition(_bounds[touchedBoundIndex].transform.position + correction) || 
+                (!_associatedCargo.HasWareAtPosition(_bounds[touchedBoundIndex].transform.position + correction + Vector3.down) &&
+                 !_associatedCargo.HasSupportAtPosition(_bounds[touchedBoundIndex].transform.position + correction)))
             {
                 correction = Vector3.up;
             }
@@ -430,7 +434,7 @@ public class Ware : MonoBehaviour, IWareSupport
         return _bounds[touchedBoundIndex].transform.position + correction + Vector3Int.RoundToInt(offset);
     }
 
-    private bool HasBoundAtPosition(Vector3 position)
+    public bool HasBoundAtPosition(Vector3 position)
     {
         foreach (WareBounds bound in _bounds)
         {

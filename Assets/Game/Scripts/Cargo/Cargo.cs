@@ -185,6 +185,32 @@ public class Cargo : MonoBehaviour
         }
     }
 
+    public bool HasWareAtPosition(Vector3 position)
+    {
+        foreach (Ware ware in _placedWare)
+        {
+            if (ware.HasBoundAtPosition(position))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool HasSupportAtPosition(Vector3 position)
+    {
+        foreach (CargoSlot slot in _slots)
+        {
+            if (Mathf.Abs((slot.transform.position - position).magnitude) <= 0.01f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void ResetWares()
     {
         if (_placedWare != null)
