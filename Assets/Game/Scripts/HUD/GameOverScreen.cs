@@ -44,9 +44,9 @@ public class GameOverScreen : MonoBehaviour
         {
             StopCoroutine(_fadeCoroutine);
         }
-        _scoreText.text = score.ToString()+"$";
+        _scoreText.text = score.ToString() + "$";
         _deliveryCount.text = deliveryCount.ToString();
-        
+
         _canvasGroup.blocksRaycasts = true;
         _fadeCoroutine = StartCoroutine(FadeCoroutine(1, _showDuration, () => _canvasGroup.interactable = true));
     }
@@ -101,6 +101,10 @@ public class GameOverScreen : MonoBehaviour
         using UnityWebRequest www = UnityWebRequest.Post($"{LeaderboardApi.Uri}/score?user={username}&score={_userScore}", form);
         www.SetRequestHeader("Content-Type", "application/json");
         www.SetRequestHeader("Authorization", LeaderboardApi.Key);
+        www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
+        www.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
+        www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        www.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
