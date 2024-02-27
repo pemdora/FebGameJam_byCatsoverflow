@@ -1,21 +1,27 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ControlRotateWareUI : MonoBehaviour
 {
     Vector2 _refRes;
-    Image _image;
+    CanvasGroup _canvasGroup;
+    bool _hasRotated;
+    Coroutine _alphaCoroutine;
+    
     public void Start()
     {
-        _image = GetComponent<Image>();
+        _canvasGroup = GetComponent<CanvasGroup>();
         _refRes = GetComponentInParent<CanvasScaler>().referenceResolution;
         var pickManager = FindObjectOfType<PickManager>();
         pickManager.OnGrabWare.AddListener(OnGrabCargo);
         pickManager.OnDropWare.AddListener(OnDropCargo);
         pickManager.OnPlaceWare.AddListener(OnDropCargo);
-        _image.color = new Color(1, 1, 1, 0);
+        HideIcon(true);
         FindObjectOfType<GameManager>().OnGameOverEvent.AddListener(OnGameOver);
+        FindObjectOfType<PickManager>().OnRotateWare.AddListener(OnRotateWare);
     }
+
     public void Update()
     { 
         float refRatioAspect  = _refRes.x/_refRes.y;
@@ -26,16 +32,82 @@ public class ControlRotateWareUI : MonoBehaviour
         pos.x += refWidth * 0.06f;
         GetComponent<RectTransform>().localPosition = pos;
     }
+
+    private void OnRotateWare(WareEventData arg0)
+    {
+        _hasRotated = true;
+        HideIcon();
+    }
+    
     public void OnGameOver()
     {
-        _image.color = new Color(1, 1, 1, 0);
+        HideIcon();
+        _hasRotated = false;
     }
+    
     public void OnGrabCargo(WareEventData data)
     {
-        _image.color = new Color(1, 1, 1, 1);
+        if (_hasRotated)
+        {
+            return;
+        }
+        
+        ShowIcon();
     }
+    
     public void OnDropCargo(WareEventData data)
     {
-        _image.color = new Color(1, 1, 1, 0);
+        HideIcon();
+    }
+
+    private void ShowIcon(bool instant = false)
+    {
+        if (instant)
+        {
+            _canvasGroup.alpha = 1;
+        }
+        else
+        {
+            if (_alphaCoroutine != null)
+            {
+                StopCoroutine(_alphaCoroutine);
+            }
+            
+            _alphaCoroutine = StartCoroutine(FadeCoroutine(1));
+        }
+    }
+
+    private void HideIcon(bool instant = false)
+    {
+        if (instant)
+        {
+            _canvasGroup.alpha = 0;
+        }
+        else
+        {
+            if (_alphaCoroutine != null)
+            {
+                StopCoroutine(_alphaCoroutine);
+            }
+            
+            _alphaCoroutine = StartCoroutine(FadeCoroutine(0));
+        }
+    }
+
+    private IEnumerator FadeCoroutine(float targetAlpha)
+    {
+        float initialAlpha = _canvasGroup.alpha;
+        float percent = 0;
+        while (percent < 1)
+        {
+            percent += Time.deltaTime * 1 / .2f;
+
+            _canvasGroup.alpha = Mathf.Lerp(initialAlpha, targetAlpha, percent);
+
+            yield return null;
+        }
+
+        _canvasGroup.alpha = targetAlpha;
+        _alphaCoroutine = null;
     }
 }
