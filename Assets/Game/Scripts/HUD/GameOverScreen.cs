@@ -44,7 +44,7 @@ public class GameOverScreen : MonoBehaviour
         {
             StopCoroutine(_fadeCoroutine);
         }
-        _scoreText.text = score.ToString();
+        _scoreText.text = score.ToString()+"$";
         _deliveryCount.text = deliveryCount.ToString();
         
         _canvasGroup.blocksRaycasts = true;
