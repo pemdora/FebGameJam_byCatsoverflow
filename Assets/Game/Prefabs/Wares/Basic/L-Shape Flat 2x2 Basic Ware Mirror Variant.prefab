@@ -296,12 +296,17 @@ PrefabInstance:
     - target: {fileID: 8736026968695853985, guid: e1ab2133b12971c4fba7167020f03749,
         type: 3}
       propertyPath: m_Name
-      value: L-Shape Flat 2x2 Ware Variant Variant
+      value: L-Shape Flat 2x2 Basic Ware Mirror Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
         type: 3}
       propertyPath: _wareType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
+        type: 3}
+      propertyPath: _bonusScore
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
         type: 3}

@@ -66,6 +66,10 @@ public class LeaderboardManager : MonoBehaviour
         {
             using UnityWebRequest www = UnityWebRequest.Get($"{LeaderboardApi.Uri}/score");
             www.SetRequestHeader("Content-Type", "application/json");
+            www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
+            www.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
+            www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+            www.SetRequestHeader("Access-Control-Allow-Origin", "*");
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)

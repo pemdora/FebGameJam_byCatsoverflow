@@ -70,6 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
         type: 3}
+      propertyPath: _bonusScore
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
+        type: 3}
       propertyPath: _bounds.Array.size
       value: 3
       objectReference: {fileID: 0}

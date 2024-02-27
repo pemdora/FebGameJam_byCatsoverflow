@@ -202,10 +202,15 @@ PrefabInstance:
       propertyPath: _wareType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4686676939110354429, guid: f43f9e415fc31414a95d6bea686899f4,
+        type: 3}
+      propertyPath: _bonusScore
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5106012974575000610, guid: f43f9e415fc31414a95d6bea686899f4,
         type: 3}
       propertyPath: m_Name
-      value: T-Shape Stand 3x2 Crate Ware Variant
+      value: T-Shape Stand 3x2 Basic Ware Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6626304928729470701, guid: f43f9e415fc31414a95d6bea686899f4,
         type: 3}

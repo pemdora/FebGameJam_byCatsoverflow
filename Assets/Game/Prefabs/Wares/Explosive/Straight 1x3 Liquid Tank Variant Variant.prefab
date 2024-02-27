@@ -70,6 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1697406328889660420, guid: e423fcd4c4d29a84e873949ecf9764c8,
         type: 3}
+      propertyPath: _bonusScore
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697406328889660420, guid: e423fcd4c4d29a84e873949ecf9764c8,
+        type: 3}
       propertyPath: _sfxPlacedAudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 9f712c98cebcd9b4186084b22940f00a, type: 3}
