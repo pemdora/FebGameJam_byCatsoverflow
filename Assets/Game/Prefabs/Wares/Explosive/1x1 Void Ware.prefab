@@ -160,7 +160,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _sfxPlacedAudioClip
       value: 
-      objectReference: {fileID: 8300000, guid: fd33c7742f423494b8a8d0be6ae1238b, type: 3}
+      objectReference: {fileID: 8300000, guid: 03df2d7a623620846912be7bf0dca7ef, type: 3}
     - target: {fileID: 9145335681608663678, guid: e1ab2133b12971c4fba7167020f03749,
         type: 3}
       propertyPath: _bounds.Array.data[0]
