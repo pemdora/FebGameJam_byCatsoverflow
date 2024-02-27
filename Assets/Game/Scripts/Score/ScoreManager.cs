@@ -129,6 +129,7 @@ public class ScoreManager : MonoBehaviour
         else
         {
             SetFrustration(Mathf.Max(0, _frustration - _settings.frustrationRelief));
+            _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
 
             if (numberOfOccupiedSlotsBelowThreshold == 0)
             {
