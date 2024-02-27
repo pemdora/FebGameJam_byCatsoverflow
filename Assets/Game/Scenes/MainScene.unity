@@ -1634,6 +1634,76 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 2.981
       objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _feelingBar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 630130084}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _pickManager
+      value: 
+      objectReference: {fileID: 3048955657110194940}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _scoreManager
+      value: 
+      objectReference: {fileID: 776060194778764888}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.ctime0
+      value: 9830
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.ctime1
+      value: 33153
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.ctime2
+      value: 55705
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.key0.g
+      value: 0.72002697
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.key1.g
+      value: 0.6443304
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.key2.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.key2.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372965446299959147, guid: ca05de94b9db3f946a24f22beab336f4,
+        type: 3}
+      propertyPath: _gradient.key2.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7581584164879490013, guid: ca05de94b9db3f946a24f22beab336f4,
         type: 3}
       propertyPath: m_ApplyRootMotion

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TimerUI timerUI;
 
     public UnityEvent OnGameOverEvent;
+    public UnityEvent OnGameStartEvent;
 
     private void Start()
     {
@@ -39,11 +40,12 @@ public class GameManager : MonoBehaviour
         _pickManager.enabled = true;
         _pickManager.CanPick = true;
         _spaceshipManager.CanSpawnSpaceship = true;
-        
+
         _spaceshipManager.BringNewSpaceship();
 
         AudioManager.Instance.PlayMusic(MusicType.IN_GAME);
         timerUI.InitTimer();
+        OnGameStartEvent.Invoke();
     }
 
     public void SendSpaceship()
