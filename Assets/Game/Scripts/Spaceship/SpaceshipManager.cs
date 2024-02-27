@@ -111,7 +111,10 @@ public class SpaceshipManager : MonoBehaviour
 
         float speedIncrease = _scoreManager.Settings.GetConveyorBeltSpeedIncrease();
         _conveyorStart.StopConveyor();
-        _conveyorStart.ChangeSpeed(_conveyorStart.Speed * speedIncrease, speedIncrease);
+
+        float newSpeed = Mathf.Clamp(_conveyorStart.Speed * speedIncrease, 1, _scoreManager.Settings.maxSpeed);
+        float ratio = newSpeed!=_conveyorStart.Speed?speedIncrease:1;
+        _conveyorStart.ChangeSpeed(newSpeed, ratio);
 
         StartCoroutine(DelayBeforeDeparture(isCargoFull, _durationBeforeDeparture));
     }

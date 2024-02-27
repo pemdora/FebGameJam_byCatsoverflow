@@ -58,9 +58,13 @@ public class ScoreSettings : ScriptableObject
     [Range(0, 100)]
     [Tooltip("How much percentage of the initial speed is added for each delivery completed")]
     public float conveyorBeltSpeedIncrease = 10;
+    [Min(1)]
+    public float maxSpeed = 10;
     [Range(0, 100)]
     [Tooltip("How much percentage of the initial loading time is remove for each delivery completed")]
     public float spaceshipLoadingTimeDecrease = 10;
+
+    
 
     public enum ScoreTresholdType
     {
