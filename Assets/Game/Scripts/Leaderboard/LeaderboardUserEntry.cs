@@ -37,7 +37,7 @@ public class LeaderboardUserEntry : MonoBehaviour
     public void SetUserEntry(string userName, int userScore)
     {
         _userNameText.SetText(userName);
-        _userScoreText.SetText($"{userScore} pts");
+        _userScoreText.SetText($"{userScore} $");
     }
 
     public void UnsetUserEntry()
