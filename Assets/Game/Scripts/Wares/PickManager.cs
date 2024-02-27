@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public struct WareEventData
 {
@@ -13,6 +12,7 @@ public class PickManager : MonoBehaviour
     [SerializeField] private LayerMask _worldLayerMask;
     [SerializeField] private LayerMask _supportLayerMask;
     [SerializeField] private LayerMask _obstacleLayerMask;
+    [SerializeField] private float _pickTolerance = 0.5f;
 
     [Header("References")]
     [SerializeField] private Camera _camera;
@@ -50,7 +50,7 @@ public class PickManager : MonoBehaviour
         if (_selectedWare)
         {
             // .. check if we can place it on a support (cargo slot or another ware)
-            if (!isPlatformRotating && Physics.Raycast(ray, out RaycastHit supportHit, Mathf.Infinity, _supportLayerMask))
+            if (!isPlatformRotating && Physics.SphereCast(ray, _pickTolerance, out RaycastHit supportHit, Mathf.Infinity, _supportLayerMask))
             {
                 support = supportHit.collider.GetComponentInParent<IWareSupport>();
                 if (support.CanSupportWare(_selectedWare, _supportLayerMask))
@@ -79,6 +79,7 @@ public class PickManager : MonoBehaviour
                     }
                 }
             }
+            
             // drop the ware if we can't place it
             if (!isWareSnapped && Input.GetMouseButtonUp(0))
             {
@@ -108,7 +109,7 @@ public class PickManager : MonoBehaviour
         // If we don't have a selected ware, check if we can take one 
         else
         {
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _wareLayerMask))
+            if (Physics.SphereCast(ray, _pickTolerance, out RaycastHit hit, Mathf.Infinity, _wareLayerMask))
             {
                 if (hit.transform.TryGetComponent(out WareBounds wareBounds))
                 {
