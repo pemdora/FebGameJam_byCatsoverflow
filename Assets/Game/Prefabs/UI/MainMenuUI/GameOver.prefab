@@ -1768,8 +1768,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Proin eu purus at ex congue mollis in in augue. Nunc sed dapibus nibh.
-    Proin tempor viverra nibh eu viverra. Aliquam erat volutpat. '
+  m_text: Looks like our server's gone fishing, so we can't deliver your results
+    to your manager. Sorry 'bout that! :'(
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56ddd6fbe2f71444588dcc63aab79ed7, type: 2}
   m_sharedMaterial: {fileID: -5435194332462724885, guid: 56ddd6fbe2f71444588dcc63aab79ed7,
@@ -2584,8 +2584,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -176, y: 153.99904}
-  m_SizeDelta: {x: -1665.9862, y: -1031.7}
+  m_AnchoredPosition: {x: -274.5, y: 153.99904}
+  m_SizeDelta: {x: -1469, y: -1031.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2300352183718379460
 CanvasRenderer:
@@ -2650,7 +2650,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
