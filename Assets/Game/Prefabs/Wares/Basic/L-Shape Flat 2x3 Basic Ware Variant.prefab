@@ -263,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 3018797287322503140, guid: 7b18ba424a2f1b741a4d05999e3b0031,
         type: 3}
       propertyPath: m_Name
-      value: L-Shape Flat 2x3 Crate Ware Variant
+      value: L-Shape Flat 2x3 Basic Ware Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3328921279861446203, guid: 7b18ba424a2f1b741a4d05999e3b0031,
         type: 3}
