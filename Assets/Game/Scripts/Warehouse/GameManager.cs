@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.PlayMusic(MusicType.MENU);
 
         _scoreManager.OnGameOver.AddListener(OnGameOver);
+        
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void OnDestroy()
