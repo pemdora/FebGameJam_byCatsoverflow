@@ -50,12 +50,12 @@ public class PickManager : MonoBehaviour
         if (_selectedWare)
         {
             // .. check if we can place it on a support (cargo slot or another ware)
-            if (!isPlatformRotating && Physics.SphereCast(ray, _pickTolerance, out RaycastHit supportHit, Mathf.Infinity, _supportLayerMask))
+            if (!isPlatformRotating && Physics.Raycast(ray, out RaycastHit supportHit, Mathf.Infinity, _supportLayerMask))
             {
                 support = supportHit.collider.GetComponentInParent<IWareSupport>();
                 if (support.CanSupportWare(_selectedWare, _supportLayerMask))
                 {
-                    _selectedWare.transform.position = support.GetSnapSupportPosition(_selectedWare, supportHit.transform.position, _selectedWareOffset);
+                    _selectedWare.transform.position = support.GetSnapSupportPosition(_selectedWare, supportHit.transform.position, supportHit.point, _selectedWareOffset);
                     _selectedWare.UpdateBoundsIndicators();
                     isWareSnapped = true;
 

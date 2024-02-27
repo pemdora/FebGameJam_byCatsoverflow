@@ -370,10 +370,77 @@ public class Ware : MonoBehaviour, IWareSupport
         return _associatedCargo != null;
     }
 
-    public Vector3 GetSnapSupportPosition(Ware ware, Vector3 warePosition, Vector3 mouseOffset)
+    public Vector3 GetSnapSupportPosition(Ware ware, Vector3 warePosition, Vector3 hitPosition, Vector3 mouseOffset)
     {
         Vector3 offset = new Vector3(mouseOffset.x, 0, mouseOffset.z);
-        return warePosition + Vector3.up + Vector3Int.RoundToInt(offset);
+
+        int touchedBoundIndex = 0;
+        Vector3 touchedDifference = hitPosition - _bounds[touchedBoundIndex].transform.position;
+        float touchedDistance = Mathf.Abs(touchedDifference.magnitude);
+        for (var index = 1; index < _bounds.Length; index++)
+        {
+            Vector3 difference = hitPosition - _bounds[index].transform.position;
+            float distance = Mathf.Abs(difference.magnitude);
+            if (distance < touchedDistance)
+            {
+                touchedBoundIndex = index;
+                touchedDifference = difference;
+                touchedDistance = distance;
+            }
+        }
+
+        Vector3 correction;
+        if (Mathf.Abs(touchedDifference.x) > .35f)
+        {
+            if (touchedDifference.x > 0)
+            {
+                correction = Vector3.right;
+            }
+            else
+            {
+                correction = Vector3.left;
+            }
+
+            if (HasBoundAtPosition(_bounds[touchedBoundIndex].transform.position + correction))
+            {
+                correction = Vector3.up;
+            }
+        }
+        else if (Mathf.Abs(touchedDifference.z) > .35f)
+        {
+            if (touchedDifference.z > 0)
+            {
+                correction = Vector3.forward;
+            }
+            else
+            {
+                correction = Vector3.back;
+            }
+            
+            if (HasBoundAtPosition(_bounds[touchedBoundIndex].transform.position + correction))
+            {
+                correction = Vector3.up;
+            }
+        }
+        else
+        {
+            correction = Vector3.up;
+        }
+        
+        return _bounds[touchedBoundIndex].transform.position + correction + Vector3Int.RoundToInt(offset);
+    }
+
+    private bool HasBoundAtPosition(Vector3 position)
+    {
+        foreach (WareBounds bound in _bounds)
+        {
+            if (Mathf.Abs((bound.transform.position - position).magnitude) <= 0.01f)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Cargo GetAssociatedCargo()
