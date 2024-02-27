@@ -26,9 +26,10 @@ public class Ware : MonoBehaviour, IWareSupport
     [SerializeField] private GameObject _graphicsParents;
     [SerializeField] private Material _matOutline;
     [SerializeField] private WareBounds[] _bounds;
-
+    
     [Header("Score")]
-    private int _bonusScore = 0;
+    [SerializeField] private int _bonusScore = 0;
+
 
     [Header("Events")]
     public UnityEvent OnPick;

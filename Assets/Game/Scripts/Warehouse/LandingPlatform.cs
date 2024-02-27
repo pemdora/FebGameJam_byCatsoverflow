@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class LandingPlatform : MonoBehaviour
@@ -11,6 +12,9 @@ public class LandingPlatform : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float _duration;
     [SerializeField] private AnimationCurve _ease;
+
+    [Header("Events")] 
+    public UnityEvent OnRotate;
 
     public bool CanRotate { get; set; } = true;
     public bool IsRotating => _rotationCoroutine != null;
@@ -63,6 +67,7 @@ public class LandingPlatform : MonoBehaviour
         }
 
         _rotationCoroutine = StartCoroutine(RotationCoroutine(clockwise ? -90 : 90));
+        OnRotate?.Invoke();
     }
 
     public void ResetRotation(Action onComplete)
