@@ -15,7 +15,7 @@ MonoBehaviour:
   frustrationPerEmptySlots: 2
   frustrationPerDiscardedWare: 10
   maxFrustrationAllowed: 100
-  frustrationRelief: 2
+  frustrationRelief: 10
   frustrationThresholdCargo3Min: 40
   frustrationThresholdCargo3Max: 80
   frustrationThresholdCargo4Min: 20
