@@ -377,7 +377,7 @@ MonoBehaviour:
   _cargoMaxLenght: 4
   _cargoMaxWidth: 3
   _cargoHeight: 3
-  _allowedCollection: {fileID: 11400000, guid: 0fc47f18bdd22074b9e0c5f5079cea3e, type: 2}
+  _allowedCollection: {fileID: 11400000, guid: ce54c199011aa02459ca4cbe308d11b0, type: 2}
   _slots:
   - {fileID: 8499606600214064041}
   - {fileID: 5210609307457030845}

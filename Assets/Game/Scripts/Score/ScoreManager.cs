@@ -162,10 +162,10 @@ public class ScoreManager : MonoBehaviour
 
     public void PlaceWare(Ware ware)
     {
-        int wareScore = ware.Size * _settings.pointsPerSlotFilled;
+        int wareScore = ware.Size * _settings.pointsPerSlotFilled + ware.BonusScore;
         // ware.DisplayWareScore(wareScore, ware.BonusScore);
         _scoreDisplayUI.DisplayWareScore(wareScore, ware.transform.position, _settings);
-        _score += wareScore + ware.BonusScore;
+        _score += wareScore;
         OnScoreChanged?.Invoke(_score.ToString());
     }
 

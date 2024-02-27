@@ -663,7 +663,9 @@ MonoBehaviour:
   id: 1
   _loadingDuration: 45
   _minLoadingDuration: 10
+  _colorScheme: {fileID: 0}
   _cargo: {fileID: 3894116859318271166}
+  _renderers: []
 --- !u!1 &5347561703798306935
 GameObject:
   m_ObjectHideFlags: 0
