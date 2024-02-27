@@ -61,12 +61,17 @@ PrefabInstance:
     - target: {fileID: 1177759984123102683, guid: e423fcd4c4d29a84e873949ecf9764c8,
         type: 3}
       propertyPath: m_Name
-      value: Straight 1x3 Ware Variant Variant
+      value: Straight 1x3 Liquid Tank Variant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1697406328889660420, guid: e423fcd4c4d29a84e873949ecf9764c8,
         type: 3}
       propertyPath: _wareType
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697406328889660420, guid: e423fcd4c4d29a84e873949ecf9764c8,
+        type: 3}
+      propertyPath: _bonusScore
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1697406328889660420, guid: e423fcd4c4d29a84e873949ecf9764c8,
         type: 3}

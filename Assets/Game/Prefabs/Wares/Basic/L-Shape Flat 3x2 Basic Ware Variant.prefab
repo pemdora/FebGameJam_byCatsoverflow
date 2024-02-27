@@ -265,6 +265,11 @@ PrefabInstance:
       propertyPath: _wareType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 110280775297342895, guid: 3b4ded3bc2d1e734790a558b26bd2c40,
+        type: 3}
+      propertyPath: _bonusScore
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 455307356260207728, guid: 3b4ded3bc2d1e734790a558b26bd2c40,
         type: 3}
       propertyPath: m_Name

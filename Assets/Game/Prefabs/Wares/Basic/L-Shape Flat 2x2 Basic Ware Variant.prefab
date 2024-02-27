@@ -207,6 +207,11 @@ PrefabInstance:
       propertyPath: _wareType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2758949627788976665, guid: e069eb938c78261449d8ffa608b3c075,
+        type: 3}
+      propertyPath: _bonusScore
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4374953401468451081, guid: e069eb938c78261449d8ffa608b3c075,
         type: 3}
       propertyPath: m_LocalPosition.x
