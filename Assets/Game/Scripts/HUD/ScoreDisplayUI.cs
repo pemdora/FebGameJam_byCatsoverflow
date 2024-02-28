@@ -97,7 +97,6 @@ public class ScoreDisplayUI : MonoBehaviour
     }
 
 
-
     public void DisplayExtraThresholdBonus(int score)
     {
         _extraThresholdScoreTxt.gameObject.SetActive(true);
@@ -108,7 +107,7 @@ public class ScoreDisplayUI : MonoBehaviour
     public void DisplayPerfectBonus(int score)
     {
         _perfectScoreTxt.gameObject.SetActive(true);
-        _perfectScoreTxt.text = "Perfect!\n+" + score.ToString();
+        _perfectScoreTxt.text = "Perfect!!!\n+" + score.ToString();
         _perfectScoreTxt.color = Color.white;
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.PERFECTSCORE);
         StartCoroutine(AnimateScore(_perfectScoreTxt, ScoreTresholdType.Perfect));
@@ -117,7 +116,7 @@ public class ScoreDisplayUI : MonoBehaviour
     public void DisplayPlaneScore(int score)
     {
         _planeScoreTxt.gameObject.SetActive(true);
-        _planeScoreTxt.text = "+" + score.ToString();
+        _planeScoreTxt.text = "Plane filled!\n+" + score.ToString();
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLANESCORE);
         StartCoroutine(AnimateScore(_planeScoreTxt, ScoreTresholdType.Perfect));
     }
