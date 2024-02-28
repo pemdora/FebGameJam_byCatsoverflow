@@ -454,7 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   _loadingDuration: 75
-  _minLoadingDuration: 25
+  _minLoadingDuration: 22
   _colorScheme: {fileID: 11400000, guid: 0580ab6d50d261140a7e9097d8194b1d, type: 2}
   _cargo: {fileID: 5016268329506125278}
   _renderers:

@@ -9,13 +9,14 @@ public class ConveyorStart : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float _speed;
     [SerializeField] private float _spawnDelay;
-    [SerializeField] private float _spawnInterval;
+    [SerializeField] private float _spawnIntervalValue;
 
     [Header("References")]
     [SerializeField] private ConveyorItem _conveyorSlotPrefab;
     [SerializeField] private Transform _warePoolsContainer;
     [SerializeField] private Animator _beltAnimator;
     [SerializeField] private GameObject _belt;
+    [SerializeField] private AnimationCurve _spawnRateCurve; // spawn rate will be calculated using (Speed)  [TEST]
 
     public bool IsRunning { get; private set; }
     public float Speed => _speed;
@@ -28,6 +29,9 @@ public class ConveyorStart : MonoBehaviour
     private float _startSpeed;
     private float _startbeltAnimatorSpeed;
 
+    private float _speedRatio;
+    private float _spawnInterval;
+
     private void Awake()
     {
         _transform = transform;
@@ -38,6 +42,7 @@ public class ConveyorStart : MonoBehaviour
 
         _startSpeed = _speed;
         _startbeltAnimatorSpeed = _beltAnimator.speed;
+        _spawnInterval = _spawnIntervalValue;
     }
 
     public void StartConveyor(WareCollection wareCollection)
@@ -67,7 +72,7 @@ public class ConveyorStart : MonoBehaviour
 
     private IEnumerator SpawningCoroutine()
     {
-        yield return new WaitForSeconds(_spawnDelay);
+        yield return new WaitForSeconds(_spawnDelay * _spawnRateCurve.Evaluate(_speed));
 
         while (IsRunning)
         {
@@ -130,6 +135,7 @@ public class ConveyorStart : MonoBehaviour
 
     public void ChangeSpeed(float speed, float ratio)
     {
+        _spawnInterval = Mathf.Clamp(_spawnInterval / ratio, 0.8f, _spawnInterval / ratio);
         _speed = speed;
         _beltAnimator.speed = _beltAnimator.speed * ratio;
         foreach (ConveyorItem conveyorItem in _tracked)
@@ -140,6 +146,7 @@ public class ConveyorStart : MonoBehaviour
 
     public void ResetSpeed()
     {
+        _spawnInterval = _spawnIntervalValue;
         _speed = _startSpeed;
         _beltAnimator.speed = _startbeltAnimatorSpeed;
         

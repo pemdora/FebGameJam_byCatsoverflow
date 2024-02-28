@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frustrationPerEmptySlots: 2
   frustrationPerDiscardedWare: 3
-  maxFrustrationAllowed: 150
+  maxFrustrationAllowed: 100
   frustrationRelief: 10
   frustrationThresholdCargo3Min: 40
-  frustrationThresholdCargo3Max: 70
+  frustrationThresholdCargo3Max: 80
   frustrationThresholdCargo4Min: 20
-  frustrationThresholdCargo4Max: 50
+  frustrationThresholdCargo4Max: 60
   frustrationThresholdStep: 10
   pointsForEachSecondBeforeEndTimer: 5
   pointsPerSlotFilled: 1
@@ -35,4 +35,4 @@ MonoBehaviour:
   colorScoreExtrahigh: {r: 1, g: 0.24056602, b: 0.8242358, a: 1}
   conveyorBeltSpeedIncrease: 10
   maxSpeed: 11
-  spaceshipLoadingTimeDecrease: 4.97
+  spaceshipLoadingTimeDecrease: 5
