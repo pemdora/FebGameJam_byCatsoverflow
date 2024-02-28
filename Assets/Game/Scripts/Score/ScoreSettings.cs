@@ -33,25 +33,21 @@ public class ScoreSettings : ScriptableObject
     public int frustrationThresholdStep = 10; 
 
     [Header("Score")]
-    [Tooltip("Threshold to reach before frustration is applied.")]
     public int pointsForEachSecondBeforeEndTimer = 1;
-    [Tooltip("Threshold to reach before frustration is applied.")]
     public int pointsPerSlotFilled = 1;
-    [Tooltip("Threshold to reach before frustration is applied.")]
     public int pointsPerExtraSlotFilled = 2;
     [Tooltip("Plane loaded spaceship bonus")]
     public int extraPointsPerSlotFilledPlane = 2;
     [Tooltip("Perfect loaded spaceship bonus")]
     public int extraPointsPerSlotFilledPerfect = 2;
     
-    [Header("Score Thresholds Colors")]
-    public int scorelow;
+    [Header("Extra Score bonus Colors")]
     public Color colorScorelow;
-    public int scoremedium;
+    public int scorelow;
     public Color colorScoremedium;
-    public int scoreHigh;
+    public int scoremedium;
     public Color colorScoreHigh;
-    public int scoreExtrahigh;
+    public int scoreHigh;
     public Color colorScoreExtrahigh;
 
     [Header("Adaptive difficulty")] 

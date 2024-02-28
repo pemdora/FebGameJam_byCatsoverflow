@@ -100,7 +100,7 @@ PrefabInstance:
     - target: {fileID: 5087602865289991077, guid: 2d44b9997f1f1ad479e53a890fc882c4,
         type: 3}
       propertyPath: _bonusScore
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6658006041251907765, guid: 2d44b9997f1f1ad479e53a890fc882c4,
         type: 3}

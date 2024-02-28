@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: 7411967198445833858, guid: cd2c5f7f62174f248b7408218a56a00b,
         type: 3}
       propertyPath: _bonusScore
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7411967198445833858, guid: cd2c5f7f62174f248b7408218a56a00b,
         type: 3}

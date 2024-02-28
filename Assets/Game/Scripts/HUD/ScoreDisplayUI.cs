@@ -10,13 +10,13 @@ public class ScoreDisplayUI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Canvas _mainCanvas;
-    [SerializeField] TMP_Text _scoreTxt;
+    [SerializeField] TMP_Text _scoreTxt; // prefab template
     [SerializeField] TMP_Text _extraThresholdScoreTxt;
     [SerializeField] TMP_Text _extraTimerScoreTxt;
     [SerializeField] TMP_Text _perfectScoreTxt;
     [SerializeField] TMP_Text _planeScoreTxt;
-    [SerializeField] Image _angryIcon;
-    [SerializeField] Image _angryThresholdIcon;
+    [SerializeField] Image _angryIcon;  // prefab template
+    [SerializeField] Image _angryThresholdIcon;  // prefab template
 
     [Header("LowScore")]
     [SerializeField] private AnimationCurve _lowScoreCurveY;
@@ -43,6 +43,22 @@ public class ScoreDisplayUI : MonoBehaviour
     [SerializeField] private AnimationCurve _thresholdMalusCurveY;
     [SerializeField] private AnimationCurve _thresholdMalusScaleCurve;
 
+
+    // Store local position for all non prefab ref
+    private TMP_Text _extraThresholdScoreTxtPosRef;
+    private TMP_Text _extraTimerScoreTxtPosRef;
+    private TMP_Text _planeScoreTxtPosRef;
+    private TMP_Text _perfectScoreTxtPosRef;
+
+
+    private void Start()
+    {
+        _extraThresholdScoreTxtPosRef = Instantiate(_extraThresholdScoreTxt, _mainCanvas.transform); // i know it's dirty
+        _extraTimerScoreTxtPosRef = Instantiate(_extraTimerScoreTxt, _mainCanvas.transform);
+        _planeScoreTxtPosRef = Instantiate(_planeScoreTxt, _mainCanvas.transform);
+        _perfectScoreTxtPosRef = Instantiate(_perfectScoreTxt, _mainCanvas.transform);
+    }
+
     public void DisplayWareScore(int score, Vector3 uiPosition, ScoreSettings scoreSettings)
     {
         _scoreTxt.text = "+" + score.ToString();
@@ -68,7 +84,7 @@ public class ScoreDisplayUI : MonoBehaviour
                 scoreTxt.color = scoreSettings.colorScoreExtrahigh;
                 break;
         }
-        StartCoroutine(AnimateScore(scoreTxt, scoreTresholdType));
+        StartCoroutine(AnimateScore(scoreTxt, scoreTresholdType, scoreTxt.rectTransform.position));
     }
 
     public void DisplayAngryIcon(Vector3 uiPosition)
@@ -92,16 +108,39 @@ public class ScoreDisplayUI : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        
+
         Destroy(angryIcon.gameObject);
     }
 
-
+    // Test score display
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.T))
+    //     {
+    //         DisplayTimerBonus(100);
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.Y))
+    //     {
+    //         // Test all extra score
+    //         DisplayExtraThresholdBonus(100);
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.U))
+    //     {
+    //         // Test all extra score
+    //         DisplayPlaneScore(100);
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.I))
+    //     {
+    //         // Test all extra score
+    //         DisplayPerfectBonus(100);
+    //     }
+    // }
+    
     public void DisplayExtraThresholdBonus(int score)
     {
         _extraThresholdScoreTxt.gameObject.SetActive(true);
         _extraThresholdScoreTxt.text = "Extra Bonus!\n+" + score.ToString();
-        StartCoroutine(AnimateScore(_extraThresholdScoreTxt, ScoreTresholdType.ExtraThresholdBonus));
+        StartCoroutine(AnimateScore(_extraThresholdScoreTxt, ScoreTresholdType.ExtraThresholdBonus, _extraThresholdScoreTxtPosRef.rectTransform.position));
     }
 
     public void DisplayPerfectBonus(int score)
@@ -110,7 +149,7 @@ public class ScoreDisplayUI : MonoBehaviour
         _perfectScoreTxt.text = "Perfect!!!\n+" + score.ToString();
         _perfectScoreTxt.color = Color.white;
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.PERFECTSCORE);
-        StartCoroutine(AnimateScore(_perfectScoreTxt, ScoreTresholdType.Perfect));
+        StartCoroutine(AnimateScore(_perfectScoreTxt, ScoreTresholdType.Perfect, _perfectScoreTxtPosRef.rectTransform.position));
     }
 
     public void DisplayPlaneScore(int score)
@@ -118,18 +157,18 @@ public class ScoreDisplayUI : MonoBehaviour
         _planeScoreTxt.gameObject.SetActive(true);
         _planeScoreTxt.text = "Plane filled!\n+" + score.ToString();
         AudioManager.Instance.PlaySoundEffect(SoundEffectType.PLANESCORE);
-        StartCoroutine(AnimateScore(_planeScoreTxt, ScoreTresholdType.Perfect));
+        StartCoroutine(AnimateScore(_planeScoreTxt, ScoreTresholdType.PlaneBonus, _planeScoreTxtPosRef.rectTransform.position));
     }
 
     public void DisplayTimerBonus(int score)
     {
         _extraTimerScoreTxt.gameObject.SetActive(true);
         _extraTimerScoreTxt.text = "Time Bonus!\n+" + score.ToString();
-        StartCoroutine(AnimateScore(_extraTimerScoreTxt, ScoreTresholdType.ExtraThresholdBonus));
+        StartCoroutine(AnimateScore(_extraTimerScoreTxt, ScoreTresholdType.ExtraThresholdBonus, _extraTimerScoreTxtPosRef.rectTransform.position));
     }
 
     // Coroutine that move the coin along a Animation curve to the target pos
-    private IEnumerator AnimateScore(TMP_Text score, ScoreTresholdType scoreTreshold)
+    private IEnumerator AnimateScore(TMP_Text score, ScoreTresholdType scoreTreshold, Vector3 startPos)
     {
         float time = 0;
         float duration = 0;
@@ -158,7 +197,7 @@ public class ScoreDisplayUI : MonoBehaviour
                 break;
         }
 
-        Vector3 startPos = score.rectTransform.position;
+        score.rectTransform.position = startPos;
         float ratio = 0;
         while (time < duration)
         {
@@ -184,23 +223,31 @@ public class ScoreDisplayUI : MonoBehaviour
                 case ScoreTresholdType.ExtraThresholdBonus:
                     score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
                     score.rectTransform.localScale = Vector3.one * _specialThresholdScoreScaleCurve.Evaluate(ratio);
+                    // fade out alpha color
+                    Color color = score.color;
+                    color.a = Mathf.Lerp(1, 0, Mathf.Pow(2, 10 * (ratio)- 10));
+                    score.color = color;
                     break;
                 case ScoreTresholdType.PlaneBonus:
                     score.rectTransform.localScale = Vector3.one * _planeScoreScaleCurve.Evaluate(ratio);
                     score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
-                    score.color = Color.HSVToRGB(Mathf.PingPong(Time.time * 0.5f, 1), 1, 1);
+                    Color colorBonus = Color.HSVToRGB(Mathf.Lerp(0,1,ratio), 1, 1);
+                    colorBonus.a = Mathf.Lerp(1, 0, Mathf.Pow(2, 10 * (ratio)- 10));
+                    score.color = colorBonus;
                     break;
                 case ScoreTresholdType.Perfect:
                     score.rectTransform.localScale = Vector3.one * _perfectScoreScaleCurve.Evaluate(ratio);
                     score.rectTransform.position = startPos + new Vector3(0, _specialThresholdScoreCurveY.Evaluate(ratio), 0);
-                    score.color = Color.HSVToRGB(Mathf.PingPong(Time.time * 0.5f, 1), 1, 1);
+                    Color colorPBonus = Color.HSVToRGB(Mathf.PingPong(Time.time * 0.5f, 1), 1, 1);
+                    colorPBonus.a = Mathf.Lerp(1, 0, Mathf.Pow(2, 10 * (ratio)- 10));
+                    score.color = colorPBonus;
                     break;
             }
             time += Time.deltaTime;
             yield return null;
         }
 
-        if(scoreTreshold != ScoreTresholdType.ExtraThresholdBonus && scoreTreshold != ScoreTresholdType.Perfect)
+        if (scoreTreshold != ScoreTresholdType.ExtraThresholdBonus && scoreTreshold != ScoreTresholdType.Perfect && scoreTreshold != ScoreTresholdType.PlaneBonus)
             Destroy(score.gameObject);
         else
         {
@@ -212,7 +259,7 @@ public class ScoreDisplayUI : MonoBehaviour
     {
         Vector2 screenStartPos = _thresholdMalusStartPos.position;
         Vector2 screenEndPos = _thresholdMalusEndPos.position;
-        StartCoroutine(AnimateThresholdMalus(screenStartPos, screenEndPos , malusDuration, step));
+        StartCoroutine(AnimateThresholdMalus(screenStartPos, screenEndPos, malusDuration, step));
     }
 
     private IEnumerator AnimateThresholdMalus(Vector2 screenStartPos, Vector2 screenEndPos, float malusDuration, float step)

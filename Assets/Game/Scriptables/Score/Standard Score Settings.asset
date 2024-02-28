@@ -26,14 +26,13 @@ MonoBehaviour:
   pointsPerExtraSlotFilled: 5
   extraPointsPerSlotFilledPlane: 10
   extraPointsPerSlotFilledPerfect: 15
-  scorelow: 15
-  colorScorelow: {r: 1, g: 1, b: 1, a: 1}
-  scoremedium: 30
-  colorScoremedium: {r: 0.9895297, g: 1, b: 0.3537736, a: 1}
-  scoreHigh: 45
-  colorScoreHigh: {r: 1, g: 0.74113095, b: 0, a: 1}
-  scoreExtrahigh: 70
-  colorScoreExtrahigh: {r: 0.9716981, g: 0.16042183, b: 0.4293673, a: 1}
+  colorScorelow: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
+  scorelow: 5
+  colorScoremedium: {r: 0.9811321, g: 0.78281254, b: 0.21751513, a: 1}
+  scoremedium: 16
+  colorScoreHigh: {r: 1, g: 0.4292453, b: 0.6150725, a: 1}
+  scoreHigh: 21
+  colorScoreExtrahigh: {r: 1, g: 0.24056602, b: 0.8242358, a: 1}
   conveyorBeltSpeedIncrease: 10
   maxSpeed: 11
-  spaceshipLoadingTimeDecrease: 5
+  spaceshipLoadingTimeDecrease: 4.97
