@@ -56,5 +56,25 @@ MonoBehaviour:
   _obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 320
+  _pickTolerance: 0.5
   _camera: {fileID: 0}
   _landingPlatform: {fileID: 0}
+  _scoreManager: {fileID: 0}
+  OnGrabWare:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHoverWare:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDropWare:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUnHoverWare:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlaceWare:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRotateWare:
+    m_PersistentCalls:
+      m_Calls: []
