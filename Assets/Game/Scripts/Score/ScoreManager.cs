@@ -128,8 +128,6 @@ public class ScoreManager : MonoBehaviour
         // else, the spaceship has enough ware in his cargo
         else
         {
-            SetFrustration(Mathf.Max(0, _frustration - _settings.frustrationRelief));
-            _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
 
             if (numberOfOccupiedSlotsBelowThreshold == 0)
             {
@@ -154,6 +152,9 @@ public class ScoreManager : MonoBehaviour
 
     public void DisplayPerfectBonus(int occupiedSlotCount)
     {
+        SetFrustration(Mathf.Max(0, _frustration - _settings.frustrationRelief));
+        _frustrationUI.UpdateFiller((float)_frustration / _settings.maxFrustrationAllowed);
+        
         int bonus = occupiedSlotCount * _settings.extraPointsPerSlotFilledPerfect;
         _scoreDisplayUI.DisplayPerfectBonus(bonus);
     }

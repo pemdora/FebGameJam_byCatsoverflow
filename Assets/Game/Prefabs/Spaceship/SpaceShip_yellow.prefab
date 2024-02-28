@@ -669,7 +669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   _loadingDuration: 55
-  _minLoadingDuration: 20
+  _minLoadingDuration: 18
   _colorScheme: {fileID: 0}
   _cargo: {fileID: 889955318395922503}
   _renderers: []
